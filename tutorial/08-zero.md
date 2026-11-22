@@ -40,12 +40,14 @@ takes its sign from its operands, as any product does, so 0·5 is +0 and
 F¹¹, is always +0. The constant 0, and anything made only of +0s, is +0.
 
 The sign shows when it is typed. This rule is the reconstruction's inference
-from the machine and from the manual's two warnings, not something the manual
-or any listing says ([README](../README.md#zero)).
+from the machine and from the manual's warning on p. 8, not something the
+manual or any listing says ([README](../README.md#zero)).
 
 ## The manual's example
 
-With n = 5, the CP jumps, and x = 3ab is never computed:
+With n = 5, the CP jumps, and x = 3ab is never computed. (In the program on
+p. 8, `x = 3 ab` has no comma; the prose below it writes "x = 3 ab,", and the
+rules require one, so it is put in here.)
 
 ```lzr
 a = 2, b = 1, x = 0,
@@ -88,8 +90,11 @@ on it.
 
 "If, for example, it is desired to go thru a certain process starting with
 equation 1 exactly 10 times" (p. 8, and [chapter 7](07-jumps.md)) the manual subtracts 9.5, not 10, so
-the test never meets a zero. That is the whole cure, and every loop in the
-manual uses it. A loop that subtracts 10 goes round once too often here:
+the test never meets a zero. That is the whole cure. Every loop in the manual
+keeps its test away from zero, most of them with a half like this; the
+iterative cosine of p. 11 ([chapter 14](14-worked-examples.md)) does it by
+parity instead, testing `1 - y` with `y` even. A loop that subtracts 10 goes
+round once too often here:
 
 ```lzr
 n = 0,

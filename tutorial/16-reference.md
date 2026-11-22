@@ -87,10 +87,12 @@ rounded) and the power of ten: `+.50000000+01`. Zero has a sign: `-.00000000+00`
 | a product or quotient | the sign of the operands, as for any number |
 | `CP`, `CR` | jump when the last computed quantity is negative, -0 included (p. 8) |
 | an index `x\|n` | n rounded to the nearest whole number, a half rounded up (p. 13) |
-| an index that is not allowed | negative, between 0 and ½ inclusive, or a zero not set by `n = 0,` (p. 13) |
+| an index that is not allowed | negative, between 0 and ½ inclusive, or a zero not set by `n = 0,` (p. 13); here, a -0 |
 
-The sign of a computed zero, and the way a zero set by `n = 0,` is told from a
-computed one, are the reconstruction's inference ([chapter 8](08-zero.md)).
+The sign of a computed zero is the reconstruction's inference
+([chapter 8](08-zero.md)). The rule for a zero index is approximated by that
+sign: a -0 is refused, and a computed zero that comes out +0 is let through
+although the manual forbids it ([chapter 9](09-superscript-variables.md)).
 `--zero plus` makes every zero +0.
 
 ## Post-mortems

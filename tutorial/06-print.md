@@ -79,6 +79,10 @@ other give two carriage returns between them, which is a line space. That is
 the manual's second example: "while the instructions PRINT a,b,c. PRINT d,e,f.
 PRINT g,h,i. will produce" three lines with spaces between them.
 
+The manual's figure for the first example has a slip: it shows a ninth value,
+`i = +..`, on the second line, though the instruction asks for a to h. The
+page here types only what was asked for.
+
 ```lzr
 a = 1, b = 2, c = 3, d = 4, e = 5, f = 6, g = 7, h = 8, i = 9,
 PRINT a,b,c. PRINT d,e,f. PRINT g,h,i.

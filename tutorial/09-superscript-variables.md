@@ -107,9 +107,10 @@ lz: alarm: n is +.30000001+00: values between zero and one half inclusive are no
 ```
 
 And a zero that comes out of arithmetic is not "assigned by the specific
-equation n = 0". The manual does not say how the computer told the two apart.
-Here it is by the sign: a computed zero is -0 ([chapter 8](08-zero.md)), and -0
-is negative:
+equation n = 0". The manual does not say how the computer told the two apart,
+or whether it did; the rule is written for the programmer. Here the rule is
+approximated by the sign: a zero left by a subtraction is -0
+([chapter 8](08-zero.md)), and -0 is negative:
 
 ```lzr
 n = 1,
@@ -138,8 +139,13 @@ STOP
 a|0 = +.50000000+01
 ```
 
-This is what happens to Knuth and Trabb Pardo's TPK program in
-[chapter 14](14-worked-examples.md).
+The approximation is not exact. A computed zero that comes out +0, such as
+`n = 0·5,` or `n = F^11(n),`, is let through by default too, though the rule
+forbids it; the run does not record how a letter got its value. `lz --check`
+hints at an index counted down by arithmetic, the common case.
+
+This is where Knuth and Trabb Pardo's TPK program, written in 1976, is
+incompatible with the 1954 specification ([chapter 14](14-worked-examples.md)).
 
 ## How many
 

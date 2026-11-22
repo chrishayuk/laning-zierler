@@ -53,7 +53,9 @@ arithmetic of six terms loses the rest. The second version, below, reaches x =
 
 The second version (p. 11) works out the series from the inside, "the
 advantage that the number of terms in the series may be adjusted by changing a
-single number":
+single number". On the page `y = y - 2` ends in what looks like a semicolon (or
+a comma with a speck above it); it is typed with a comma here. Its test,
+`e = 1 - y,` with y even, cannot be zero:
 
 ```lzr
     x = 0,
@@ -87,7 +89,8 @@ In 1976 Donald Knuth and Luis Trabb Pardo wrote the same small program, TPK, in
 each of the early languages, to compare them. This is how they wrote it for
 Laning and Zierler's system (KTP 76, pp. 56-57). They wrote it to show "how
 TPK would look in their system"; as far as is known it was never run on
-Whirlwind, and what follows is what the manual's rules make of it.
+Whirlwind. It is incompatible with the 1954 specification in two places, and
+what follows is what the manual's rules, and this reconstruction, make of it.
 
 ```text
  1          v|N =    ⟨input⟩,
@@ -115,7 +118,7 @@ It reads eleven numbers, then goes through them backwards and prints
 f(t) = √|t| + 5t³ for each, or 999 if that is more than 400. The numbers on
 the left are Knuth and Trabb Pardo's line numbers, not part of the program.
 For the input they suggest the abbreviation `v|N = 1 (.5) 2 (.25) 3.5 (1) 5.5`
-(KTP 76, p. 57).
+(KTP 76, p. 57), and that is what the runs below use in place of ⟨input⟩.
 
 Lines 2 to 7 move the eleven numbers from the drum to a|0 ... a|10 in core.
 Line 6 subtracts 10.5, and line 17 subtracts from -0.5: they kept the
@@ -201,10 +204,12 @@ lz: alarm: i is -0, a zero computed by arithmetic: as a superscript zero is perm
 Ten lines, and then an alarm in equation 2 on the last number. i has come down
 to zero by `i = i - 1`, and E-364 permits a zero index only "if assigned by the
 specific equation n = 0," (p. 13; [chapter 9](09-superscript-variables.md)).
-The alarm itself rests on the reconstruction's inference that such a zero is
--0, which is negative ([chapter 8](08-zero.md)). The broken rule does not:
-whatever Whirlwind did with that zero, the program uses an index the manual
-does not permit.
+That rule is the incompatibility, and it does not depend on the sign: the
+program uses an index the 1954 specification does not permit. The alarm is
+another matter. It rests on the reconstruction's model of zero, in which such
+a zero is -0, which is negative ([chapter 8](08-zero.md)). The manual does not
+say what Whirlwind did with the zero, and this run does not show that it
+failed.
 
 With every zero +0 it finishes. That is a what-if, not the manual: the rule
 forbids the computed zero whatever its sign, and `--zero plus` lets it through
@@ -256,8 +261,9 @@ i = +.10000000+01       y = +.18099744+02
 i = +.00000000+00       y = +.60000000+01
 ```
 
-And under the rules of January 1954 it could not have run at all, because its
-first line is an x|N ([chapter 13](13-temporary-rules.md)).
+The other incompatibility is its first line, an x|N, which "is not yet in
+operation" under the rules of January 1954 ([chapter 13](13-temporary-rules.md)).
+`lz --temporary-rules` refuses to translate it.
 
 ## A pursuit curve
 

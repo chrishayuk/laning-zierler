@@ -25,8 +25,8 @@ was on one master tape, 108-60-30; "All the routines described in E-364 have
 been tested and work correctly with the exception of the X|N routine"; and a
 report "on the inner workings ... has been started by N. Zierler. However, it
 will be some time before this report reaches completion, since the author
-transferred from the Instrumentation Laboratory to Project Lincoln." No such
-report has been found.
+transferred from the Instrumentation Laboratory to Project Lincoln." We have
+not found such a report, though no thorough archival search has been made.
 
 **The summer session notes** describe the system again, give `a|N = 2(2)8,`,
 repeat the D-equation program without its PRINT (see

@@ -73,7 +73,7 @@ enforced by refusing to translate the program, and quoting the manual.
 x|N is the short way to put a table of numbers on the drum; without it, each
 value is an equation of its own, and "100 unnumbered equations, the maximum"
 (p. 17) soon run out. Knuth and Trabb Pardo's TPK program
-([chapter 14](14-worked-examples.md)) begins with one. Under the rules of
-January 1954 it could not have run.
+([chapter 14](14-worked-examples.md)) begins with one: one of two places where
+that example of 1976 is incompatible with the specification of 1954.
 
 Next: [Worked examples](14-worked-examples.md)

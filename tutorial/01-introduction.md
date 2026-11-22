@@ -81,8 +81,9 @@ target/release/lz examples/1954-first-equations.lzr
 ```
 
 With no file it reads the tape from standard input. A `#` starts a note that
-runs to the end of the line. Notes are not part of the tape; there was no such
-thing. They are for the people reading the file.
+runs to the end of the line. Notes are not part of the tape, and E-364
+describes no way of writing a comment. They are for the people reading the
+file.
 
 | | |
 |---|---|

@@ -96,9 +96,9 @@ sub-steps take place automatically" (p. 19).
 
 `lz --trace` shows them. Each D equation is computed four times. The manual
 says only that t has gone up by h at the end of the fourth pass. Here, as in
-any Runge-Kutta method, it is t + h/2 for the second and third passes and t +
-h for the fourth; that is the reconstruction's reading, not the manual's
-words. The trace shows the derivative f at each pass (what is kept is h·f),
+the classical fourth-order Runge-Kutta method and Gill's variation of it, it is
+t + h/2 for the second and third passes and t + h for the fourth; that is the
+reconstruction's reading, not the manual's words. The trace shows the derivative f at each pass (what is kept is h·f),
 and `lz` writes the trace after the page:
 
 ```lzr --trace
@@ -215,7 +215,8 @@ the first and the last. Write it into the D equation instead, as
 "It has been stated that a total of 250 MS superscript variables may be used;
 this is not true for programs involving differential equations. If there are
 k equations that begin with a D in a program then 250 - 2k MS superscript
-variables may be used." (p. 19) So each D equation took two words of storage.
+variables may be used." (p. 19) So each D equation took the room of two
+superscript variables.
 The manual does not say what they held. Here they are the derivative times h
 and Gill's running correction, q, which is what makes Gill's variation careful
 with rounding; that fits "250 - 2k", and is the reconstruction's choice.

@@ -139,7 +139,8 @@ same key) the bar's meaning, so:
 | nullify | ignored, even inside a number | DEL (0x7F) |
 
 A `#` starts a note that runs to the end of the line. Notes are not part of the
-tape; there was no such thing.
+tape: E-364 describes no way of writing a comment, and the notes are this
+repository's convenience.
 
 ### The functions
 
@@ -180,16 +181,17 @@ that "would appear to be innocuous" and gets the wrong answer, and so does
 
 ### Zero
 
-Whirlwind was a one's-complement machine, with a +0 and a -0, and the manual
-says so twice. `CP` jumps on a negative number, and on a zero "the CP may or
-may not behave like an SP since 0 may appear as +0 or -0" (p. 8). And a zero
-index is permitted "if assigned by the specific equation n = 0," and not
-otherwise (p. 13).
+Whirlwind was a one's-complement machine, with a +0 and a -0. The manual says
+so once: `CP` jumps on a negative number, and on a zero "the CP may or may not
+behave like an SP since 0 may appear as +0 or -0" (p. 8). It also restricts a
+zero index, without mentioning the sign: a zero is permitted "if assigned by
+the specific equation n = 0," and not otherwise (p. 13).
 
 Here a zero has a sign. A constant 0 is +0; the difference of two equal
 numbers, as a one's-complement adder makes it, is -0. So `e = n - 5,` with `n`
 equal to 5 gives -0, `CP` jumps, and `PRINT e.` types `-.00000000+00`. The
-manual's own loops step round this: they test `n - 9.5`, never `n - 10`.
+manual's own loops step round this: most test against a half (`n - 9.5`, never
+`n - 10`), and the iterative cosine of p. 11 tests `1 - y` with `y` even.
 `lz --zero plus` makes every zero +0 instead.
 
 ### Post-mortems
@@ -209,54 +211,107 @@ n = +.62000000+02       x = +.46116860+19
 
 ## What the tests found
 
-The manual's examples run. The table of cosines, the iterative cosine, the
-interpolation by a rounded index, the drum, the two differential equations of
-section 15 (whose answers are sin(t - 2) and cos(t - 2) - 1; at t = 3 the
+The manual's examples run, with the small repairs listed under
+[Corrections and editorial changes](#corrections-and-editorial-changes): the
+table of cosines, the iterative cosine, the interpolation by a rounded index,
+the drum, the two differential equations of section 15 and the innocuous
+change that breaks them. The manual prints no answers for these programs, so
+the `.out` files are this reconstruction's output, kept to catch changes, not
+checked against figures from 1954. For section 15 the answers are known
+independently: they are sin(t - 2) and cos(t - 2) - 1, and at t = 3 the
 reconstruction gives .84103733 and -.45941162, against .84147098 and
--.45969769, which is what a step of 0.5 should cost) and the innocuous change
-that breaks them. Some things are less tidy.
+-.45969769, which is what a step of 0.5 should cost. Some things are less tidy.
 
-**Knuth's TPK stops on its last number.** In 1976 Knuth and Trabb Pardo wrote
-their TPK algorithm in the Laning and Zierler system, to show what it looked
-like (`examples/1976-knuth-tpk.lzr`). It reads eleven numbers with `v|N` and
-runs back down them with `i = i - 1` and `a|i`. The last time round, `i` is a
-zero computed by arithmetic, which the manual does not permit as an index: the
-program types ten lines and then an alarm. Under the rules of January 1954 it
-does not translate at all, because `v|N` "is not yet in operation", and the
-first-quarter report of 1954 says the same thing of the x|N routine. TPK was
-written as an illustration twenty-two years later and was never run on
-Whirlwind; this says only what the manual's rules make of it. With
-`--zero plus` it runs to the end, but that is a what-if, not the manual: the
-page-13 rule forbids a computed zero index whatever its sign, and `--zero plus`
-lets it through because the zero it computes is +0, the sign a zero set by
-`n = 0,` has.
+These are notes from running the manual's rules, not discoveries: no search has
+been made for earlier discussion of any of them.
+
+**Knuth and Trabb Pardo's TPK is incompatible with the 1954 specification.** In
+1976 Knuth and Trabb Pardo wrote their TPK algorithm in the Laning and Zierler
+system, to show how it "would look in their system"
+(`examples/1976-knuth-tpk.lzr`); as far as is known it was never run on
+Whirlwind. Read against E-364 it is incompatible with the specification of
+1954 in two places. It reads eleven numbers with `v|N`, and "The x|N is not yet
+in operation" (p. 21); the first-quarter report of 1954 still excepts "the X|N
+routine". And it runs back down them with `i = i - 1` and `a|i`, so the last
+time round the index is a zero computed by arithmetic, which page 13 does not
+permit whatever its sign: zero is permissible only "if assigned by the specific
+equation n = 0,". Neither page says what Whirlwind did with such a program, and
+nothing here shows that it failed. What this reconstruction does with it:
+under `--temporary-rules` it does not translate; by default it types ten lines
+and then an alarm, and that alarm rests on the reconstruction's model of zero
+(a subtraction that comes to zero gives -0, and -0 is negative), not on
+anything the manual says; with `--zero plus` it runs to the end, a what-if in
+which the computed zero is +0 and so passes a check that is only a stand-in
+for the page-13 rule.
 
 **The manual's figure for the largest number is wrong.** Page 6 gives
 2⁶³ - 2³⁹ as "(or, roughly, 9.2233995 · 10¹⁸)". It is 9223371487098961920, or
 9.2233715 · 10¹⁸. The integer the page gives next as "a permissible number",
 9223314040000000000, is below both, so nothing else on the page depends on it.
-(2⁶³ itself is 9.2233720 · 10¹⁸, so it is not that either.)
+(2⁶³ itself is 9.2233720 · 10¹⁸, so it is not that either.) The page does say
+"roughly", but the digits are wrong in the fifth place.
 
-**The manual's exponent examples, run in order, stop with an alarm.** Section 2D gives
-`a = 5²,` `b = (a - 2)⁻²,` `c = (ab³)⁻⁵,`. (ab³)⁵ is about 10⁻³⁴, which the 24,
-6 system cannot hold; it becomes zero and `c` divides by it. They are notation,
-not a program, but they are a reminder of how small the range was.
+**The manual's exponent examples, chained into one program, go out of range.**
+Section 2D gives `a = 5²,` `b = (a - 2)⁻²,` `c = (ab³)⁻⁵,`. Then (ab³)⁵ is about
+10⁻³⁴ and c about 7.3 · 10³³, and neither fits the 24, 6 system. Here the
+program stops with a division by zero, because the power is taken first and
+underflows silently to zero; a routine that took the reciprocal first would
+overflow instead, so the particular alarm is the reconstruction's. They are
+notation, not a program, but they are a reminder of how small the range was.
 
-**The summer-school copy of the D-equation program types nothing.** The MIT
-Summer Session notes of 1954 reprint the program of section 15 without its
-`PRINT`, and without the commas the rules require on its last two lines.
+**The summer-school copy of the D-equation program has no commas on its last
+two lines and no `PRINT`.** The MIT Summer Session notes of 1954 reprint the
+program of section 15 with `k = t - 10.1` and `CP 1` unterminated, which the
+rules do not allow, so as printed it does not translate here. With the commas
+put in it runs from t = 2 to t = 10.5 and types nothing, because it has no
+`PRINT`. That need not be a mistake: a routine may leave its results in
+storage. The example adds a `PRINT` to have something to see.
 
-**Printing truncates.** The manual prints .05 as `+.50000000-01`. The 24-bit
-number nearest .05 is .0500000007..., so a conversion that rounded would type
-`+.50000001-01`. Truncating to eight digits gives both values the manual prints
-(.05 and -π), and that is what this does.
+**Printing truncates here.** The manual prints .05 as `+.50000000-01`. The
+24-bit number nearest .05 is .0500000007..., so a conversion that rounded it
+would type `+.50000001-01`; truncating to eight digits gives both values the
+manual prints (.05 and -π), and that is what this does. This is a choice that
+fits the manual's illustrations, not something they establish: they are
+explanatory forms, not a transcript of the machine, and the argument assumes
+the reconstruction's own rounding of .05 on input.
+
+## Corrections and editorial changes
+
+Every place where this repository departs from the printed text of a source,
+or corrects one, with its kind:
+
+- **slip**: wrong under any reading of the source;
+- **conflict**: the sources say two things, and this follows one of them;
+- **interpretation**: this repository's reading of what was meant;
+- **ours**: a consequence of this reconstruction's own choices.
+
+| Where | Printed | Here | Kind |
+|---|---|---|---|
+| E-364 p. 6 | 2⁶³ - 2³⁹ is "roughly, 9.2233995 · 10¹⁸" | 9.2233715 · 10¹⁸ (README, tutorial ch. 4 and 15) | slip |
+| E-364 p. 7 | `PRINT a,b,c,d,e,f,g,h.` "will produce" a figure with a ninth value, `i` | a to h only (`examples/1954-print-layout.lzr`, tutorial ch. 6) | slip, in the figure |
+| E-364 p. 8 | `x = 3 ab` in the displayed program, with no comma (the prose below it writes "x = 3 ab,") | `x = 3 ab,` (`examples/1954-zero.lzr`, tutorial ch. 8) | slip |
+| E-364 p. 11 | `y = y - 2;` in the iterative cosine: a semicolon, or a comma with a speck above it | `y = y - 2,` (`examples/1954-cosine-iterative.lzr`, tutorial ch. 14) | slip |
+| Summer Session p. 13-3 | `k = t - 10.1` and `CP 1` with no commas | commas put in (`examples/1954-summer-session.lzr`) | slip |
+| Summer Session p. 13-3 | no `PRINT` | `PRINT t, y|1, y|2.` added | ours |
+| KTP 76 pp. 56-57 | `v|N = ⟨input⟩,` | `v|N = 1 (.5) 2 (.25) 3.5 (1) 5.5,`, the input they suggest on p. 57 | interpretation |
+| E-364 p. 13 | a zero index only "if assigned by the specific equation n = 0," | approximated by the sign of zero: -0 is refused, +0 allowed (see below) | ours |
+| E-364 p. 8 | "0 may appear as +0 or -0" | a difference of equal numbers is -0 (see below) | interpretation |
+| E-364 p. 6 | .05 typed `+.50000000-01`, -π `-.31415927+01` | digits truncated, not rounded | interpretation |
+
+Programs the manual gives only in part are filled in, and say so in their
+first lines: a `PRINT` and `STOP` where the manual stops at the equations, the
+values of the letters, the table in `1954-interpolation.lzr` (left blank in the
+manual), and the body of the loop in `1954-counted-loop.lzr` (dots in the
+manual). Superscripts are typed `^` and `|` as described above, and the
+printed spacing is this repository's.
 
 ## What is not original
 
-E-364 is a manual, not a listing. The translator's code has not been found:
-"there are no annotated copies of the conversion routine" (Summer Session
-1954), and Zierler's report on its "inner workings" was started and, as far as
-is known, not finished. So everything below is this reconstruction's choice.
+E-364 is a manual, not a listing. We have not found the translator's code (the
+summer session of 1954 recorded that "there are no annotated copies of the
+conversion routine", which is not the same as there being no copy), and
+Zierler's report on its "inner workings" was started and, as far as is known,
+not finished. So everything below is this reconstruction's choice.
 
 - **The orders.** Equations are translated into blocks of a small stack code,
   one order per floating-point routine called, and the blocks are what runs.
@@ -266,13 +321,17 @@ is known, not finished. So everything below is this reconstruction's choice.
 - **Rounding.** Results are rounded to 24 bits, half away from zero. The
   interpretive routines may have truncated.
 - **The sign of zero.** The one's-complement rule above is an inference from
-  the machine and the manual's two warnings, not from a listing. A difference
-  of equal numbers, and any sum with a -0 in it, is -0; products and quotients
-  take the sign rule of the operands, and |x| is +0. The index rule is enforced
-  through the sign: a zero index is allowed when it is +0, which `n = 0,` gives
-  and `n = n - 1,` does not. So the TPK alarm rests on this inference as well
-  as on page 13. Under `--zero plus` every zero is +0,
-  so that mode also allows zero indices the manual forbids.
+  the machine and the manual's warning on p. 8, not from a listing. A
+  difference of equal numbers, and any sum with a -0 in it, is -0; products and
+  quotients take the sign rule of the operands, and |x| is +0.
+- **The index rule is approximated, not enforced.** Page 13 permits a zero
+  index only if it was assigned by `n = 0,`. The run does not record how a
+  value was assigned; it allows a zero index when the zero is +0, which
+  `n = 0,` gives and `n = n - 1,` does not. That is a stand-in for the rule,
+  and not an exact one: `n = 0·5,` and `n = F^11(n),` compute a +0 and are let
+  through, and under `--zero plus` every computed zero is. `lz --check` hints
+  at an index counted down by arithmetic. So the TPK alarm rests on this
+  choice as well as on page 13.
 - **Gill's method.** The formulas are Gill's (1951) in the usual form, with the
   `q` that carries rounding error from one step to the next. Each `D` equation
   stores h·f; at the last `D` equation of a pass all the dependent variables
@@ -314,8 +373,10 @@ is known, not finished. So everything below is this reconstruction's choice.
 
 [`examples/`](examples/) has every program in E-364 that can be run, under
 `1954-`, Knuth and Trabb Pardo's TPK under `1976-`, and programs written for
-this repository. Each has a `.out` file with its page, and `cargo test` runs
-them all.
+this repository. Each has a `.out` file with the page this reconstruction
+types, and `cargo test` runs them all and compares. The `.out` files are
+regression baselines, not transcriptions: E-364 prints no results for its
+programs.
 
 ## Tutorial
 
@@ -333,8 +394,8 @@ and the delayed printer types the answers at ten characters a second (or fast,
 or all at once). An alarm is typed as the post-mortem, the two equation
 numbers, with the reason in a margin note. The tabs show the translation (each
 equation's number and its block of orders), a trace, what the run cost, and the
-same tape fed with each zero model side by side. That last one is where Knuth's
-TPK parts company with itself. `lz` is compiled unchanged for WASI, and
+same tape fed with each zero model side by side; with Knuth and Trabb Pardo's
+TPK the two pages differ. `lz` is compiled from the same source for WASI, and
 `web/wasi.js` is a small host that supplies standard input and output. The
 holes in the paper tape are illustrative, not the Flexowriter's code.
 
@@ -372,9 +433,11 @@ Pardo record that he "did not write the paper or attend the conference". The
 summer school of 1954 put it at six to eight times the Digital Computer
 Laboratory's interpretive system.
 
-All of the reading was done by a coding agent and its sub-agents in one
-session, from the page images. Nobody has yet checked it against the pages by
-eye.
+All of the reading was done by a coding agent and its sub-agents, from the
+page images. No person has yet checked it against the pages by eye. In
+November 2026 a second model, OpenAI's Codex, checked twenty places against the
+page images and reviewed the claims made here; what it found, and what was
+done about it, is in [`docs/independent-review.md`](docs/independent-review.md).
 
 ## Tests
 

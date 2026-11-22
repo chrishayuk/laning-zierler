@@ -50,8 +50,10 @@ The paper names Laning as co-author, but Knuth and Trabb Pardo record that he
 The summer session put it against something nearer: "Computing time was about
 six to eight times as long as it would have been using the single-address
 interpretive system ordinarily used at the Digital Computer Laboratory" (SS
-54, p. 13-4). Both are measures against a program written for Whirlwind by
-hand, and neither says how the time was measured.
+54, p. 13-4). The two compare against different things, Adams's against "an
+efficient computer program", the summer session's against the laboratory's
+own interpretive system, so they do not contradict each other; neither says
+how the time was measured.
 
 `lz` does not keep time. `lz --stats` counts the work: each equation brought
 from the drum, each floating-point operation. The only time it gives is the
@@ -88,7 +90,7 @@ Laning, eleven years later, did not argue with the figures (KTP 76, p. 58):
 > [The program] did perhaps pay for itself a few times when a complex problem
 > required solutions with a twenty-four hour deadline.
 
-## What was never finished
+## What was not finished
 
 The manual's two temporary restrictions ([chapter 13](13-temporary-rules.md))
 were "expected" to "be removed in the immediate future" (p. 21). Three months
@@ -98,12 +100,14 @@ report says that a report "on the inner workings and programming methods used
 in this interpretive program has been started by N. Zierler. However, it will
 be some time before this report reaches completion, since the author
 transferred from the Instrumentation Laboratory to Project Lincoln." (SR 37,
-p. 17) No such report has been found. At the summer session Donn Combelic said
+p. 17) We have not found such a report, though no thorough archival search
+has been made. At the summer session Donn Combelic said
 the system "had taken about a year and a half to develop, and had not been
 finished thoroughly. There are no annotated copies of the conversion routine,
 and when the next algebraic coding scheme is developed it will be done from
-scratch." (SS 54, p. 13-5) That is why everything in this repository was
-rebuilt from the manual, not from the program.
+scratch." (SS 54, p. 13-5) No annotated copies is not the same as no copy, but
+we have not found the program, and everything in this repository was rebuilt
+from the manual.
 
 ## A slip in the manual
 

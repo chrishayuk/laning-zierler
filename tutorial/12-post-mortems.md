@@ -64,7 +64,7 @@ message, if 100 was a PRINT statement." (KTP 76, p. 58)
 | a result beyond 2⁶³ - 2³⁹ | the manual's "alarm" (p. 6) |
 | division by zero | |
 | a function outside its range | √ of a negative number, a logarithm of 0, sin⁻¹ 2 |
-| a bad index | negative, between 0 and ½, or a computed zero ([chapter 9](09-superscript-variables.md)) |
+| a bad index | negative, between 0 and ½, or a computed zero that is -0 ([chapter 9](09-superscript-variables.md)) |
 | storage exceeded | the 251st superscript variable, while running |
 
 ```lzr

@@ -107,10 +107,13 @@ is .5 · 10¹. Eight digits is one more than 24 bits can really give, so the
 eighth digit is often noise: 6.3 is kept as 6.30000019... and typed
 `.63000001+01`.
 
-The digits are cut off, not rounded. The manual's own examples show it: it
-prints .05 as `+.50000000-01` (p. 6), and the 24-bit number nearest .05 is
-.0500000007..., which rounding would type as `.50000001`. So here they are
-truncated.
+Here the digits are cut off, not rounded. That is chosen to fit the manual's
+examples: it prints .05 as `+.50000000-01` (p. 6), and the 24-bit number
+nearest .05 is .0500000007..., which rounding would type as `.50000001`.
+Truncation gives both of the manual's printed values. It does not prove how
+the 1954 conversion worked: the page shows what printed numbers look like, it
+is not a transcript of a run, and the argument assumes that .05 was read in
+as the nearest 24-bit number, which is this reconstruction's rounding.
 
 ## How large
 
@@ -118,7 +121,9 @@ truncated.
 computations, exceed 2⁶³ - 2³⁹ (or, roughly, 9.2233995 [sic] · 10¹⁸) in
 absolute value, an alarm will result." (p. 6)
 
-The decimal is a slip in the manual. 2⁶³ - 2³⁹ is 9223371487098961920, or
+The decimal is a slip in the manual (a slip in the sense of the README's
+[list of corrections](../README.md#corrections-and-editorial-changes): wrong
+under any reading). 2⁶³ - 2³⁹ is 9223371487098961920, or
 9.2233715 · 10¹⁸: the last three digits on the page should be 715. Nothing else
 depends on it. The [README](../README.md#what-the-tests-found) lists it under
 "What the tests found". The alarm itself is [chapter 12](12-post-mortems.md).
