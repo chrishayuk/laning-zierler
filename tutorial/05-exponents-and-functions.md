@@ -2,14 +2,6 @@
 
 ## Exponents
 
-"Upper case numbers on the Flexowriter appear as exponents; there is an upper
-case minus sign but no upper case plus sign. The computer will handle positive
-(unsigned) and negative integral exponents." (p. 5)
-
-A keyboard today has no upper-case digits. Here an exponent may be typed with
-superscript characters, `5²`, `a⁻³`, or with `^`: `5^2`, `a^-3`. The two are
-the same.
-
 ```lzr
 a = 5²,
 b = 5^2,
@@ -23,6 +15,14 @@ STOP
 
 a = +.25000000+02       b = +.25000000+02       c = +.25000000+00       d = +.25000000+00       e = +.10000000+01
 ```
+
+"Upper case numbers on the Flexowriter appear as exponents; there is an upper
+case minus sign but no upper case plus sign. The computer will handle positive
+(unsigned) and negative integral exponents." (p. 5)
+
+A keyboard today has no upper-case digits. Here an exponent may be typed with
+superscript characters, `5²`, `a⁻³`, or with `^`: `5^2`, `a^-3`. The two are
+the same.
 
 An exponent belongs to the thing just before it: a number, a letter, a
 parenthesis or a function. In `2ay^2` only `y` is squared.
@@ -41,12 +41,40 @@ STOP
 p = +.24000000+02       q = +.14400000+03       r = +.25000000+00
 ```
 
-An exponent must be a whole number. A power is worked out by multiplying, and
-a negative power is one divided by that.
+A power is worked out by multiplying, and a negative power is one divided by
+that. An exponent is a whole number, and that is not a rule you can break by
+mistake so much as one that breaks you quietly. The point and the 5 in
+`2^1.5` are lower case, a number of their own, so the tape says 2¹ times .5:
 
-The manual's examples of exponents, run one after another, are in
-`examples/1954-exponents.lzr`. They do not finish: `(ab³)⁻⁵` is beyond the 24, 6
-system's range (chapter 12).
+```lzr
+x = 2^1.5,
+PRINT x.
+STOP
+```
+```page
+
+x = +.10000000+01
+```
+
+`lz --check` warns about it:
+
+```lzr --check
+x = 2^1.5,
+PRINT x.
+STOP
+```
+```page
+<stdin>:1:6: warning: this is read as the power 1 times .5: exponents are whole numbers ("positive (unsigned) and negative integral exponents", p. 5)
+```
+
+To raise to the power 1.5, use the functions below: `F^13(1.5 F^23(x))` is
+e^(1.5 ln x).
+
+The manual's examples of exponents (p. 5), run one after another, are in
+[`examples/1954-exponents.lzr`](../examples/1954-exponents.lzr). They do not
+finish. (ab³)⁵ is about 10⁻³⁴, too small for the 24, 6 system: here it becomes
+zero ([chapter 4](04-numbers.md)), and `(ab³)⁻⁵` divides by it. Even with more
+range, 1/10⁻³⁴ would be far beyond 2⁶³ - 2³⁹.
 
 ## The function subroutines
 
@@ -68,7 +96,8 @@ upper-case `F`:
 | F⁸ | secant | F¹⁶ | cosh | | |
 
 "The sine of x may be obtained by writing simply F²(x) and such an expression
-may be treated arithmetically in the same way as a variable in an equation":
+may be treated arithmetically in the same way as a variable in an equation"
+(p. 12):
 
 ```lzr
 y = 4, z = -0.5,
@@ -83,7 +112,7 @@ x = -.91770219+00
 
 That is 2(√y sin z + |z|), the manual's example. "Computation may be carried
 out inside the parentheses containing the argument of a function", and
-"functions of functions are permitted":
+"functions of functions are permitted" (p. 13):
 
 ```lzr
 a = -9, z = .5, y = 1,
@@ -126,3 +155,5 @@ STOP
 ```page
 <stdin>:1:6: error: there are 23 function subroutines, F¹ to F²³; there is no F^24
 ```
+
+Next: [PRINT](06-print.md)

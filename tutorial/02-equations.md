@@ -2,11 +2,6 @@
 
 ## A letter, an equals sign, an expression, a comma
 
-"All of the lower case letters are available as variables, and equations of
-the following form are used: x = ... ," (p. 2). The right-hand side is worked
-out and the number is stored in the letter on the left. "Equations are carried
-out in the order in which they are written."
-
 ```lzr
 a = 5,
 b = a + 1,
@@ -18,6 +13,11 @@ STOP
 
 a = +.50000000+01       b = +.60000000+01       c = +.30000000+02
 ```
+
+The right-hand side is worked out and the number is stored in the letter on
+the left: "All of the lower case letters are available as variables, and
+equations of the following form are used: x = ... ," and "Equations are
+carried out in the order in which they are written." (p. 2)
 
 `ab` is a times b: letters written next to each other are multiplied, as on
 paper. Every variable is one letter, so there is nothing else `ab` could mean.
@@ -49,8 +49,8 @@ of an equation so that it may be assigned a definite value before it appears
 on the right hand side of an equation. ... a program beginning n = m - 1, m =
 1, would be incorrect since m would have no preassigned value." (p. 3)
 
-The system did not check this. Here a letter never given a value reads as
-zero, and `lz --check` says what the manual says:
+Nothing in the manual says the system checked this. Here a letter never given
+a value reads as zero, and `lz --check` says what the manual says:
 
 ```lzr --check
 n = m - 1,
@@ -81,7 +81,7 @@ d = +.60000000+01
 ```
 
 The one exception is a blank between two digits, which is a multiplication
-sign. That is chapter 4.
+sign. That is [chapter 4](04-numbers.md).
 
 ## STOP
 
@@ -108,8 +108,9 @@ a = 1,
 
 The variables are the 26 lower-case letters. Upper-case letters are for the
 instructions (`PRINT`, `STOP`, `SP`, `CP`, `SR`, `CR`, `ASSIGN`), for `F`
-(functions, chapter 5), `D` (derivatives, chapter 11) and `N` (lists, chapter
-10). Anything else is not understood:
+(functions, [chapter 5](05-exponents-and-functions.md)), `D` (derivatives,
+[chapter 11](11-differential-equations.md)) and `N` (lists,
+[chapter 10](10-the-drum.md)). Anything else is not understood:
 
 ```lzr
 X = 1,
@@ -118,3 +119,5 @@ STOP
 ```page
 <stdin>:1:1: error: "X" is not an instruction: the instructions are PRINT, SP, CP, SR, CR, ASSIGN, D and STOP; variables are lower-case letters
 ```
+
+Next: [The slash](03-the-slash.md)

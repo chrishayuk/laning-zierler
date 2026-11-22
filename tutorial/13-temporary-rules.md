@@ -2,7 +2,7 @@
 
 ## What the manual admitted
 
-The last section of E-364 is two lines long, and unusual in a manual:
+The last section of E-364 is half a page, and unusual in a manual:
 
 > 18. Temporary Rules and Restrictions
 >
@@ -23,8 +23,9 @@ The last section of E-364 is two lines long, and unusual in a manual:
 
 Project Whirlwind's report for the first quarter of 1954 (Summary Report 37,
 item 108) says: "All the routines described in E-364 have been tested and work
-correctly with the exception of the x|N routine." So by the spring the first
-restriction had gone, and the second had not. Nothing later has been found
+correctly with the exception of the X|N routine." (SR 37, p. 17) That suggests
+that by the end of March the first restriction had gone and the second had
+not, though the report does not mention the restriction itself. Nothing later has been found
 that says whether x|N was ever put right.
 
 ## The rules here
@@ -33,8 +34,8 @@ By default `lz` is the system as the manual describes it, everything working.
 `lz --temporary-rules` is the system of January 1954, with both restrictions:
 
 ```lzr
-1 x = F^1(y),
 y = 16,
+1 x = F^1(y),
 SR 1,
 PRINT x.
 STOP
@@ -45,8 +46,8 @@ x = +.40000000+01
 ```
 
 ```lzr --temporary-rules
-1 x = F^1(y),
 y = 16,
+1 x = F^1(y),
 SR 1,
 PRINT x.
 STOP
@@ -69,6 +70,10 @@ enforced by refusing to translate the program, and quoting the manual.
 
 ## Why it matters
 
-x|N is the only way to put a list of numbers on the drum in one line, and that
-is what any program with data does. Knuth and Trabb Pardo's TPK program
-(chapter 14) begins with one. In January 1954 it could not have been run.
+x|N is the short way to put a table of numbers on the drum; without it, each
+value is an equation of its own, and "100 unnumbered equations, the maximum"
+(p. 17) soon run out. Knuth and Trabb Pardo's TPK program
+([chapter 14](14-worked-examples.md)) begins with one. Under the rules of
+January 1954 it could not have run.
+
+Next: [Worked examples](14-worked-examples.md)

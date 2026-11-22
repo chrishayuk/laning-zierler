@@ -2,11 +2,6 @@
 
 ## Writing a number
 
-"The computer correctly interprets numbers in ordinary decimal notation. No
-standard form is assumed for numerical quantities by the computer. Thus it
-interprets correctly such quantities as 0.012, 012, .012, 48, 321 etc.,
-without ambiguity." (p. 5)
-
 ```lzr
 a = 0.012, b = 012, c = .012, d = 48, e = 321,
 PRINT a, b, c, d, e.
@@ -17,13 +12,11 @@ STOP
 a = +.12000000-01       b = +.12000000+02       c = +.12000000-01       d = +.48000000+02       e = +.32100000+03
 ```
 
-## A blank between digits is a multiplication sign
+"No standard form is assumed for numerical quantities by the computer. Thus it
+interprets correctly such quantities as 0.012, 012, .012, 48, 321 etc.,
+without ambiguity." (p. 5)
 
-Blanks are ignored, "except when they occur between the digits of a number".
-There, "any of these characters inserted between digits is interpreted as a
-multiplication sign. Thus x = 23, ... would set x to the value twenty-three
-while x = 2 3, (i.e., 2 followed by space followed by 3) would cause x to
-assume the value 6." (pp. 9-10)
+## A blank between digits is a multiplication sign
 
 ```lzr
 x = 23,
@@ -38,10 +31,16 @@ STOP
 x = +.23000000+02       y = +.60000000+01       z = +.60000000+01
 ```
 
+Blanks are ignored, "except when they occur between the digits of a number".
+There, "any of these characters inserted between digits is interpreted as a
+multiplication sign. Thus x = 23, ... would set x to the value twenty-three
+while x = 2 3, (i.e., 2 followed by space followed by 3) would cause x to
+assume the value 6." (pp. 9-10)
+
 A carriage return is a blank too, so `z` is 6. The manual warns that such a
-blank is not always visible: "If the combination space, back-space ... is
-inserted between digits, the combination ... would be interpreted as a
-multiplication sign."
+blank is not always visible on the typed copy: "If the combination space,
+back-space ... is inserted between digits, the combination ... would be
+interpreted as a multiplication sign." (p. 10)
 
 A multiplication sign can also be written. The Flexowriters at the Digital
 Computer Laboratory had a colon with its lower dot filed off, giving `·`, and
@@ -86,7 +85,7 @@ STOP
 x = +.10000001+01
 ```
 
-Ten tenths are 1.0000001. (`CP` is chapter 7.) Another example: 1/3, which
+Ten tenths are 1.0000001. (`CP` is [chapter 7](07-jumps.md).) Another example: 1/3, which
 the system keeps as the nearest 24-bit fraction, .333333343...
 
 ```lzr
@@ -116,8 +115,13 @@ truncated.
 ## How large
 
 "If numbers, including, of course, numbers produced as the result of
-computations, exceed 2⁶³ - 2³⁹ (or, roughly, 9.2233995 · 10¹⁸) in absolute
-value, an alarm will result." (p. 6) Chapter 12 has the alarm itself.
+computations, exceed 2⁶³ - 2³⁹ (or, roughly, 9.2233995 [sic] · 10¹⁸) in
+absolute value, an alarm will result." (p. 6)
+
+The decimal is a slip in the manual. 2⁶³ - 2³⁹ is 9223371487098961920, or
+9.2233715 · 10¹⁸: the last three digits on the page should be 715. Nothing else
+depends on it. The [README](../README.md#what-the-tests-found) lists it under
+"What the tests found". The alarm itself is [chapter 12](12-post-mortems.md).
 
 ```lzr
 a = 4000000000000000000,
@@ -172,3 +176,5 @@ STOP
 ```page
 <stdin>:1:5: error: 922337203.6854775807: read without its point this is an integer greater than 2^63 - 2^39
 ```
+
+Next: [Exponents and functions](05-exponents-and-functions.md)

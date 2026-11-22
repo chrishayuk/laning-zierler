@@ -2,13 +2,6 @@
 
 ## Letters and a period
 
-"The current value of any number of letter variables may be printed out by
-inserting the instruction PRINT followed by the desired letters, followed by
-a period. No computation may be performed during a print instruction (e.g.,
-PRINT 3a is not admissible) and commas may, but need not, be inserted between
-letters. Thus, PRINT x,y. and PRINT xy. would both cause the current values of
-x and y to be printed out." (p. 6)
-
 ```lzr
 x = 1, y = 2,
 PRINT x,y.
@@ -21,6 +14,13 @@ x = +.10000000+01       y = +.20000000+01
 
 x = +.10000000+01       y = +.20000000+01
 ```
+
+"The current value of any number of letter variables may be printed out by
+inserting the instruction PRINT followed by the desired letters, followed by
+a period. No computation may be performed during a print instruction (e.g.,
+PRINT 3a is not admissible) and commas may, but need not, be inserted between
+letters. Thus, PRINT x,y. and PRINT xy. would both cause the current values of
+x and y to be printed out." (p. 6)
 
 ```lzr
 a = 1,
@@ -37,6 +37,7 @@ STOP
 to be printed out. The second number, i.e., the +01, is interpreted as the
 power of 10 to be multiplied by the first number. Thus, if a = .05 we should
 have a = +.50000000-01 and if a = -π we should have a = -.31415927 + 01."
+(p. 6)
 
 ```lzr
 a = 5,
@@ -98,8 +99,8 @@ characters; the manual's are not measured.
 
 ## What a PRINT may be
 
-PRINT instructions may be numbered (rule 7), so a jump can go to one. Every
-PRINT must end with a period (rule 4):
+"PRINT instructions may be numbered" (section 17, rule 7, p. 20), so a jump
+can go to one. "Every PRINT instruction must end with a period" (rule 4):
 
 ```lzr
 a = 1,
@@ -110,4 +111,7 @@ STOP
 <stdin>:2:8: error: every PRINT instruction must end with a period, not a comma
 ```
 
-Superscript variables are printed with their superscripts, chapter 9.
+Superscript variables are printed with their superscripts
+([chapter 9](09-superscript-variables.md)).
+
+Next: [Jumps and equation numbers](07-jumps.md)

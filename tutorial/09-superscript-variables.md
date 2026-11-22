@@ -2,16 +2,6 @@
 
 ## More variables
 
-"Subscript numbers are not available on the standard Flexowriter so additional
-symbols for variables are obtained as follows: Any lower case letter followed
-by a vertical slash followed by an upper case integer between 0 and 1023
-inclusive may be used as a variable in precisely the same way the lower case
-letters alone have been used above. We shall call such variables 'superscript
-variables.'" (p. 13)
-
-The number was typed in upper case, as a superscript: x|⁵. Here it may be
-typed `x|⁵` or `x|5`.
-
 ```lzr
 x|5 = 2,
 a|2 = x|5 + 1,
@@ -24,8 +14,17 @@ STOP
 x|5 = +.20000000+01     a|2 = +.30000000+01     y = +.90000000+01
 ```
 
-`a|2^2` is a|2 squared: the 2 after the slash is the superscript and the `^2`
-is an exponent. `x|5` and `x` are different variables.
+"Subscript numbers are not available on the standard Flexowriter so additional
+symbols for variables are obtained as follows: Any lower case letter followed
+by a vertical slash followed by an upper case integer between 0 and 1023
+inclusive may be used as a variable in precisely the same way the lower case
+letters alone have been used above. We shall call such variables 'superscript
+variables.'" (p. 13)
+
+The number was typed in upper case, as a superscript: x|⁵. Here it may be
+typed `x|⁵` or `x|5`. `a|2^2` is a|2 squared: the 2 after the slash is the
+superscript and the `^2` is an exponent. `x|5` and `x` are different
+variables.
 
 ## A letter as the index
 
@@ -33,7 +32,7 @@ is an exponent. `x|5` and `x` are different variables.
 variables in the combination lower case letter followed by vertical slash,
 followed by lower case letter. For example, when the expression x|n is
 encountered, the current value of n is taken as the index: if n = 6 currently
-then x|n is at this time treated as x|6."
+then x|n is at this time treated as x|6." (p. 13)
 
 ```lzr
 n = 0,
@@ -56,7 +55,7 @@ s|1 = +.10000000+01     s|2 = +.40000000+01     s|3 = +.90000000+01     s|4 = +.
 
 "If, in the expression x|n, n has a non-integral value greater than 0.5, the
 computer rounds n off to the nearest integer." (p. 13) "The roundoff property
-can often be used to advantage", for instance in interpolation:
+can often be used to advantage" (pp. 13-14), for instance in interpolation:
 
 ```lzr
 k|1 = 10, k|2 = 20, k|3 = 30,
@@ -71,14 +70,19 @@ STOP
 a = +.10000000+02       b = +.20000000+02       c = +.30000000+02
 ```
 
-`examples/1954-interpolation.lzr` is the manual's interpolation program, which
-rounds an index to find the place in a table.
+The manual says "the nearest integer" and no more. A value exactly half way,
+like 2.5, could go either way; here it goes up, to k|3, and that is the
+reconstruction's choice.
+
+[`examples/1954-interpolation.lzr`](../examples/1954-interpolation.lzr) is the
+manual's interpolation program (p. 14), which rounds an index to find the place
+in a table.
 
 ## Which values are allowed
 
 "Negative values of n are not permitted in this connection, nor are values
 between zero and one half inclusive, with the exception that the value zero is
-permissible if assigned by the specific equation n = 0,."
+permissible if assigned by the specific equation n = 0,." (p. 13)
 
 ```lzr
 n = 0,
@@ -103,7 +107,9 @@ lz: alarm: n is +.30000001+00: values between zero and one half inclusive are no
 ```
 
 And a zero that comes out of arithmetic is not "assigned by the specific
-equation n = 0". Here it is -0 (chapter 8), and so it is not allowed:
+equation n = 0". The manual does not say how the computer told the two apart.
+Here it is by the sign: a computed zero is -0 ([chapter 8](08-zero.md)), and -0
+is negative:
 
 ```lzr
 n = 1,
@@ -117,7 +123,8 @@ ALARM  EQUATION 103  PRECEDED BY 102
 lz: alarm: n is -0, a zero computed by arithmetic: as a superscript zero is permissible only if assigned by the specific equation n = 0,
 ```
 
-With `--zero plus` the same zero is +0 and is let through:
+With `--zero plus` the same zero is +0 and is let through. That is a what-if:
+the manual forbids it whatever its sign.
 
 ```lzr --zero plus
 n = 1,
@@ -131,13 +138,15 @@ STOP
 a|0 = +.50000000+01
 ```
 
-This is what happens to Knuth's TPK program in chapter 14.
+This is what happens to Knuth and Trabb Pardo's TPK program in
+[chapter 14](14-worked-examples.md).
 
 ## How many
 
 "Superscript variables are ordinarily assigned to MS (magnetic core storage)
 and there is room for a total of 250 such variables." (p. 15) The 251st is a
-post-mortem:
+post-mortem. Equation 100 is a PRINT, so the computer types it after the alarm
+([chapter 12](12-post-mortems.md) explains both):
 
 ```lzr
 n = 0,
@@ -155,5 +164,8 @@ n = +.25100000+03
 lz: alarm: storage exceeded: x|251 would be superscript variable number 251 in MS, and there is room for 250
 ```
 
-Each differential equation takes two of the 250 (chapter 11), and each group
-of variables on the drum takes one (chapter 10).
+Each differential equation takes two of the 250
+([chapter 11](11-differential-equations.md)), and each group of variables on
+the drum takes one ([chapter 10](10-the-drum.md)).
+
+Next: [The drum](10-the-drum.md)

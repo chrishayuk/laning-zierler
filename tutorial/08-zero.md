@@ -4,16 +4,13 @@
 
 "If n had the value 5 in the above example then e = n - 5 = 0. In this case
 the CP may or may not behave like an SP since 0 may appear as +0 or -0. This
-ambiguity need cause no difficulty in general." (p. 8)
+ambiguity need cause no difficulty in general." (p. 8) The example is the
+manual's `e = n - 5, CP 5,`, below.
 
 Whirlwind kept numbers in one's complement, in which zero has two forms: all
 noughts, +0, and all ones, -0. CP looks at the sign, so it jumps on -0.
 
 ## Where -0 comes from
-
-In one's complement, a number added to its own negative gives all ones: -0.
-So does +0 added to -0. Only a zero typed as a constant, or the sum of two +0s,
-is +0. Here that is the rule (the README says why):
 
 ```lzr
 n = 5,
@@ -21,15 +18,30 @@ e = n - 5,
 f = 0,
 g = -f,
 h = 0 + 0,
+p = 0·5,
+q = e·3,
+r = F^11(e),
 PRINT e, f, g, h.
+PRINT p, q, r.
 STOP
 ```
 ```page
 
 e = -.00000000+00       f = +.00000000+00       g = -.00000000+00       h = +.00000000+00
+
+p = +.00000000+00       q = -.00000000+00       r = +.00000000+00
 ```
 
-The sign shows when it is typed.
+In one's complement, a number added to its own negative gives all ones: -0.
+So does +0 added to -0. Here that is the rule: the difference of two equal
+numbers is -0, and so is any sum with a -0 in it. A product or a quotient
+takes its sign from its operands, as any product does, so 0·5 is +0 and
+(-0)·3 is -0. Negating flips the sign, zero or not. And the absolute value,
+F¹¹, is always +0. The constant 0, and anything made only of +0s, is +0.
+
+The sign shows when it is typed. This rule is the reconstruction's inference
+from the machine and from the manual's two warnings, not something the manual
+or any listing says ([README](../README.md#zero)).
 
 ## The manual's example
 
@@ -75,7 +87,7 @@ on it.
 ## The half
 
 "If, for example, it is desired to go thru a certain process starting with
-equation 1 exactly 10 times" (chapter 7) the manual subtracts 9.5, not 10, so
+equation 1 exactly 10 times" (p. 8, and [chapter 7](07-jumps.md)) the manual subtracts 9.5, not 10, so
 the test never meets a zero. That is the whole cure, and every loop in the
 manual uses it. A loop that subtracts 10 goes round once too often here:
 
@@ -127,4 +139,6 @@ SP 4,
 b = +.70000000+01
 ```
 
-`examples/gcd.lzr` uses this.
+[`examples/gcd.lzr`](../examples/gcd.lzr) uses this.
+
+Next: [Superscript variables and indices](09-superscript-variables.md)

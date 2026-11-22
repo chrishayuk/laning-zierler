@@ -12,7 +12,7 @@ observed." (p. 17)
 3. the upper case letter `D` is used to denote d/dt.
 
 "A given nth order system must be reduced to a system of n first order
-differential equations." Then each is written with a D in front of the
+differential equations." (p. 18) Then each is written with a D in front of the
 variable it is the derivative of. `Dx = y,` means dx/dt = y.
 
 The simplest: dy/dt = y, from y = 1, which is eᵗ.
@@ -34,14 +34,15 @@ t = +.10000001+01       y = +.27182793+01
 
 y is 2.7182793, where e itself is 2.7182818: Gill's method with a step of .1
 is that close. "It should be observed that t is automatically increased by
-the value h upon completion of the last equation that starts with a D." The
+the value h upon completion of the last equation that starts with a D." (p.
+19) The
 loop round equation 1 takes ten steps, and t is 1.0000001 because a tenth is
 not exact in binary.
 
 ## The manual's example
 
 Two equations, dy₁/dt = y₂ + 1 and dy₂/dt = -y₁, from t = 2 with both zero,
-h = .5, printed at t = 2, 3, ..., 10:
+h = .5, printed at t = 2, 3, ..., 10 (p. 18):
 
 ```lzr
     t = 2,
@@ -80,7 +81,7 @@ t = +.10000000+02       y|1 = +.98824048+00     y|2 = -.11414999+01
 ```
 
 The answer is y₁ = sin(t - 2) and y₂ = cos(t - 2) - 1; at t = 3 that is .841471
-and -.459698. The step of .5 is large, and the third digit already differs.
+and -.459698. The step of .5 is large, and the fourth digit already differs.
 
 Notice `e = -e, CP 2`. e is 9.7 - t from before the step, positive. Negated,
 it is negative, so CP 2 takes a second step; negated again it is positive, so
@@ -93,9 +94,12 @@ involves going through the part of the program that starts with the first D
 equation and ends with the last D equation a total of 4 times. These 4
 sub-steps take place automatically" (p. 19).
 
-`lz --trace` shows them. Each D equation is computed four times, and t moves by
-h/2 after the first pass and by another h/2 after the third, as in any
-Runge-Kutta method:
+`lz --trace` shows them. Each D equation is computed four times. The manual
+says only that t has gone up by h at the end of the fourth pass. Here, as in
+any Runge-Kutta method, it is t + h/2 for the second and third passes and t +
+h for the fourth; that is the reconstruction's reading, not the manual's
+words. The trace shows the derivative f at each pass (what is kept is h·f),
+and `lz` writes the trace after the page:
 
 ```lzr --trace
 t = 0,
@@ -176,8 +180,9 @@ t = +.10000000+02       y|1 = +.25802898+01     y|2 = -.11511096+01
 reset before each entry into the differential equations. However, upon
 completion of the second D equation in each of the first 3 sub-steps,
 computation would be resumed with the first D equation (and not equation 2) so
-that 'a' would not have the current value of y|2 + 1." The answers are wrong
-from the first line: .9375 instead of .841.
+that 'a' would not have the current value of y|2 + 1." (p. 19) The first line,
+at t = 2, is the same; from the first step on the answers are wrong: .9375 at
+t = 3 instead of .841.
 
 `lz --check` knows the rule:
 
@@ -203,16 +208,17 @@ from the first line: .9375 instead of .841.
 
 An auxiliary value that the first D equation itself needs cannot go between
 the first and the last. Write it into the D equation instead, as
-`examples/pursuit.lzr` does.
+[`examples/pursuit.lzr`](../examples/pursuit.lzr) does.
 
 ## Storage
 
 "It has been stated that a total of 250 MS superscript variables may be used;
 this is not true for programs involving differential equations. If there are
 k equations that begin with a D in a program then 250 - 2k MS superscript
-variables may be used." (p. 19) Gill's method keeps two numbers for each
-equation: the derivative times h, and a running correction, q, which is what
-makes Gill's variation careful with rounding.
+variables may be used." (p. 19) So each D equation took two words of storage.
+The manual does not say what they held. Here they are the derivative times h
+and Gill's running correction, q, which is what makes Gill's variation careful
+with rounding; that fits "250 - 2k", and is the reconstruction's choice.
 
 ## How Gill's method goes
 
@@ -229,3 +235,5 @@ times the step:
 The manual names the method and no more. These are the standard formulas, done
 in 24-bit arithmetic; all the derivatives of a pass are worked out before any
 variable moves.
+
+Next: [Post-mortems and putting a tape right](12-post-mortems.md)

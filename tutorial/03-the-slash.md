@@ -2,16 +2,6 @@
 
 ## Plus and minus separate terms
 
-"A little reflection will show that an expression such as a + 2b/c + d is
-mathematically ambiguous. The computer of course, assigns a particular
-interpretation to such an expression. ... a plus or minus sign has the effect
-of separating any mathematical expression into two terms to the left and the
-right of it." (p. 4)
-
-So in `a + 2b/c + d` the terms are `a`, `2b/c` and `d`. To divide by `c + d`,
-put it in parentheses; to divide the whole of `a + 2b`, put that in
-parentheses too.
-
 ```lzr
 a = 1, b = 2, c = 4, d = 8,
 p = a + 2b/c + d,
@@ -25,9 +15,16 @@ STOP
 p = +.10000000+02       q = +.13333333+01       r = +.41666665+00
 ```
 
-These are the manual's (6), (7) and (8): 10, 4/3 and 5/12. "If it is merely
-kept in mind that pluses and minuses act as separating symbols, no confusion
-can arise."
+These are the manual's (6), (7) and (8): 10, 4/3 and 5/12. In `a + 2b/c + d`
+the terms are `a`, `2b/c` and `d`. To divide by `c + d`, put it in
+parentheses; to divide the whole of `a + 2b`, put that in parentheses too.
+
+"A little reflection will show that an expression such as a + 2b/c + d is
+mathematically ambiguous. The computer of course, assigns a particular
+interpretation to such an expression. ... a plus or minus sign has the effect
+of separating any mathematical expression into two terms to the left and the
+right of it." And: "If it is merely kept in mind that pluses and minuses act
+as separating symbols, no confusion can arise." (p. 4)
 
 ## Within a term, what follows a slash is below the line
 
@@ -39,7 +36,7 @@ of a with the quantity b + c." (p. 4)
 Everything after the slash, up to the end of the term, is in the denominator.
 That is how a mathematician writes `x²/y (y - 1)` on one line, meaning x²
 over y(y - 1), and it is how the manual's own cosine program is written
-(chapter 14):
+([chapter 14](14-worked-examples.md)):
 
 ```lzr
 a = 1, b = 2, c = 4, d = 8,
@@ -82,12 +79,33 @@ side of the fraction line, and a second slash moves what follows it back.
 almost every language since, `a/b/c` is (a/b)/c, which is .125.
 
 Neither reading is wrong; the manual says which one it means. But it is a
-perfectly reasonable expression that a reader of today would get wrong. In
-1976 Laning remembered writing the translator:
+perfectly reasonable expression that a reader of today would read differently.
+In 1976 Laning remembered writing the translator:
 
 > The notion of operator precedence as a formal concept did not occur to me at
 > the time; I lived in fear that someone would write a perfectly reasonable
 > algebraic expression that my system would not analyze correctly.
+> (KTP 76, p. 59)
+
+The system analyses `a/b/c` exactly as page 4 says. The surprise is the
+reader's.
+
+The manual's best example of the second slash is in its section on functions
+(p. 13). `x = F³(x + 2/y(a + b) z⁻¹),` "would set x equal to cosine (x + 2
+z/y(a + b))": the `z⁻¹` after the slash goes below the line, and z⁻¹ below
+the line is z on top.
+
+```lzr
+x = 0, y = 2, a = 1, b = 1, z = 3,
+p = x + 2/y(a + b) z^-1,
+q = x + 2z/y(a + b),
+PRINT p, q.
+STOP
+```
+```page
+
+p = +.15000000+01       q = +.15000000+01
+```
 
 ## Parentheses start afresh
 
@@ -166,3 +184,5 @@ STOP
 ```page
 <stdin>:1:30: error: no more than four parentheses may be open in a single equation at any one time
 ```
+
+Next: [Numbers](04-numbers.md)
