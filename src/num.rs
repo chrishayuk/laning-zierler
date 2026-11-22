@@ -122,7 +122,22 @@ impl Num {
         if sum == 0.0 {
             return Ok(Num(signed_zero_of_sum(self, other, zero)));
         }
-        Num::round(sum)
+        // A sum too small to hold underflows to a zero, which the zero model
+        // signs like any other.
+        Ok(settle(Num::round(sum)?, zero))
+    }
+
+    /// -x. Under [`ZeroModel::OnesComplement`] the sign of a zero flips like
+    /// any other, so -(+0) is -0; under [`ZeroModel::Positive`] every zero is
+    /// +0, so -(+0) is +0. (The `-` operator always flips the sign.)
+    pub fn negate(self, zero: ZeroModel) -> Num {
+        settle(-self, zero)
+    }
+
+    /// The same value, with a zero signed by the zero model: under
+    /// [`ZeroModel::Positive`] a -0 becomes +0.
+    pub fn settled(self, zero: ZeroModel) -> Num {
+        settle(self, zero)
     }
 
     pub fn sub(self, other: Num, zero: ZeroModel) -> Result<Num, Alarm> {
@@ -403,6 +418,19 @@ mod tests {
         assert!(!p.is_negative());
         // +0 + +0 stays +0; the constant 0 is +0
         assert!(!Num::ZERO.add(Num::ZERO, z).unwrap().is_negative());
+    }
+
+    #[test]
+    fn plus_zero_signs_every_zero() {
+        let z = ZeroModel::Positive;
+        assert!(!Num::ZERO.negate(z).is_negative());
+        assert!(Num::ZERO.negate(ZeroModel::OnesComplement).is_negative());
+        // a difference too small to hold underflows to +0, not -0
+        let a = n(2f64.powi(-63) * (1.0 + 2f64.powi(-23)));
+        let b = n(2f64.powi(-63));
+        let d = b.sub(a, z).unwrap();
+        assert!(d.is_zero() && !d.is_negative());
+        assert!(b.sub(a, ZeroModel::OnesComplement).unwrap().is_negative());
     }
 
     #[test]

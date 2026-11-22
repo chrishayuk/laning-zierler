@@ -343,7 +343,7 @@ fn expand_list(items: &[crate::parse::ListItem], zero: ZeroModel, span: Span, pr
     let mut out = Vec::new();
     for item in items {
         let mut v = match Num::round(item.start) {
-            Ok(v) => v,
+            Ok(v) => v.settled(zero),
             Err(e) => {
                 problems.push(Problem { message: e.to_string(), span: item.span });
                 return out;

@@ -320,7 +320,7 @@ impl<'a> Machine<'a> {
                 }
                 Order::Neg => {
                     let x = stack.pop().unwrap();
-                    stack.push(-x);
+                    stack.push(x.negate(z));
                 }
                 Order::Pow(n) => {
                     let x = stack.pop().unwrap();
@@ -357,9 +357,13 @@ impl<'a> Machine<'a> {
     /// and one half inclusive, with the exception that the value zero is
     /// permissible if assigned by the specific equation n = 0," (p. 13)
     ///
-    /// Here the exception is the sign of zero: `n = 0,` gives +0, while a zero
-    /// that comes out of arithmetic (n = n - 1 when n is 1) is -0, which is
-    /// negative.
+    /// Here the exception is approximated through the sign of zero: `n = 0,`
+    /// gives +0, while a zero that comes out of a subtraction (n = n - 1 when n
+    /// is 1) is -0, which is negative. This is a model of a machine, not a
+    /// check of the rule: it does not ask how a zero was assigned, so a
+    /// computed zero that comes out +0 (`n = 0·5,`, `n = F^11(n),`, or any
+    /// zero under `--zero plus`) is let through although the rule forbids it.
+    /// `lz --check` warns about an index counted down by arithmetic.
     fn index_value(&self, c: char, what: &str) -> R<u32> {
         let v = self.letters[idx(c)];
         if v.is_zero() {
@@ -554,6 +558,44 @@ mod tests {
         assert!(o.alarm.unwrap().reason.contains("-0"));
         let o = run(&p, &RunOptions { zero: ZeroModel::Positive, ..RunOptions::default() });
         assert!(o.alarm.is_none());
+    }
+
+    /// `--zero plus` makes every zero +0, a negated one included. (Before the
+    /// independent review of November 2026, `-n` with n = +0 gave -0 even in
+    /// this mode: CP jumped on it and an index alarmed.)
+    #[test]
+    fn plus_zero_covers_negation_and_lists() {
+        let plus = Options { zero: ZeroModel::Positive, ..Options::default() };
+        let run_plus = RunOptions { zero: ZeroModel::Positive, ..RunOptions::default() };
+        let src = "n = 0, n = -n, CP 1, a = 1, SP 2, 1 a = 2, 2 PRINT n, a. STOP";
+        let (p, problems) = translate(src, &plus);
+        assert!(problems.is_empty(), "{problems:?}");
+        let o = run(&p, &run_plus);
+        assert_eq!(o.page, "\nn = +.00000000+00       a = +.10000000+01\n");
+        // the same negated zero as an index
+        let (p, _) = translate("n = 0, n = -n, a|n = 7, PRINT a|0. STOP", &plus);
+        let o = run(&p, &run_plus);
+        assert!(o.alarm.is_none(), "{:?}", o.alarm);
+        // a -0 in a list on the drum
+        let (p, problems) = translate("g|N = -0, 1, PRINT g|1. STOP", &plus);
+        assert!(problems.is_empty(), "{problems:?}");
+        assert_eq!(run(&p, &run_plus).page, "\ng|1 = +.00000000+00\n");
+        // one's complement is unchanged: -(+0) is -0
+        let (p, _) = translate(src, &Options::default());
+        assert_eq!(run(&p, &RunOptions::default()).page, "\nn = -.00000000+00       a = +.20000000+01\n");
+    }
+
+    /// The index rule of p. 13 is approximated through the sign of zero, and
+    /// the approximation is not exact: a computed zero that comes out +0 (a
+    /// product with +0, or an absolute value) is accepted, though the manual
+    /// permits only a zero "assigned by the specific equation n = 0,".
+    #[test]
+    fn the_index_rule_is_a_proxy() {
+        for src in ["n = 0·5, a|n = 7, PRINT a|0. STOP", "n = 1, n = n - 1, n = F^11(n), a|n = 7, PRINT a|0. STOP"] {
+            let (p, problems) = translate(src, &Options::default());
+            assert!(problems.is_empty(), "{problems:?}");
+            assert_eq!(run(&p, &RunOptions::default()).page, "\na|0 = +.70000000+01\n", "{src}");
+        }
     }
 
     #[test]
