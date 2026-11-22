@@ -22,7 +22,7 @@ with examples, and not how. Everything here that is not in it is listed under
 **Summary Report 37** (item 108): from the first quarter of 1954 the problem
 tape went into the photoelectric reader and was stored on the drum; the system
 was on one master tape, 108-60-30; "All the routines described in E-364 have
-been tested and work correctly with the exception of the x|N routine"; and a
+been tested and work correctly with the exception of the X|N routine"; and a
 report "on the inner workings ... has been started by N. Zierler. However, it
 will be some time before this report reaches completion, since the author
 transferred from the Instrumentation Laboratory to Project Lincoln." No such
