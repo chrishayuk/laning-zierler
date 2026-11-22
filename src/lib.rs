@@ -8,6 +8,7 @@
 //! without running it, for the command line and the language server.
 
 pub mod check;
+pub mod info;
 pub mod lex;
 pub mod machine;
 pub mod num;

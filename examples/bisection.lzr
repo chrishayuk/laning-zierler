@@ -1,0 +1,17 @@
+# The root of x³ - x - 2 = 0 between 1 and 2, by halving the interval
+# twenty-four times, as far as 24 bits can go. The root is 1.52137971.
+# The sign of f at the left end decides which half to keep: CP does the test.
+    a = 1,
+    b = 2,
+    n = 0,
+1   x = (a + b)/2,
+    f = x^3 - x - 2,
+    CP 2,
+    b = x,
+    SP 3,
+2   a = x,
+3   n = n + 1,
+    e = n - 23.5,
+    CP 1,
+    PRINT n, a, b.
+    STOP

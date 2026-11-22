@@ -1,0 +1,10 @@
+# Storing superscript variables until there is no room. E-364 p. 15: "there
+# is room for a total of 250 such variables." The 251st, x|251, stops the
+# program with a post-mortem (section 16), and equation 100 types n, which is
+# where it got to.
+    n = 0,
+1   n = n + 1,
+    x|n = n,
+    SP 1,
+100 PRINT n.
+    STOP

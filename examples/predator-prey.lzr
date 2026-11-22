@@ -1,0 +1,20 @@
+# Lotka and Volterra: rabbits x and foxes y.
+#   x' = ax - bxy,   y' = -cy + dxy,
+# with a = 1, b = .1, c = 1.5, d = .075, from 10 rabbits and 5 foxes. The
+# numbers go round a closed cycle: the rabbits rise, the foxes follow, the
+# rabbits fall. One cycle takes a little over 5 units of time.
+    t = 0,
+    h = 0.05,
+    a = 1, b = .1, c = 1.5, d = .075,
+    x = 10,
+    y = 5,
+1   PRINT t, x, y.
+    n = 0,
+2   Dx = ax - bxy,
+    Dy = -cy + dxy,
+    n = n + 1,
+    e = n - 9.5,
+    CP 2,
+    e = t - 11.75,
+    CP 1,
+    STOP

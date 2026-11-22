@@ -1,0 +1,15 @@
+# Newton's method for the square root of 2: y = (y + 2/y)/2, from y = 1.
+# The same iteration as E-364 p. 7 ("1 y = 0.5 (x + 2/x),"). It settles in
+# four steps on √2 = 1.4142136, which F¹, the square root subroutine, gives
+# too, to the last digit 24 bits can hold.
+    a = 2,
+    y = 1,
+    n = 0,
+1   y = 0.5 (y + a/y),
+    n = n + 1,
+    PRINT n, y.
+    e = n - 5.5,
+    CP 1,
+    r = F^1(a),
+    PRINT r.
+    STOP

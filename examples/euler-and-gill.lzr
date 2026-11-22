@@ -1,0 +1,22 @@
+# y' = y from y = 1 at t = 0, to t = 1, in ten steps of 0.1, two ways.
+# By Euler's method, written out (y = y + hy): (1.1)^10 = 2.5937425.
+# By Gill's method, which the system does for a D equation: 2.7182793, where
+# e = 2.7182818. A fourth-order method with h = .1 is out by about 2·10⁻⁶ in
+# exact arithmetic, so most of the difference is the method's, not the 24 bits'.
+    h = 0.1,
+    y = 1,
+    n = 0,
+1   y = y + hy,
+    n = n + 1,
+    e = n - 9.5,
+    CP 1,
+    PRINT y.
+    t = 0,
+    z = 1,
+    n = 0,
+2   Dz = z,
+    n = n + 1,
+    e = n - 9.5,
+    CP 2,
+    PRINT t, z.
+    STOP

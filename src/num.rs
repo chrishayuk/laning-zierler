@@ -116,9 +116,6 @@ impl Num {
         self.0.is_sign_negative()
     }
 
-    pub fn neg(self) -> Num {
-        Num(-self.0)
-    }
 
     pub fn add(self, other: Num, zero: ZeroModel) -> Result<Num, Alarm> {
         let sum = self.0 + other.0;
@@ -129,7 +126,7 @@ impl Num {
     }
 
     pub fn sub(self, other: Num, zero: ZeroModel) -> Result<Num, Alarm> {
-        self.add(other.neg(), zero)
+        self.add(-other, zero)
     }
 
     pub fn mul(self, other: Num, zero: ZeroModel) -> Result<Num, Alarm> {
@@ -255,6 +252,14 @@ fn decimal(x: f64) -> (u64, i32) {
     (digits as u64, e)
 }
 
+impl std::ops::Neg for Num {
+    type Output = Num;
+    /// The sign flipped, zero included: -(+0) is -0.
+    fn neg(self) -> Num {
+        Num(-self.0)
+    }
+}
+
 impl fmt::Display for Num {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.write_str(&format(*self))
@@ -341,7 +346,7 @@ pub fn function(k: u32, x: Num, zero: ZeroModel) -> Result<Num, Alarm> {
         18 => recip(v.cosh())?,
         19 => recip(v.sinh())?,
         20 => recip(v.tanh())?,
-        21 | 22 | 23 => {
+        21..=23 => {
             if v <= 0.0 {
                 return Err(Alarm::Domain("a logarithm of a number that is not positive"));
             }

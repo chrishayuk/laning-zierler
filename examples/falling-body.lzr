@@ -1,0 +1,17 @@
+# The simplest differential equations: a stone dropped from 100 metres.
+#   Dy = v, Dv = -g,   with g = 9.81.
+# Gill's method is exact for a quadratic, so y = 100 - 4.905t² to the 24 bits:
+# at t = 4, y = 21.52 and v = -39.24. It reaches the ground at 4.515 seconds;
+# the program stops at the first step after that.
+    t = 0,
+    h = .25,
+    g = 9.81,
+    y = 100,
+    v = 0,
+1   PRINT t, y, v.
+    Dy = v,
+    Dv = -g,
+    e = -y,
+    CP 1,
+    PRINT t, y, v.
+    STOP

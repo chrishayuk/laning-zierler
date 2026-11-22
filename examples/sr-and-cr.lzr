@@ -1,0 +1,22 @@
+# SR and CR (E-364 p. 9): "SR 5, causes equation 5 to be executed next and
+# then, after equation 5, the equation or instruction following the SR 5". It
+# carries out one equation, not a group of them. CR does the same only when
+# the last computed quantity is negative.
+#
+# Here equation 50 squares x, and is borrowed by SR three times; equation 60
+# makes y positive, and is borrowed by CR only when y is negative.
+    x = 2,
+    SR 50,
+    SR 50,
+    SR 50,
+    PRINT x.
+    y = -7,
+    CR 60,
+    PRINT y.
+    y = 3,
+    CR 60,
+    PRINT y.
+    SP 70,
+50  x = x^2,
+60  y = -y,
+70  STOP

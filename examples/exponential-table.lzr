@@ -1,0 +1,27 @@
+# A table of eˣ for x = 0, .1, ..., 1 kept on the drum, and looked up by
+# linear interpolation with a variable index, as on E-364 pp. 13-16.
+# ASSIGN reserves g|1 to g|11 on the drum; a loop fills them with F¹³, the
+# exponential; the arguments to look up are a list, u|N. e^.25 = 1.28402542 and
+# e^.73 = 2.07508061; straight lines between the tabulated points come out a
+# little above both.
+    ASSIGN g|11,
+    u|N = .25, .73,
+    k|N = 1 (1) 11,
+    n = 0,
+1   n = n + 1,
+    g|n = F^13((n - 1)/10),
+    e = n - 10.5,
+    CP 1,
+    h = .1,
+    i = 0,
+2   i = i + 1,
+    x = u|i,
+    j = .5 + x/h,
+    m = k|j,
+    n = m + 1,
+    d = j + .5 - m,
+    y = d g|n + (1 - d) g|m,
+    PRINT x, y.
+    e = i - 1.5,
+    CP 2,
+    STOP

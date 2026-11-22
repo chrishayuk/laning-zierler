@@ -1,0 +1,15 @@
+# 100 at 5 per cent a year, for ten years, and the same compounded monthly.
+# After ten years: 100 · 1.05^10 = 162.88946, and 100 · (1 + .05/12)^120 =
+# 164.70095. Here they are 162.88938 and 164.70204. The second is further out:
+# 1 + .05/12 is rounded to 24 bits, and that error is multiplied 120 times.
+    p = 100,
+    r = .05,
+    y = 0,
+1   y = y + 1,
+    p = p(1 + r),
+    PRINT y, p.
+    e = y - 9.5,
+    CP 1,
+    q = 100 (1 + r/12)^120,
+    PRINT q.
+    STOP

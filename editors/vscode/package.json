@@ -1,0 +1,204 @@
+{
+  "name": "laning-zierler-language",
+  "displayName": "Laning–Zierler (Whirlwind I, 1954)",
+  "description": "Syntax highlighting, a language server and a run button for the algebraic system of Laning and Zierler, MIT Whirlwind I, 1952-54.",
+  "version": "0.1.0",
+  "publisher": "chrishayuk",
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrishayuk/laning-zierler"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters"
+  ],
+  "keywords": [
+    "laning",
+    "zierler",
+    "whirlwind",
+    "mit",
+    "retro",
+    "language server"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "languages": [
+      {
+        "id": "laning-zierler",
+        "aliases": [
+          "Laning–Zierler",
+          "laning-zierler",
+          "lz"
+        ],
+        "extensions": [
+          ".lzr"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "laning-zierler",
+        "scopeName": "source.lzr",
+        "path": "./syntaxes/laning-zierler.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "laning-zierler",
+        "path": "./snippets/laning-zierler.code-snippets"
+      }
+    ],
+    "commands": [
+      {
+        "command": "lz.run",
+        "title": "Run Tape",
+        "category": "Laning–Zierler",
+        "icon": "$(play)"
+      },
+      {
+        "command": "lz.trace",
+        "title": "Run Tape with a Trace",
+        "category": "Laning–Zierler"
+      },
+      {
+        "command": "lz.translate",
+        "title": "Show the Translation",
+        "category": "Laning–Zierler"
+      },
+      {
+        "command": "lz.flexowriterCharacters",
+        "title": "Write the Flexowriter's Characters (² for ^2, · for *)",
+        "category": "Laning–Zierler"
+      },
+      {
+        "command": "lz.restartServer",
+        "title": "Restart Language Server",
+        "category": "Laning–Zierler"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "lz.run",
+          "when": "resourceLangId == laning-zierler"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "lz.run",
+          "when": "editorLangId == laning-zierler"
+        },
+        {
+          "command": "lz.trace",
+          "when": "editorLangId == laning-zierler"
+        },
+        {
+          "command": "lz.translate",
+          "when": "editorLangId == laning-zierler"
+        },
+        {
+          "command": "lz.flexowriterCharacters",
+          "when": "editorLangId == laning-zierler"
+        },
+        {
+          "command": "lz.restartServer",
+          "when": "editorLangId == laning-zierler"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "lz.run",
+        "key": "ctrl+enter",
+        "mac": "cmd+enter",
+        "when": "editorTextFocus && editorLangId == laning-zierler"
+      },
+      {
+        "command": "type",
+        "args": {
+          "text": "·"
+        },
+        "key": "alt+8",
+        "when": "editorTextFocus && !editorReadonly && editorLangId == laning-zierler"
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "lz"
+      }
+    ],
+    "configuration": {
+      "title": "Laning–Zierler",
+      "properties": {
+        "lz.zero": {
+          "type": "string",
+          "enum": [
+            "ones",
+            "plus"
+          ],
+          "enumDescriptions": [
+            "One's complement: a zero computed by arithmetic (n - n) is -0, so CP jumps on it and it is not a permitted index.",
+            "Every zero is +0, as a reader of today might assume."
+          ],
+          "default": "ones",
+          "description": "How a zero gets its sign when a tape is run (lz --zero)."
+        },
+        "lz.temporaryRules": {
+          "type": "boolean",
+          "default": false,
+          "description": "Apply the Temporary Rules and Restrictions of January 1954 (E-364 section 18): no x|N, and no SR or CR to an equation that uses a function (lz --temporary-rules)."
+        },
+        "lz.server.path": {
+          "type": "string",
+          "default": "",
+          "description": "Path to an lz-lsp program to use as the language server. Leave empty to use the one built into the extension."
+        },
+        "lz.interpreter.path": {
+          "type": "string",
+          "default": "",
+          "description": "Path to an lz program to run tapes with. Leave empty to use the one built into the extension."
+        },
+        "lz.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Log the messages exchanged with the language server."
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[laning-zierler]": {
+        "editor.semanticHighlighting.enabled": true,
+        "editor.wordBasedSuggestions": "off",
+        "editor.inlayHints.enabled": "on"
+      }
+    }
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:vscode": "node test/vscode/run.mjs",
+    "package": "node build.mjs && vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.1",
+    "esbuild": "^0.24.0",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.1.0"
+  }
+}

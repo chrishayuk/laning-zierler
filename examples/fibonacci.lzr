@@ -1,0 +1,17 @@
+# Fibonacci numbers, two at a time. They are exact while they fit in 24 bits:
+# f(36) = 14930352 is under 2^24 = 16777216; f(37) = 24157817 is not, and it
+# is typed .24157818+08: odd, it needs a 25th bit, and is rounded up. The
+# error then travels: f(38) = 39088169 is typed .39088172+08, and f(40) =
+# 102334155 is typed .10233416+09.
+    n = 1,
+    a = 1,
+    b = 1,
+1   PRINT n, a.
+    n = n + 1,
+    PRINT n, b.
+    n = n + 1,
+    a = a + b,
+    b = a + b,
+    e = n - 39.5,
+    CP 1,
+    STOP

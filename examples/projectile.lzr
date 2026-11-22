@@ -1,0 +1,30 @@
+# A shell with air resistance proportional to the square of its speed:
+#   x' = u, y' = v, u' = -kus, v' = -g - kvs, with s = √(u² + v²).
+# Fired at 100 at 45 degrees, g = 9.81, k = 0.001. s is computed between the
+# first and last D equations, as E-364 p. 19 requires, so it is recomputed on
+# each of the four passes of a step. It flies until y goes below zero; without
+# air it would land at 1019.4 after 14.4 seconds. Here it comes down between
+# t = 12.2 and 12.3, at about x = 597.
+    t = 0,
+    h = 0.1,
+    g = 9.81,
+    k = 0.001,
+    x = 0,
+    y = 0,
+    u = 70.710678,
+    v = 70.710678,
+    n = 0,
+1   Dx = u,
+    s = F^1(u^2 + v^2),
+    Du = -kus,
+    Dv = -g - kvs,
+    Dy = v,
+    n = n + 1,
+    e = n - 9.5,
+    CP 2,
+    PRINT t, x, y, u, v.
+    n = 0,
+2   e = -y,
+    CP 1,
+    PRINT t, x, y.
+    STOP

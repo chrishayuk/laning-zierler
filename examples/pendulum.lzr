@@ -1,0 +1,19 @@
+# A damped pendulum: θ'' = -sin θ - 0.2 θ', let go at 2 radians (about 115
+# degrees) from rest. p is the angle, w the angular velocity; F² is the sine.
+# The swings shrink and the pendulum turns back through zero each time. t
+# drifts: after 160 steps of .05 it is typed .80000123+01, because .05 is not
+# exact in binary and each step rounds t + h again.
+    t = 0,
+    h = 0.05,
+    p = 2,
+    w = 0,
+1   PRINT t, p, w.
+    n = 0,
+2   Dp = w,
+    Dw = -F^2(p) - 0.2w,
+    n = n + 1,
+    e = n - 9.5,
+    CP 2,
+    e = t - 9.75,
+    CP 1,
+    STOP

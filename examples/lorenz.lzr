@@ -1,0 +1,19 @@
+# Lorenz's equations of 1963, nine years too late for Whirlwind:
+#   x' = s(y - x),  y' = x(r - z) - y,  z' = xy - bz,
+# with s = 10, r = 28, b = 8/3, from (1, 1, 1). The path wanders between two
+# lobes, x positive and x negative. Printed every quarter of a unit to t = 3.
+    t = 0,
+    h = 0.01,
+    s = 10, r = 28, b = 8/3,
+    x = 1, y = 1, z = 1,
+1   PRINT t, x, y, z.
+    n = 0,
+2   Dx = s(y - x),
+    Dy = x(r - z) - y,
+    Dz = xy - bz,
+    n = n + 1,
+    e = n - 24.5,
+    CP 2,
+    e = t - 2.995,
+    CP 1,
+    STOP

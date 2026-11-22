@@ -1,0 +1,14 @@
+# The integral of sin x from 0 to π by the trapezoidal rule with twenty strips.
+# The answer is 2; the rule with twenty strips gives 1.99588597.
+    m = 20,
+    p = 3.1415927,
+    h = p/m,
+    s = (F^2(0) + F^2(p))/2,
+    i = 0,
+1   i = i + 1,
+    s = s + F^2(ih),
+    e = i - m + 1.5,
+    CP 1,
+    r = sh,
+    PRINT r.
+    STOP

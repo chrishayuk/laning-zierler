@@ -1,0 +1,32 @@
+# A pursuit curve, in memory of the system's first substantial application:
+# "a three-dimensional lead pursuit course flown by one aircraft attacking
+# another" (Laning, 1976). This one is flat and simple. The target starts at
+# (1, 0) and flies straight up the line x = 1 at speed 1. The pursuer starts at
+# the origin, flies at speed w = 1.25, and always heads straight at the target:
+#   x' = w(1 - x)/d,   y' = w(t - y)/d,   d = √((1 - x)² + (t - y)²).
+# The square root is written into each D equation, because the first D
+# equation needs it and auxiliary computation must come after the first D
+# equation (E-364 p. 19). Theory says the pursuer catches the target at
+# t = w/(w² - 1) = 2.2222222, at height 2.2222222. The program stops when the
+# distance d is under .03, at t = 2.12; by then the pursuer is right behind
+# the target and closes at w - 1 = .25 a second, so the last .0256 takes
+# another .10: caught at about 2.22, as theory says.
+    t = 0,
+    h = 0.02,
+    w = 1.25,
+    x = 0,
+    y = 0,
+    n = 0,
+1   Dx = w(1 - x)/F^1((1 - x)^2 + (t - y)^2),
+    Dy = w(t - y)/F^1((1 - x)^2 + (t - y)^2),
+    d = F^1((1 - x)^2 + (t - y)^2),
+    n = n + 1,
+    e = n - 9.5,
+    CP 2,
+    n = 0,
+    PRINT t, x, y, d.
+2   e = d - .03,
+    CP 3,
+    SP 1,
+3   PRINT t, x, y, d.
+    STOP

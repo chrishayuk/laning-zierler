@@ -1,0 +1,21 @@
+# SP with a letter (E-364 section 13): "If, for example, the variable u has the
+# value 15, when the instruction SP u, is reached ... this instruction will
+# have the effect of SP 15,". Here u chooses one of three equations, and each
+# sends control back with SP r. The equation number in u is rounded like an
+# index, so u = 11.2 goes to equation 11.
+    r = 20,
+    u = 11.2,
+    SP u,
+20  u = 12,
+    r = 21,
+    SP u,
+21  u = 13,
+    r = 22,
+    SP u,
+11  PRINT u.
+    SP r,
+12  PRINT u.
+    SP r,
+13  PRINT u.
+    SP r,
+22  STOP

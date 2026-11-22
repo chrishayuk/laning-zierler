@@ -1,0 +1,16 @@
+{
+  "times": { "prefix": "times", "body": "·", "description": "· times: the colon with its lower dot filed off (E-364 p. 10)" },
+  "squared": { "prefix": "sq", "body": "²", "description": "² the upper-case 2: squared" },
+  "cubed": { "prefix": "cube", "body": "³", "description": "³ the upper-case 3: cubed" },
+  "reciprocal": { "prefix": "inv", "body": "⁻¹", "description": "⁻¹ the upper-case minus and 1: one over" },
+  "counted loop": {
+    "prefix": "loop",
+    "body": ["n = 0,", "${1:1}   ${2:x = x + 1},", "    n = n + 1,", "    e = n - ${3:9}.5,", "    CP ${1:1},", "$0"],
+    "description": "Go round ten times, as E-364 p. 8 does: the half keeps e from being zero"
+  },
+  "differential equations": {
+    "prefix": "deq",
+    "body": ["t = ${1:0},", "h = ${2:0.1},", "${3:y} = ${4:1},", "${5:2}   D ${3:y} = ${6:-y},", "    e = t - ${7:0.95},", "    CP ${5:2},", "    PRINT t, ${3:y}.", "$0"],
+    "description": "D equations integrated by Gill's method from t in steps of h"
+  }
+}

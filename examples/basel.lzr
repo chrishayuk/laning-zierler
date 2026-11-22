@@ -1,0 +1,22 @@
+# The sum of 1/n² for n = 1 to 1000, which tends to π²/6 = 1.64493407.
+# The first thousand terms come to 1.64393457 (the tail is about 1/1000).
+# Added in 24 bits from n = 1 upward, the small terms near the end are partly
+# lost in the large sum, and it is typed .16439348+01; added from n = 1000
+# downward it is .16439346+01, one unit from the truth, .16439345+01.
+    s = 0,
+    n = 0,
+1   n = n + 1,
+    s = s + 1/n^2,
+    e = n - 999.5,
+    CP 1,
+    PRINT s.
+    s = 0,
+    n = 1001,
+2   n = n - 1,
+    s = s + 1/n^2,
+    e = 1.5 - n,
+    CP 2,
+    PRINT s.
+    p = 3.1415927^2/6,
+    PRINT p.
+    STOP

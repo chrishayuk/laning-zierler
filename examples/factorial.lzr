@@ -1,0 +1,13 @@
+# n! for n = 1 to 15. Up to 13! every factorial is exact in 24 bits
+# (13! = 6227020800 = 6081075 · 2^10, and 6081075 is under 2^24). 14! is
+# 87178291200 = 42567525 · 2^11, which needs 26 bits: from here the low digits
+# are rounded away: 14! is typed .87178289+11, not .87178291+11, and
+# 15! = 1307674368000 is typed .13076742+13.
+    n = 0,
+    f = 1,
+1   n = n + 1,
+    f = fn,
+    PRINT n, f.
+    e = n - 14.5,
+    CP 1,
+    STOP

@@ -1,0 +1,163 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Laning–Zierler",
+  "scopeName": "source.lzr",
+  "patterns": [
+    {
+      "include": "#note"
+    },
+    {
+      "include": "#label"
+    },
+    {
+      "include": "#jump"
+    },
+    {
+      "include": "#keyword"
+    },
+    {
+      "include": "#derivative"
+    },
+    {
+      "include": "#function"
+    },
+    {
+      "include": "#superscript-variable"
+    },
+    {
+      "include": "#exponent"
+    },
+    {
+      "include": "#number"
+    },
+    {
+      "include": "#letter"
+    },
+    {
+      "include": "#operator"
+    },
+    {
+      "include": "#invalid"
+    }
+  ],
+  "repository": {
+    "note": {
+      "name": "comment.line.number-sign.lzr",
+      "match": "#.*$"
+    },
+    "label": {
+      "comment": "An equation number: 1 to 100, at the start of a statement, before a letter or an instruction.",
+      "match": "(?:^|(?<=[,.]))\\s*(\\d+)(?=\\s*(?:[a-z]|PRINT\\b|STOP\\b|ASSIGN\\b|D\\b|D(?=\\s*[a-z])))",
+      "captures": {
+        "1": {
+          "name": "entity.name.section.equation.lzr"
+        }
+      }
+    },
+    "jump": {
+      "match": "\\b(SP|CP|SR|CR)\\s*(?:(\\d+)|([a-z]))?",
+      "captures": {
+        "1": {
+          "name": "keyword.control.jump.lzr"
+        },
+        "2": {
+          "name": "entity.name.section.equation.reference.lzr"
+        },
+        "3": {
+          "name": "variable.other.letter.lzr"
+        }
+      }
+    },
+    "keyword": {
+      "name": "keyword.control.lzr",
+      "match": "\\b(?:PRINT|STOP|ASSIGN)\\b"
+    },
+    "derivative": {
+      "name": "keyword.other.derivative.lzr",
+      "match": "\\bD(?=\\s*[a-z])"
+    },
+    "function": {
+      "match": "\\b(F)(\\^-?\\d+|[⁰¹²³⁴⁵⁶⁷⁸⁹]+)",
+      "captures": {
+        "1": {
+          "name": "support.function.lzr"
+        },
+        "2": {
+          "name": "support.function.number.lzr"
+        }
+      }
+    },
+    "superscript-variable": {
+      "match": "([a-z])\\s*(\\|)\\s*(?:(N)\\b|(\\d+|[⁰¹²³⁴⁵⁶⁷⁸⁹]+)|([a-z]))",
+      "captures": {
+        "1": {
+          "name": "variable.other.letter.lzr"
+        },
+        "2": {
+          "name": "punctuation.separator.superscript.lzr"
+        },
+        "3": {
+          "name": "keyword.other.list.lzr"
+        },
+        "4": {
+          "name": "constant.numeric.superscript.lzr"
+        },
+        "5": {
+          "name": "variable.parameter.index.lzr"
+        }
+      }
+    },
+    "exponent": {
+      "name": "keyword.operator.power.lzr",
+      "match": "\\^-?\\d+|⁻?[⁰¹²³⁴⁵⁶⁷⁸⁹]+"
+    },
+    "number": {
+      "name": "constant.numeric.lzr",
+      "match": "\\d+(?:\\.\\d*)?|\\.\\d+"
+    },
+    "letter": {
+      "name": "variable.other.letter.lzr",
+      "match": "[a-z]"
+    },
+    "operator": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arithmetic.lzr",
+          "match": "[+\\-−]"
+        },
+        {
+          "name": "keyword.operator.times.lzr",
+          "match": "[·:*×]"
+        },
+        {
+          "name": "keyword.operator.division.lzr",
+          "match": "/"
+        },
+        {
+          "name": "keyword.operator.assignment.lzr",
+          "match": "="
+        },
+        {
+          "name": "punctuation.terminator.equation.lzr",
+          "match": ","
+        },
+        {
+          "name": "punctuation.terminator.print.lzr",
+          "match": "\\."
+        },
+        {
+          "name": "punctuation.section.parens.lzr",
+          "match": "[()]"
+        },
+        {
+          "name": "punctuation.separator.superscript.lzr",
+          "match": "\\|"
+        }
+      ]
+    },
+    "invalid": {
+      "name": "invalid.illegal.lzr",
+      "match": "[A-Z]+|[^\\s]"
+    }
+  }
+}

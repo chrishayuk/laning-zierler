@@ -320,7 +320,7 @@ impl<'a> Machine<'a> {
                 }
                 Order::Neg => {
                     let x = stack.pop().unwrap();
-                    stack.push(x.neg());
+                    stack.push(-x);
                 }
                 Order::Pow(n) => {
                     let x = stack.pop().unwrap();

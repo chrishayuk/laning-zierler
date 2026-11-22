@@ -1,0 +1,18 @@
+# Simpson's rule for the integral of 4/(1 + x²) from 0 to 1, which is π, with
+# ten strips. The weights go 1, 4, 2, 4, ..., 2, 4, 1; w = 6 - w turns 4 into 2
+# and back. π = 3.14159265; Simpson with ten strips gives 3.14159261 in exact
+# arithmetic.
+    m = 10,
+    h = 1/m,
+    s = 4 + 2,          # the ends: 4/(1 + 0) and 4/(1 + 1)
+    w = 4,
+    i = 0,
+1   i = i + 1,
+    x = ih,
+    s = s + 4w/(1 + x^2),
+    w = 6 - w,
+    e = i - m + 1.5,
+    CP 1,
+    p = sh/3,
+    PRINT p.
+    STOP

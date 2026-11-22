@@ -1,0 +1,20 @@
+# A spring: x'' = -x, written as two first-order equations, Dx = v, Dv = -x,
+# from x = 1, v = 0. The answer is x = cos t, v = -sin t. With h = 0.1 the
+# values at the end are within a few units in the sixth digit of
+# cos 3 = -.98999250 and -sin 3 = -.14112001. t itself is typed .29999992+01:
+# a tenth is not exact in binary, and t has had it added thirty times.
+    t = 0,
+    h = 0.1,
+    x = 1,
+    v = 0,
+1   PRINT t, x, v.
+    n = 0,
+2   Dx = v,
+    Dv = -x,
+    n = n + 1,
+    e = n - 4.5,
+    CP 2,
+    e = t - 2.95,
+    CP 1,
+    PRINT t, x, v.
+    STOP

@@ -413,6 +413,9 @@ impl Parser {
                     break;
                 }
                 None => return err(self.span(), "every PRINT instruction must end with a period"),
+                Some(Tok::Word(_) | Tok::Number(_)) if self.toks[self.pos - 1].tok == Tok::Comma => {
+                    return err(self.prev_span(), "every PRINT instruction must end with a period, not a comma");
+                }
                 _ => {
                     return err(
                         self.span(),
@@ -518,12 +521,10 @@ impl Parser {
             // Another value follows if the next token is a sign, or a number
             // that is not the number of the next equation (which is followed
             // by a letter or an instruction).
-            let more = match (self.peek(), self.peek_at(1)) {
-                (Some(Tok::Minus | Tok::Plus), _) => true,
-                (Some(Tok::Number(_)), Some(Tok::Comma | Tok::LParen)) => true,
-                (Some(Tok::Number(_)), None) => true,
-                _ => false,
-            };
+            let more = matches!(
+                (self.peek(), self.peek_at(1)),
+                (Some(Tok::Minus | Tok::Plus), _) | (Some(Tok::Number(_)), Some(Tok::Comma | Tok::LParen) | None)
+            );
             if !more {
                 break;
             }
@@ -766,6 +767,12 @@ mod tests {
         let Kind::List { items, .. } = &t.statements[0].kind else { panic!() };
         assert_eq!(items.len(), 4);
         assert_eq!(t.statements[1].label, Some(1));
+    }
+
+    #[test]
+    fn a_print_ended_with_a_comma() {
+        let e = parse("a = 1,\nPRINT a,\nSTOP").errors;
+        assert!(e[0].message.contains("must end with a period"), "{e:?}");
     }
 
     #[test]

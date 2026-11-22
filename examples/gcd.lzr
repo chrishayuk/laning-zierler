@@ -1,0 +1,15 @@
+# Euclid's algorithm by subtraction: the greatest common divisor of 1071 and
+# 462, which is 21. The test for a = b is |a - b| - .5 < 0, with F¹¹, the
+# absolute value, so that the sign of a zero difference does not matter.
+    a = 1071,
+    b = 462,
+1   e = F^11(a - b) - .5,
+    CP 4,
+    e = a - b,
+    CP 2,
+    a = a - b,
+    SP 1,
+2   b = b - a,
+    SP 1,
+4   PRINT a, b.
+    STOP

@@ -1,0 +1,14 @@
+# A table of sines and cosines every 15 degrees, with F² and F³. The angle is
+# turned into radians by π/180. Neither π/180 nor the angles it makes are
+# exact in 24 bits, so cos 60° is typed .49999997, and cos 90° is not zero but
+# -.43711388-07: the cosine of a number a hair larger than π/2.
+    d = 0,
+    r = 3.1415927/180,
+1   x = dr,
+    s = F^2(x),
+    c = F^3(x),
+    PRINT d, s, c.
+    d = d + 15,
+    e = d - 97.5,
+    CP 1,
+    STOP

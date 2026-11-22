@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Laning and Zierler, 1954</title>
+<meta name="description" content="The algebraic system of Laning and Zierler for MIT's Whirlwind I (1954), reconstructed from Engineering Memorandum E-364 and running in the page: punch a tape of equations, feed it, and read what the printer types.">
+<style>
+  :root {
+    --page: #e8e3d3; --ink: #1d1c19; --dim: #6a6455; --rule: #cfc5aa; --card: #fbf8ef;
+    --paper: #f7f2e2; --paper-ink: #1d1c19; --red: #a3261b; --pencil: #5b6470; --accent: #2f4f7a;
+    --tape: #e9dcb4; --tape-edge: #c9b780; --hole: #2a2822; --lamp-off: #8a8577;
+    --token-comment: #77705f; --token-label: #8a5a00; --token-keyword: #a3261b; --token-function: #6a3f9a;
+    --token-number: #1f5aa6; --token-exponent: #1f5aa6; --token-variable: #1d1c19; --token-index: #2e7a4f; --token-operator: #8b4f3a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --page: #1f1e1b; --ink: #e9e4d4; --dim: #a39c88; --rule: #4a463c; --card: #2a2925;
+      --accent: #9db8e0; --pencil: #a9b3c0; --lamp-off: #5a564c;
+      --token-comment: #9a937f; --token-label: #e0b25a; --token-keyword: #ff8f80; --token-function: #c7a6ec;
+      --token-number: #8fbaf2; --token-exponent: #8fbaf2; --token-variable: #ece6d4; --token-index: #8fd3a9; --token-operator: #e6a58d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --page: #1f1e1b; --ink: #e9e4d4; --dim: #a39c88; --rule: #4a463c; --card: #2a2925;
+    --accent: #9db8e0; --pencil: #a9b3c0; --lamp-off: #5a564c;
+    --token-comment: #9a937f; --token-label: #e0b25a; --token-keyword: #ff8f80; --token-function: #c7a6ec;
+    --token-number: #8fbaf2; --token-exponent: #8fbaf2; --token-variable: #ece6d4; --token-index: #8fd3a9; --token-operator: #e6a58d;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.55 Georgia, "Times New Roman", serif; }
+  main { max-width: 1320px; margin: 0 auto; padding: 20px 16px 56px; }
+  .mono, code, pre, select, button, .cm-editor, textarea { font-family: "Courier Prime", "Courier New", Courier, ui-monospace, monospace; }
+  code { font-size: .95em; }
+
+  /* The masthead: an Instrumentation Laboratory memorandum. */
+  .memo { border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink); padding: 10px 0 12px; margin-bottom: 14px; }
+  .memo .kicker { font: 12px/1.4 "Courier New", Courier, monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+  .memo h1 { font-size: clamp(22px, 3.4vw, 30px); font-weight: normal; margin: 4px 0 2px; letter-spacing: .01em; }
+  .memo .by { font-style: italic; color: var(--dim); margin: 0; }
+  .intro { max-width: 82ch; margin: 0 0 6px; }
+  .intro.dim { color: var(--dim); font-size: 14px; }
+
+  .bar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 12px 0; }
+  .bar label { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; }
+  select, button { font-size: 14px; color: inherit; }
+  select { background: var(--card); border: 1px solid var(--rule); padding: 4px 6px; border-radius: 2px; max-width: 100%; }
+  button { padding: 5px 12px; border: 1px solid var(--ink); background: transparent; border-radius: 2px; cursor: pointer; letter-spacing: .04em; }
+  button:hover:not(:disabled) { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+  button:disabled { opacity: .45; cursor: default; }
+  button.primary { background: var(--ink); color: var(--page); }
+  button.primary:hover:not(:disabled) { background: color-mix(in srgb, var(--ink) 85%, var(--page)); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .panes { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .panes { grid-template-columns: minmax(0, 1fr); } }
+  .panes > section { min-width: 0; }
+  .label { font: 12px/1.4 "Courier New", Courier, monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin: 0 0 6px; }
+
+  /* The Flexowriter: where the tape is typed. */
+  #tape-text, .cm-editor { width: 100%; min-height: 380px; max-height: 72vh; font-size: 14px; line-height: 1.5; background: var(--card); color: var(--ink); border: 1px solid var(--rule); }
+  #tape-text { padding: 8px; resize: vertical; white-space: pre; tab-size: 4; }
+  .cm-editor.cm-focused { outline: 2px solid var(--accent); }
+  .cm-editor .cm-scroller { font-family: inherit; }
+  .cm-editor .cm-gutters { background: transparent; border-right: 1px solid var(--rule); color: var(--dim); }
+  .cm-editor .cm-cursor { border-left-color: var(--ink); }
+  .cm-editor .cm-activeLine { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+  .cm-editor .cm-selectionBackground, .cm-editor.cm-focused .cm-selectionBackground { background: color-mix(in srgb, var(--accent) 25%, transparent) !important; }
+  .cm-tooltip { background: var(--card) !important; color: var(--ink); border: 1px solid var(--rule) !important; }
+  .lz-hover { max-width: 52ch; font: 13px/1.45 Georgia, serif; padding: 4px 8px; }
+  .lz-hover code, .lz-hover pre { font-family: "Courier New", monospace; }
+  .lz-alarm-line { background: color-mix(in srgb, var(--red) 14%, transparent); }
+  .lz-token-comment { color: var(--token-comment); font-style: italic; }
+  .lz-token-label { color: var(--token-label); font-weight: 700; }
+  .lz-token-keyword, .lz-token-macro { color: var(--token-keyword); font-weight: 700; }
+  .lz-token-function { color: var(--token-function); }
+  .lz-token-number { color: var(--token-number); }
+  .lz-token-exponent, .lz-token-operator.lz-exp { color: var(--token-exponent); }
+  .lz-token-variable, .lz-token-parameter, .lz-token-property { color: var(--token-variable); }
+  .lz-token-index, .lz-token-type, .lz-token-enumMember { color: var(--token-index); }
+  .lz-token-operator { color: var(--token-operator); }
+  .lz-token-definition { text-decoration: underline dotted; text-underline-offset: 3px; }
+  .keys { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0 0; align-items: center; }
+  .keys button { min-width: 2.1em; padding: 3px 6px; font-size: 14px; }
+  .keys .sep { width: 8px; }
+  .about { font-size: 14px; color: var(--dim); white-space: pre-wrap; margin: 10px 0 0; max-height: 11em; overflow: auto; border-left: 2px solid var(--rule); padding-left: 10px; }
+
+  /* The paper tape strip under the reader's head. */
+  .reader { background: var(--card); border: 1px solid var(--rule); padding: 8px 10px 6px; margin-bottom: 12px; }
+  .reader canvas { display: block; width: 100%; height: 72px; }
+  .reader .caption { display: flex; justify-content: space-between; gap: 8px; font: 12px/1.4 "Courier New", monospace; color: var(--dim); margin-top: 4px; flex-wrap: wrap; }
+  .status { display: flex; align-items: center; gap: 8px; font: 13px/1.4 "Courier New", monospace; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 8px; }
+  .lamp { width: 11px; height: 11px; border-radius: 50%; background: var(--lamp-off); flex: none; box-shadow: inset 0 0 0 1px rgba(0,0,0,.25); }
+  .lamp.busy { background: #d99a1e; box-shadow: 0 0 6px #d99a1e; }
+  .lamp.ok { background: #2e9a55; }
+  .lamp.alarm { background: #c0392b; box-shadow: 0 0 6px #c0392b; }
+
+  .tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+  .tabs button { border: 1px solid transparent; border-bottom: 0; border-radius: 2px 2px 0 0; padding: 5px 12px; font-size: 13px; }
+  .tabs button[aria-selected="true"] { border-color: var(--rule); background: var(--card); font-weight: 700; }
+  .panel { border: 1px solid var(--rule); border-top: 0; background: var(--card); }
+  .panel[hidden] { display: none; }
+
+  /* The printer's paper. */
+  .printout { position: relative; background: var(--paper); color: var(--paper-ink); min-height: 420px; max-height: 70vh; overflow: auto; padding: 18px 18px 28px 46px;
+    background-image: radial-gradient(circle at 18px 22px, rgba(0,0,0,.18) 4px, transparent 5px); background-size: 100% 36px; background-repeat: repeat-y; }
+  .printout pre { margin: 0; font: 14px/1.5 "Courier New", Courier, monospace; white-space: pre; color: var(--paper-ink); }
+  .printout .alarm { color: #a3261b; font-weight: 700; }
+  .printout .cursor { display: inline-block; width: .6ch; background: #1d1c19; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .printout .cursor { animation: none; } }
+  .margin-note { font: italic 13px/1.45 Georgia, serif; color: #4a5361; border-left: 2px solid #8a94a3; padding: 2px 0 2px 10px; margin: 14px 0 0; white-space: normal; max-width: 60ch; }
+  .margin-note strong { font-style: normal; }
+  .empty { color: #8c8574; font: italic 14px/1.5 Georgia, serif; }
+  .problems { list-style: none; padding: 0; margin: 0; font: 13px/1.5 "Courier New", monospace; }
+  .problems li { padding: 3px 0; }
+  .problems .error { color: #a3261b; }
+  .problems .warning { color: #8a5a00; }
+  .problems .hint { color: #4a5361; }
+  .problems a { color: inherit; }
+
+  .listing { margin: 0; padding: 14px 16px; font: 13px/1.5 "Courier New", monospace; white-space: pre; overflow: auto; max-height: 70vh; color: var(--ink); }
+  .listing .eq { color: var(--token-label); font-weight: 700; }
+  .listing .note { color: var(--dim); font-style: italic; }
+  .panel .explain { margin: 0; padding: 12px 16px 0; font-size: 14px; color: var(--dim); max-width: 80ch; }
+  table.cost { border-collapse: collapse; margin: 10px 16px 14px; font: 14px/1.5 "Courier New", monospace; }
+  table.cost td { padding: 3px 14px 3px 0; border-bottom: 1px dotted var(--rule); vertical-align: top; }
+  table.cost td.n { text-align: right; font-weight: 700; }
+  table.cost td.note { color: var(--dim); font-family: Georgia, serif; font-size: 13px; }
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; }
+  @media (max-width: 620px) { .compare { grid-template-columns: 1fr; } }
+  .compare h3 { font: 700 12px/1.4 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 4px; }
+  .compare pre { background: var(--paper); color: var(--paper-ink); margin: 0; padding: 10px; font: 12px/1.45 "Courier New", monospace; overflow: auto; max-height: 60vh; }
+  .compare pre .differs { background: rgba(163, 38, 27, .14); display: inline-block; min-width: 100%; }
+
+  footer { margin-top: 28px; font-size: 13px; color: var(--dim); max-width: 90ch; }
+  footer a { color: inherit; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+  <header class="memo">
+    <div class="kicker">Instrumentation Laboratory · Massachusetts Institute of Technology · Engineering Memorandum E-364</div>
+    <h1>A Program for Translation of Mathematical Equations for Whirlwind I</h1>
+    <p class="by">J. H. Laning Jr. and N. Zierler, January 1954, reconstructed and running in this page</p>
+  </header>
+  <p class="intro">“The effect of our program is to create a computer within a computer.” You typed your problem on a Flexowriter as
+    ordinary equations, the punched tape went into Whirlwind’s reader, every equation was translated into a block of
+    floating-point subroutine calls on the magnetic drum, and the answers came back typed. Type a tape on the left and feed it.</p>
+  <p class="intro dim">Every equation ends with a comma, a PRINT with a period, and the program with STOP. Juxtaposition is
+    multiplication; a space between two numbers is too (<code>2 3</code> is 6). Exponents were upper-case digits: type
+    <code>x^2</code>, or Alt with a digit for <code>x²</code>. <code>F²(x)</code> is sin x. And a slash does not divide by the next factor alone:
+    <code>a/b/c</code> is <i>ac</i> over <i>b</i>.</p>
+
+  <div class="bar" role="group" aria-label="The tape and how to run it">
+    <label>Tape <select id="examples"></select></label>
+    <button id="feed" class="primary" title="Read the tape, translate it, run it (Ctrl/⌘+Enter)">FEED THE TAPE</button>
+    <button id="skip" disabled>FINISH TYPING</button>
+    <label>Printer <select id="speed">
+      <option value="10">Flexowriter, 10 a second</option>
+      <option value="60">fast</option>
+      <option value="0">all at once</option>
+    </select></label>
+    <label>Zero <select id="zero">
+      <option value="ones">one’s complement: n − n is −0</option>
+      <option value="plus">always +0</option>
+    </select></label>
+    <label title="E-364, section 18: no x|N, and no SR or CR to an equation that calls a function"><input type="checkbox" id="rules"> rules of January 1954</label>
+  </div>
+
+  <div class="panes">
+    <section aria-labelledby="flexo-label">
+      <p class="label" id="flexo-label">The Flexowriter: the tape as typed</p>
+      <textarea id="tape-text" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="The tape: equations as typed on the Flexowriter"></textarea>
+      <div class="keys" role="group" aria-label="Flexowriter characters">
+        <button data-key="·" title="times (Alt-.)">·</button>
+        <button data-key="|" title="the vertical slash of a superscript variable, x|5">|</button>
+        <span class="sep"></span>
+        <button data-key="⁻" title="the upper-case minus (Alt--)">⁻</button>
+        <button data-key="⁰">⁰</button><button data-key="¹">¹</button><button data-key="²">²</button><button data-key="³">³</button><button data-key="⁴">⁴</button>
+        <button data-key="⁵">⁵</button><button data-key="⁶">⁶</button><button data-key="⁷">⁷</button><button data-key="⁸">⁸</button><button data-key="⁹">⁹</button>
+        <span class="sep"></span>
+        <label class="sr-only" for="functions">Insert a function subroutine</label>
+        <select id="functions" aria-label="Insert a function subroutine"><option value="">F¹ … F²³</option></select>
+      </div>
+      <div class="about" id="about"></div>
+    </section>
+
+    <section aria-labelledby="whirlwind-label">
+      <p class="label" id="whirlwind-label">Whirlwind I</p>
+      <div class="reader">
+        <canvas id="strip" width="640" height="72" role="img" aria-label="The punched paper tape passing the photoelectric reader"></canvas>
+        <div class="caption"><span id="reading">The tape is in the reader.</span><span title="The holes drawn are not the Whirlwind Flexowriter code, which is not reproduced here: they are the character's number in six bits.">holes: illustrative, not the Whirlwind code</span></div>
+      </div>
+      <p class="status" role="status" aria-live="polite"><span class="lamp" id="lamp"></span><span id="state">READY</span></p>
+
+      <div class="tabs" role="tablist" aria-label="What came back">
+        <button role="tab" id="tab-printer" aria-controls="panel-printer" aria-selected="true">Printer</button>
+        <button role="tab" id="tab-translation" aria-controls="panel-translation" aria-selected="false" tabindex="-1">Translation</button>
+        <button role="tab" id="tab-trace" aria-controls="panel-trace" aria-selected="false" tabindex="-1">Trace</button>
+        <button role="tab" id="tab-cost" aria-controls="panel-cost" aria-selected="false" tabindex="-1">Cost</button>
+        <button role="tab" id="tab-compare" aria-controls="panel-compare" aria-selected="false" tabindex="-1">+0 and −0</button>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-printer" aria-labelledby="tab-printer">
+        <div class="printout" id="printout"><pre id="page" aria-label="What the printer typed"></pre><div id="notes"></div></div>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-translation" aria-labelledby="tab-translation" hidden>
+        <p class="explain">Before anything ran, the whole tape was translated. Each equation became a block of calls on the floating-point
+          interpretive routines, kept on the drum and brought into core one equation at a time. Equations the programmer did not number
+          were numbered from 101, “in the order in which they are written”. (These orders are the reconstruction’s; Whirlwind’s are not known.)</p>
+        <pre class="listing" id="listing"></pre>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-trace" aria-labelledby="tab-trace" hidden>
+        <p class="explain">Each equation as it was carried out, with the value stored; each jump, and whether it was taken.
+          Passes through the D equations are numbered: Gill’s method goes through them four times for each step.</p>
+        <pre class="listing" id="trace"></pre>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-cost" aria-labelledby="tab-cost" hidden>
+        <p class="explain">What the run cost, counted. The system ran “about six to eight times as long” as Whirlwind’s ordinary
+          interpretive system (MIT summer session, 1954), “of the order of magnitude of ten to one from an efficient computer program” (Adams and Laning, 1954).
+          The one cost E-364 gives in time is the drum: a variable there takes “about 30 milliseconds longer”.</p>
+        <table class="cost" id="cost"></table>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-compare" aria-labelledby="tab-compare" hidden>
+        <p class="explain">Whirlwind was a one’s-complement machine: “0 may appear as +0 or −0” (E-364, p. 8). CP jumps on −0, and a
+          superscript may be zero only “if assigned by the specific equation n = 0,” (p. 13). The same tape, fed twice, once with each zero.</p>
+        <div class="compare"><div><h3>One’s complement</h3><pre id="cmp-ones"></pre></div><div><h3>Always +0</h3><pre id="cmp-plus"></pre></div></div>
+        <p class="explain" id="cmp-summary" style="padding-bottom:12px"></p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>The system here is <code>lz</code>, a reconstruction in Rust from E-364, compiled unchanged to WebAssembly. What it does that the
+      manual does not say (the sign of a computed zero, the wording of an alarm, the orders of a block) is set out in the project’s README.
+      Add <code>?example=1976-knuth-tpk&amp;run</code> to the address to feed a tape at once; <code>&amp;speed=fast</code>, <code>&amp;zero=plus</code>, <code>&amp;rules=1954</code>.</p>
+  </footer>
+</main>
+
+<script type="module">
+const $ = (id) => document.getElementById(id);
+const wasmUrl = new URL("lz.wasm", import.meta.url).href;
+const params = new URLSearchParams(location.search);
+
+// ---------------------------------------------------------------- the worker
+let worker = null;
+let nextId = 0;
+const waiting = new Map();
+function ask(job, tape, settings) {
+  if (!worker) {
+    worker = new Worker(new URL("worker.js", import.meta.url), { type: "module" });
+    worker.onmessage = ({ data }) => {
+      const pending = waiting.get(data.id);
+      waiting.delete(data.id);
+      if (!pending) return;
+      if (data.error) pending.reject(new Error(data.error));
+      else pending.resolve(data.result);
+    };
+    worker.onerror = (e) => {
+      for (const p of waiting.values()) p.reject(new Error(e.message || "the worker failed"));
+      waiting.clear();
+      worker = null;
+    };
+  }
+  const id = ++nextId;
+  return new Promise((resolve, reject) => {
+    waiting.set(id, { resolve, reject });
+    worker.postMessage({ id, wasmUrl, job, tape, settings });
+  });
+}
+/** Abandons whatever the worker is doing (a run that does not stop). */
+function abandon() {
+  if (!worker) return;
+  worker.terminate();
+  worker = null;
+  for (const p of waiting.values()) p.reject(new Error("abandoned"));
+  waiting.clear();
+}
+
+// ---------------------------------------------------------------- settings
+const store = {
+  get(key) { try { return localStorage.getItem(`lz.${key}`); } catch { return null; } },
+  set(key, value) { try { localStorage.setItem(`lz.${key}`, value); } catch {} },
+};
+const speedParam = { fast: "60", slow: "10", flexowriter: "10", instant: "0" }[params.get("speed")];
+$("speed").value = speedParam ?? store.get("speed") ?? "10";
+$("speed").onchange = () => store.set("speed", $("speed").value);
+if (params.get("zero") === "plus") $("zero").value = "plus";
+if (params.has("rules")) $("rules").checked = params.get("rules") !== "0";
+const settings = () => ({ zero: $("zero").value, rules: $("rules").checked });
+
+// ---------------------------------------------------------------- the editor
+const textarea = $("tape-text");
+let editor = null;
+const tape = () => textarea.value;
+const setTape = (text) => { textarea.value = text; editor?.set(text); };
+function insert(text) {
+  if (editor) {
+    editor.dispatch(editor.state.replaceSelection(text), { scrollIntoView: true });
+    editor.focus();
+  } else {
+    const { selectionStart: a, selectionEnd: b, value } = textarea;
+    textarea.value = value.slice(0, a) + text + value.slice(b);
+    textarea.selectionStart = textarea.selectionEnd = a + text.length;
+    textarea.focus();
+  }
+}
+for (const key of document.querySelectorAll(".keys button[data-key]")) key.onclick = () => insert(key.dataset.key);
+const FUNCTIONS = ["square root", "sine", "cosine", "tangent", "sine⁻¹", "cosine⁻¹", "tangent⁻¹", "secant", "cosecant", "cotangent",
+  "absolute value", "signum", "exponential eˣ", "negative exponential e⁻ˣ", "sinh", "cosh", "tanh", "sech", "csch", "coth", "log₁₀", "log₂", "logₑ"];
+const SUP = (n) => String(n).replace(/\d/g, (d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
+FUNCTIONS.forEach((name, i) => $("functions").add(new Option(`F${SUP(i + 1)}  ${name}`, `F${SUP(i + 1)}(`)));
+$("functions").onchange = () => { if ($("functions").value) insert($("functions").value); $("functions").value = ""; };
+
+import("./editor.js").then(({ upgrade }) =>
+  upgrade(textarea, {
+    onRun: () => feed(),
+    check: (text) => ask("check", text, settings()).catch(() => []),
+  })
+).then((view) => { editor = view; });
+textarea.addEventListener("keydown", (e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); feed(); } });
+
+// ---------------------------------------------------------------- examples
+let examples = [];
+async function loadExamples() {
+  try {
+    examples = await (await fetch(new URL("examples.json", import.meta.url))).json();
+  } catch {
+    examples = [];
+  }
+  const select = $("examples");
+  for (const e of examples) select.add(new Option(e.name, e.name));
+  select.add(new Option("(a fresh tape)", ""));
+  select.onchange = () => choose(select.value);
+  const wanted = params.get("example");
+  choose(examples.some((e) => e.name === wanted) ? wanted : examples[0]?.name ?? "");
+  if (params.has("run")) feed();
+}
+function choose(name) {
+  $("examples").value = name;
+  const e = examples.find((x) => x.name === name);
+  setTape(e ? e.tape : "# A fresh tape. Each equation ends with a comma.\nx = 2,\n1 y = 0.5 (x + 2/x),\nx = y,\nPRINT y.\n", true);
+  // The notes as paragraphs: a line that is indented (a formula) keeps its own line.
+  $("about").textContent = e ? e.about.replace(/\n(?=\S)/g, (m, at, all) => (all[at - 1] === "\n" ? m : " ")) : "";
+  if (e?.settings?.zero) $("zero").value = e.settings.zero;
+  if (e?.settings?.rules !== undefined) $("rules").checked = e.settings.rules;
+  resetOutput();
+  drawStrip(0);
+}
+
+// ---------------------------------------------------------------- the paper tape
+const strip = $("strip");
+const ctx = strip.getContext("2d");
+let stripChars = [];
+function drawStrip(position) {
+  const ratio = window.devicePixelRatio || 1;
+  const w = strip.clientWidth || 640;
+  const h = 72;
+  if (strip.width !== Math.round(w * ratio)) { strip.width = Math.round(w * ratio); strip.height = Math.round(h * ratio); }
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  const css = getComputedStyle(document.documentElement);
+  ctx.clearRect(0, 0, w, h);
+  const pitch = 10;                       // one character every tenth of an inch
+  const head = Math.round(w * 0.35);      // the reader's head
+  const top = 6, bottom = 54;
+  ctx.fillStyle = css.getPropertyValue("--tape").trim();
+  ctx.fillRect(0, top, w, bottom - top);
+  ctx.strokeStyle = css.getPropertyValue("--tape-edge").trim();
+  ctx.strokeRect(0.5, top + .5, w - 1, bottom - top - 1);
+  // rows: holes 1-3, the feed hole, holes 4-6
+  const rows = [top + 7, top + 14, top + 21, top + 28, top + 35, top + 42, top + 49 - 2];
+  const first = Math.floor(position - head / pitch) - 1;
+  const last = Math.ceil(position + (w - head) / pitch) + 1;
+  for (let i = Math.max(0, first); i < Math.min(stripChars.length, last); i++) {
+    const x = head + (i - position) * pitch;
+    const code = stripChars[i];
+    ctx.fillStyle = css.getPropertyValue("--hole").trim();
+    // feed (sprocket) hole: small, always
+    ctx.beginPath(); ctx.arc(x, rows[3], 1.6, 0, 7); ctx.fill();
+    const bits = code & 63;
+    const data = [0, 1, 2, 4, 5, 6];
+    for (let b = 0; b < 6; b++) {
+      if (bits & (1 << b)) { ctx.beginPath(); ctx.arc(x, rows[data[b]], 3, 0, 7); ctx.fill(); }
+    }
+  }
+  // past the end of the tape: leader with feed holes only
+  ctx.fillStyle = css.getPropertyValue("--hole").trim();
+  for (let i = Math.max(stripChars.length, first); i < last; i++) {
+    const x = head + (i - position) * pitch;
+    if (x > 0 && x < w) { ctx.beginPath(); ctx.arc(x, rows[3], 1.6, 0, 7); ctx.fill(); }
+  }
+  // the head
+  ctx.strokeStyle = "#c0392b";
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(head + .5, 2); ctx.lineTo(head + .5, bottom + 4); ctx.stroke();
+  const at = Math.round(position);
+  ctx.fillStyle = css.getPropertyValue("--ink").trim();
+  ctx.font = "12px 'Courier New', monospace";
+  const shown = stripText[at] ?? "";
+  const label = at < stripText.length ? (shown === "\n" ? "carriage return" : shown === " " ? "space" : shown === "\t" ? "tabulate" : shown) : "";
+  ctx.fillText(label, head - 3, 68);
+}
+let stripText = [];
+function loadStrip(text) {
+  // Notes (#) are not on the tape.
+  const onTape = text.replace(/#[^\n]*/g, "");
+  stripText = [...onTape];
+  stripChars = stripText.map((c) => c.codePointAt(0));
+}
+function animateStrip(duration) {
+  return new Promise((resolve) => {
+    if (duration <= 0 || matchMedia("(prefers-reduced-motion: reduce)").matches) { drawStrip(stripChars.length); resolve(); return; }
+    const start = performance.now();
+    const step = (now) => {
+      const f = Math.min(1, (now - start) / duration);
+      const pos = f * stripChars.length;
+      drawStrip(pos);
+      $("reading").textContent = `Reading the tape: character ${Math.min(stripChars.length, Math.round(pos))} of ${stripChars.length}.`;
+      if (f < 1 && running) requestAnimationFrame(step);
+      else resolve();
+    };
+    requestAnimationFrame(step);
+  });
+}
+addEventListener("resize", () => drawStrip(stripChars.length ? stripChars.length : 0));
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => drawStrip(stripChars.length));
+
+// ---------------------------------------------------------------- status and tabs
+function status(text, lamp = "") {
+  $("state").textContent = text;
+  $("lamp").className = `lamp ${lamp}`;
+}
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function showTab(tab) {
+  for (const t of tabs) {
+    const on = t === tab;
+    t.setAttribute("aria-selected", String(on));
+    t.tabIndex = on ? 0 : -1;
+    $(t.getAttribute("aria-controls")).hidden = !on;
+  }
+  if (tab.id === "tab-trace") loadTrace();
+  if (tab.id === "tab-compare") loadCompare();
+}
+for (const t of tabs) {
+  t.onclick = () => showTab(t);
+  t.onkeydown = (e) => {
+    const i = tabs.indexOf(t);
+    const j = e.key === "ArrowRight" ? (i + 1) % tabs.length : e.key === "ArrowLeft" ? (i + tabs.length - 1) % tabs.length : -1;
+    if (j >= 0) { tabs[j].focus(); showTab(tabs[j]); e.preventDefault(); }
+  };
+}
+
+// ---------------------------------------------------------------- output
+let running = false;
+let typing = null;       // the printer's timer
+let finishTyping = null; // types the rest at once
+let lastFed = null;      // {tape, settings, result, listing}
+function resetOutput() {
+  stopTyping();
+  $("page").textContent = "";
+  $("notes").replaceChildren(note("Nothing has been printed. Feed the tape.", "empty"));
+  $("listing").textContent = "";
+  $("trace").textContent = "";
+  $("cost").replaceChildren();
+  $("cmp-ones").textContent = $("cmp-plus").textContent = $("cmp-summary").textContent = "";
+  lastFed = null;
+  editor?.mark(0);
+  status("READY");
+  $("reading").textContent = "The tape is in the reader.";
+}
+function note(text, cls = "margin-note") {
+  const p = document.createElement("p");
+  p.className = cls;
+  p.textContent = text;
+  return p;
+}
+function stopTyping() {
+  if (typing) clearTimeout(typing);
+  typing = null;
+  finishTyping = null;
+  $("skip").disabled = true;
+}
+
+/** Types `text` onto the page at the printer's speed; lines in `alarmLines` in red. */
+function typeOut(text, alarmLines) {
+  return new Promise((resolve) => {
+    const page = $("page");
+    page.replaceChildren();
+    const lines = text.split("\n");
+    const cps = Number($("speed").value);
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    cursor.textContent = " ";
+    let line = 0, col = 0;
+    let current = document.createElement("span");
+    page.append(current);
+    const newLine = () => {
+      line++;
+      col = 0;
+      page.append("\n");
+      current = document.createElement("span");
+      if (alarmLines.has(line)) current.className = "alarm";
+      page.append(current);
+    };
+    if (alarmLines.has(0)) current.className = "alarm";
+    const done = () => { cursor.remove(); page.removeAttribute("aria-busy"); stopTyping(); resolve(); };
+    const all = () => {
+      // the rest at once
+      current.textContent += lines[line].slice(col);
+      while (line < lines.length - 1) { newLine(); current.textContent = lines[line]; }
+      done();
+    };
+    if (cps <= 0) { all(); return; }
+    page.setAttribute("aria-busy", "true");
+    page.append(cursor);
+    finishTyping = all;
+    $("skip").disabled = false;
+    const tick = () => {
+      if (line >= lines.length - 1 && col >= lines[line].length) return done();
+      let delay = 1000 / cps;
+      if (col < lines[line].length) {
+        current.textContent += lines[line][col++];
+      } else {
+        newLine();
+        delay *= 3; // the carriage return
+      }
+      page.append(cursor);
+      const box = $("printout");
+      box.scrollTop = box.scrollHeight;
+      typing = setTimeout(tick, delay);
+    };
+    tick();
+  });
+}
+
+/** The source line of each equation number, from the translation listing. */
+function equationLines(listing, text) {
+  const map = new Map();
+  // the tape without notes, every character kept in place
+  const plain = text.replace(/#[^\n]*/g, (m) => " ".repeat(m.length));
+  let squeezed = "";
+  const offsets = [];
+  for (let i = 0; i < plain.length; i++) if (!/\s/.test(plain[i])) { squeezed += plain[i]; offsets.push(i); }
+  let from = 0;
+  for (const row of listing.split("\n")) {
+    const m = /^(\s*\d+)?  (\S.*)$/.exec(row);
+    if (!m || row.startsWith("       ")) continue;
+    const body = m[2].replace(/\s+/g, "");
+    const at = squeezed.indexOf(body, from);
+    if (at < 0) continue;
+    from = at + body.length;
+    const line = plain.slice(0, offsets[at]).split("\n").length;
+    if (m[1]) map.set(Number(m[1]), line);
+  }
+  return map;
+}
+
+function showListing(text) {
+  const box = $("listing");
+  box.replaceChildren();
+  for (const row of text.split("\n")) {
+    if (/^\s*\d*  \S/.test(row) && !row.startsWith("       ")) {
+      const span = document.createElement("span");
+      span.className = "eq";
+      span.textContent = row;
+      box.append(span, "\n");
+    } else if (row.includes("(done during translation")) {
+      const span = document.createElement("span");
+      span.className = "note";
+      span.textContent = row;
+      box.append(span, "\n");
+    } else box.append(row + "\n");
+  }
+}
+
+function showCost(rows, result) {
+  const table = $("cost");
+  table.replaceChildren();
+  for (const r of rows) {
+    const tr = table.insertRow();
+    tr.insertCell().textContent = r.label;
+    const n = tr.insertCell();
+    n.className = "n";
+    n.textContent = r.value.toLocaleString("en");
+    const c = tr.insertCell();
+    c.className = "note";
+    c.textContent = r.note;
+  }
+  if (!rows.length) table.insertRow().insertCell().textContent = result.translated ? "Nothing was counted." : "The tape did not translate, so nothing ran.";
+}
+
+function problemList(problems) {
+  const ul = document.createElement("ul");
+  ul.className = "problems";
+  for (const p of problems) {
+    const li = document.createElement("li");
+    li.className = p.severity;
+    const a = document.createElement("a");
+    a.href = "#";
+    a.textContent = `line ${p.line}, column ${p.column}`;
+    a.onclick = (e) => { e.preventDefault(); editor?.mark(p.line); };
+    li.append(a, `: ${p.message}`);
+    ul.append(li);
+  }
+  return ul;
+}
+
+// ---------------------------------------------------------------- feeding the tape
+async function feed() {
+  if (running) return;
+  running = true;
+  resetOutput();
+  $("feed").disabled = true;
+  const text = tape();
+  const s = settings();
+  loadStrip(text);
+  status("READING THE TAPE", "busy");
+  // The photoelectric reader was quick: a tape takes a second or two here.
+  const reading = animateStrip(Math.min(2200, 300 + stripChars.length * 2));
+  let result, translation;
+  // A run that does not stop is abandoned after a while.
+  const watchdog = setTimeout(() => { abandon(); }, 20000);
+  try {
+    [result, translation] = await Promise.all([ask("feed", text, s), ask("translation", text, s)]);
+  } catch (error) {
+    clearTimeout(watchdog);
+    await reading;
+    status("STOPPED", "alarm");
+    $("notes").replaceChildren(note(error.message === "abandoned"
+      ? "The run was abandoned after twenty seconds. A tape that loops for ever needs the restart button, as Whirlwind did."
+      : `The page could not run lz: ${error.message}`));
+    running = false;
+    $("feed").disabled = false;
+    return;
+  }
+  clearTimeout(watchdog);
+  await reading;
+  $("reading").textContent = `${stripChars.length} characters read.`;
+  lastFed = { tape: text, settings: s, result, listing: translation.text };
+  showListing(translation.text || "The tape did not translate.");
+  showCost(result.stats, result);
+
+  if (!result.translated) {
+    status("THE TAPE DID NOT TRANSLATE", "alarm");
+    const notes = $("notes");
+    notes.replaceChildren(note("The translator stopped. Nothing ran and nothing was printed. (The messages are the reconstruction’s; E-364 does not say what Whirlwind did with a tape it could not read.)"), problemList(result.problems));
+    if (result.problems[0]) editor?.mark(result.problems[0].line);
+    running = false;
+    $("feed").disabled = false;
+    return;
+  }
+
+  const equations = translation.text ? translation.text.split("\n").filter((r) => /^\s*\d+  /.test(r)).length : 0;
+  status(`TRANSLATED: ${equations} EQUATIONS ON THE DRUM · COMPUTING`, "busy");
+  await new Promise((r) => setTimeout(r, Number($("speed").value) ? 450 : 0));
+  status("THE PRINTER IS TYPING", "busy");
+  $("notes").replaceChildren();
+  const pageLines = result.page.split("\n");
+  const alarmLines = new Set(pageLines.map((l, i) => (l.startsWith("ALARM") ? i : -1)).filter((i) => i >= 0));
+  await typeOut(result.page.replace(/\n$/, ""), alarmLines);
+
+  const notes = $("notes");
+  if (!result.page.trim()) notes.append(note("The program ran to STOP and printed nothing: it has no PRINT that was reached.", "empty"));
+  if (result.alarm) {
+    const m = /ALARM\s+EQUATION (\S+)\s+PRECEDED BY (\S+)/.exec(result.page);
+    const p = note("");
+    p.append(Object.assign(document.createElement("strong"), { textContent: "The post-mortem. " }),
+      `Whirlwind typed only the two numbers: the equation in which the alarm occurred${m ? ` (${m[1]})` : ""} and the one before it${m ? ` (${m[2]})` : ""}. Why, in words: ${sentence(result.alarm)}`,
+      program100(lastFed.listing) ? " Equation 100 is a PRINT, so it was carried out after the alarm." : " A PRINT numbered 100 would have been carried out after it.");
+    notes.append(p);
+    if (m) editor?.mark(equationLines(lastFed.listing, text).get(Number(m[1])));
+    status(`ALARM IN EQUATION ${m ? m[1] : "?"}`, "alarm");
+  } else if (result.limit) {
+    notes.append(note("Stopped after two million equations: the tape seems to loop for ever. On Whirlwind someone would have stopped the machine."));
+    status("STOPPED: TOO MANY EQUATIONS", "alarm");
+  } else {
+    status("STOP", "ok");
+  }
+  if (/-\.00000000\+00/.test(result.page)) notes.append(note("A value printed −.00000000+00 is a minus zero: a difference of equal numbers, on a one’s-complement machine. Compare the two zeros in the tab “+0 and −0”."));
+  running = false;
+  $("feed").disabled = false;
+  // a tab already open is filled in for this tape
+  const open = tabs.find((t) => t.getAttribute("aria-selected") === "true");
+  if (open.id === "tab-trace") loadTrace();
+  if (open.id === "tab-compare") loadCompare();
+}
+/** lz's reason as the end of a sentence (it may end with the manual's comma). */
+function sentence(text) {
+  return text.replace(/[,.;:]\s*$/, "") + ".";
+}
+function program100(listing) {
+  return /^100  PRINT/m.test(listing || "");
+}
+$("feed").onclick = () => feed();
+$("skip").onclick = () => finishTyping?.();
+for (const id of ["zero", "rules"]) $(id).addEventListener("change", () => { if (lastFed) resetOutput(); });
+
+async function loadTrace() {
+  const box = $("trace");
+  if (!lastFed) { box.textContent = "Feed the tape first."; return; }
+  if (box.dataset.for === lastFed.tape + JSON.stringify(lastFed.settings) && box.textContent) return;
+  box.textContent = "Tracing…";
+  try {
+    const t = await ask("trace", lastFed.tape, lastFed.settings);
+    box.dataset.for = lastFed.tape + JSON.stringify(lastFed.settings);
+    box.textContent = t.lines.join("\n") + (t.cut ? "\n… (the trace is cut here)" : "") + (t.notes.length ? "\n\n" + t.notes.join("\n") : "");
+  } catch (e) {
+    box.textContent = `No trace: ${e.message}`;
+  }
+}
+
+async function loadCompare() {
+  const text = lastFed?.tape ?? tape();
+  $("cmp-summary").textContent = "Feeding the tape twice…";
+  try {
+    const c = await ask("compare", text, { rules: $("rules").checked });
+    for (const [id, r] of [["cmp-ones", c.ones], ["cmp-plus", c.plus]]) {
+      const pre = $(id);
+      pre.replaceChildren();
+      const lines = (r.translated ? r.page : "(the tape did not translate)").split("\n");
+      lines.forEach((l, i) => {
+        const span = document.createElement("span");
+        if (c.differ.includes(i)) span.className = "differs";
+        span.textContent = l;
+        pre.append(span, "\n");
+      });
+    }
+    const n = c.differ.filter((i) => (c.ones.page.split("\n")[i] ?? "") + (c.plus.page.split("\n")[i] ?? "") !== "").length;
+    $("cmp-summary").textContent = n === 0
+      ? "The two pages are the same: no zero in this tape changes what happens."
+      : (n === 1 ? "One line of the page differs." : `${n} lines of the page differ.`) + (c.ones.alarm && !c.plus.alarm ? ` With one’s complement the run stops: ${sentence(c.ones.alarm)}` : "");
+  } catch (e) {
+    $("cmp-summary").textContent = `Could not compare: ${e.message}`;
+  }
+}
+
+loadExamples();
+</script>
+</body>
+</html>
