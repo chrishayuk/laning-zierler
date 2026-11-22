@@ -32,21 +32,35 @@ those tests.
 
 ## Install
 
-You need [Rust](https://rustup.rs). From this repository:
+You need [Rust](https://rustup.rs). To install the interpreter and the language
+server from this repository:
 
 ```bash
-cargo install --path . && cargo install --path lsp
+cargo install --git https://github.com/chrishayuk/laning-zierler laning-zierler lz-lsp
 ```
 
 That puts `lz` and `lz-lsp` in `~/.cargo/bin`. Then:
 
 ```bash
-lz examples/1954-cosine-series.lzr
 echo 'a = 2, b = a^10, PRINT b. STOP' | lz
 ```
 
-For Visual Studio Code, Neovim and Helix see
+For Visual Studio Code, download `laning-zierler-language-0.1.0.vsix` from the
+[latest release](https://github.com/chrishayuk/laning-zierler/releases/latest)
+and install it:
+
+```bash
+code --install-extension laning-zierler-language-0.1.0.vsix
+```
+
+Open any `.lzr` file and you get highlighting, problems as you type, hover help
+(hover on `=` to see the block an equation is translated into) and a run
+button. The extension carries its own copy of the interpreter and language
+server, so it works without the `cargo install` above. For Neovim and Helix see
 [`editors/README.md`](editors/README.md).
+
+Or try it with nothing installed, in the
+[playground](https://chrishayuk.com/demos/laning-zierler).
 
 ## Build and run
 
