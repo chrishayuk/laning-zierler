@@ -228,10 +228,12 @@ fn pow2(e: i32) -> f64 {
 /// of ten. `5` is `+.50000000+01`; `.05` is `+.50000000-01`; `-π` is
 /// `-.31415927+01`. A zero keeps its sign: `-.00000000+00`.
 ///
-/// The digits are truncated, not rounded. The manual prints `.05` as
-/// `+.50000000-01`, and the 24-bit number nearest .05 is .0500000007...: a
-/// conversion that rounded would type `+.50000001-01`. Truncation gives both of
-/// the manual's printed values (`.05` and `π`).
+/// The digits are truncated, not rounded: a choice made to fit the manual's
+/// illustrations, not something they establish. The manual prints `.05` as
+/// `+.50000000-01`, and the 24-bit number nearest .05 (this reconstruction's
+/// reading of it) is .0500000007...: a conversion that rounded would type
+/// `+.50000001-01`. Truncation gives both of the manual's printed values
+/// (`.05` and `π`).
 pub fn format(n: Num) -> String {
     let sign = if n.is_negative() { '-' } else { '+' };
     let x = n.0.abs();

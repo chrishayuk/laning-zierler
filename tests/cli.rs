@@ -13,7 +13,7 @@ fn runs_a_tape() {
 }
 
 #[test]
-fn knuths_tpk_stops_on_a_computed_zero_and_runs_with_plus_zeros() {
+fn knuths_tpk_against_the_1954_rules_and_the_zero_models() {
     let (out, err, ok) = lz(&["examples/1976-knuth-tpk.lzr"]);
     assert!(!ok);
     assert!(out.contains("ALARM  EQUATION 2"));

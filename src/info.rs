@@ -95,7 +95,7 @@ pub fn symbol_help(symbol: &str) -> Option<Help> {
     Some(match symbol {
         "/" => (
             "division",
-            "\"A plus or minus sign has the effect of separating any mathematical expression into two terms.\" Within a term, a slash puts the factors after it on the other side of the fraction, until the next slash: `cd/a(b + c) + d` is cd over a(b+c), plus d; \"a/b/c is properly interpreted as the product ac divided by b\" (pp. 4-5). Not a/(bc), as FORTRAN and every language since would have it.",
+            "\"A plus or minus sign has the effect of separating any mathematical expression into two terms.\" Within a term, a slash puts the factors after it on the other side of the fraction, until the next slash: `cd/a(b + c) + d` is cd over a(b+c), plus d; \"a/b/c is properly interpreted as the product ac divided by b\" (pp. 4-5). Not a/(bc), as FORTRAN and most later languages would have it.",
             "x = a + 2b/(c + d),\nx = a/b/c,           # ac/b",
         ),
         "·" | ":" | "*" => (
@@ -140,7 +140,7 @@ pub fn symbol_help(symbol: &str) -> Option<Help> {
         ),
         "#" => (
             "a note",
-            "Everything from `#` to the end of the line is a note for the reader. Notes are not on the tape: the Flexowriter had no such character, and the translator never sees them.",
+            "Everything from `#` to the end of the line is a note for the reader. Notes are not on the tape: E-364 describes no way of writing a comment, and the translator here never sees them.",
             "x = 0,   # the first value",
         ),
         _ => return None,
@@ -160,7 +160,7 @@ pub fn letter_role(c: char, has_differential_equations: bool) -> Option<&'static
 }
 
 /// The rule for a letter used as an index or an equation number (p. 13).
-pub const INDEX_RULE: &str = "\"If, in the expression x|n, n has a non-integral value greater than 0.5, the computer rounds n off to the nearest integer. Negative values of n are not permitted in this connection, nor are values between zero and one half inclusive, with the exception that the value zero is permissible if assigned by the specific equation n = 0,\" (p. 13). A zero computed by arithmetic (n = n - 1 from 1) is -0 here, and is an alarm.";
+pub const INDEX_RULE: &str = "\"If, in the expression x|n, n has a non-integral value greater than 0.5, the computer rounds n off to the nearest integer. Negative values of n are not permitted in this connection, nor are values between zero and one half inclusive, with the exception that the value zero is permissible if assigned by the specific equation n = 0,\" (p. 13). Here the rule is approximated through the sign of zero: a zero left by a subtraction (n = n - 1 from 1) is -0 and is an alarm, but a computed zero that comes out +0 (n = 0·5) is let through, though the rule forbids it.";
 
 #[cfg(test)]
 mod tests {

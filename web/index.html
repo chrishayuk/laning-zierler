@@ -227,7 +227,7 @@
       </div>
       <div class="panel" role="tabpanel" id="panel-compare" aria-labelledby="tab-compare" hidden>
         <p class="explain">Whirlwind was a one’s-complement machine: “0 may appear as +0 or −0” (E-364, p. 8). CP jumps on −0, and a
-          superscript may be zero only “if assigned by the specific equation n = 0,” (p. 13). The same tape, fed twice, once with each zero.</p>
+          superscript may be zero only “if assigned by the specific equation n = 0,” (p. 13), a rule approximated here by the sign of the zero. The same tape, fed twice, once with each zero.</p>
         <div class="compare"><div><h3>One’s complement</h3><pre id="cmp-ones"></pre></div><div><h3>Always +0</h3><pre id="cmp-plus"></pre></div></div>
         <p class="explain" id="cmp-summary" style="padding-bottom:12px"></p>
       </div>
@@ -235,7 +235,7 @@
   </div>
 
   <footer>
-    <p>The system here is <code>lz</code>, a reconstruction in Rust from E-364, compiled unchanged to WebAssembly. What it does that the
+    <p>The system here is <code>lz</code>, a reconstruction in Rust from E-364, compiled from the same source to WebAssembly. What it does that the
       manual does not say (the sign of a computed zero, the wording of an alarm, the orders of a block) is set out in the project’s README.
       Add <code>?example=1976-knuth-tpk&amp;run</code> to the address to feed a tape at once; <code>&amp;speed=fast</code>, <code>&amp;zero=plus</code>, <code>&amp;rules=1954</code>.</p>
   </footer>
