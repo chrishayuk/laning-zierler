@@ -1,5 +1,7 @@
 # E-364 p. 8: "if it is desired to go thru a certain process starting with
 # equation 1 exactly 10 times". e is -8.5, -7.5, ..., -0.5, +0.5: never zero.
+# The manual leaves the process as dots; s = s + n, the PRINT and the STOP
+# are this repository's.
     n = 0,
     s = 0,
 1   s = s + n,

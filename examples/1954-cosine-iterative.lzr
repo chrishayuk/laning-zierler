@@ -1,6 +1,9 @@
 # E-364 p. 11: "We might prefer an iterative scheme to produce the same
 # result. The following scheme has the advantage that the number of terms in
 # the series may be adjusted by changing a single number"
+#
+# On the page, y = y - 2 ends in what looks like a semicolon (or a comma with
+# a speck above it). The rules require a comma, and it is typed as one here.
     x = 0,
 1   y = 10,
     z = 1,

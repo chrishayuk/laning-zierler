@@ -4,7 +4,8 @@
 # the values of any variables he desires after an arithmetic alarm by writing
 # the appropriate PRINT instruction as equation 100."
 #
-# Doubling x passes 2^63 - 2^39 on the 63rd time round.
+# The program is this repository's. Doubling x passes 2^63 - 2^39 on the
+# 63rd time round. The wording of the post-mortem is made up (see README).
     x = 1,
     n = 0,
 1   x = 2x,

@@ -2,10 +2,12 @@
 # Techniques", lecture 13, p. 13-3: the same two differential equations as
 # E-364 p. 18, "Our program might be".
 #
-# As printed, the last two equations have no commas (k = t - 10.1 and CP 1),
-# which the rules require; they are put in here. As printed it also has no
-# PRINT, so it integrates from t = 2 to t = 10.5 and types nothing at all.
-# The PRINT at the end is added so that there is something to see.
+# As printed, k = t - 10.1 and CP 1 have no commas, which the rules require,
+# so the listing as printed does not translate here; the commas are put in.
+# With them it integrates from t = 2 to t = 10.5 and types nothing, because
+# it has no PRINT. That need not be a mistake (a routine may leave its
+# results in storage). The PRINT at the end is this repository's, added so
+# that there is something to see.
     t = 2,
     h = 0.5,
     y|1 = 0,

@@ -4,10 +4,18 @@
 # or 999 if that is over 400. The eleven numbers are Knuth's own example of
 # the abbreviation: 1 (.5) 2 (.25) 3.5 (1) 5.5.
 #
-# Run it as it stands and it stops with an alarm on its last number: i comes
-# to zero by i = i - 1, and E-364 permits a zero index only "if assigned by
-# the specific equation n = 0" (p. 13). lz --zero plus, a what-if in which
-# every zero is +0, lets the computed zero through and runs it to the end.
+# Their ⟨input⟩ is replaced by the input they suggest on p. 57. As far as is
+# known the program was never run on Whirlwind.
+#
+# It is incompatible with the 1954 specification in two places. Its v|N "is
+# not yet in operation" (E-364 p. 21; lz --temporary-rules refuses it). And
+# i comes to zero by i = i - 1 and is used as an index, which p. 13 forbids
+# whatever the sign: zero is permissible only "if assigned by the specific
+# equation n = 0". Here it types ten lines and then an alarm, but that alarm
+# rests on this reconstruction's model of zero (a computed zero is -0), not on
+# the manual, and says nothing about what Whirlwind did. lz --zero plus, a
+# what-if in which every zero is +0, lets the computed zero through and runs
+# it to the end.
         v|N = 1 (.5) 2 (.25) 3.5 (1) 5.5,
         i = 0,
 1       j = i + 1,

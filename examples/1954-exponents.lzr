@@ -1,10 +1,13 @@
 # E-364 p. 5, section 2D: "Upper case numbers on the Flexowriter appear as
 # exponents ... Some examples are"
 #
-# Run in this order the examples do not finish. b is 1/529, ab³ is about
-# 1.7·10⁻⁷, and its fifth power is about 10⁻³⁴: smaller than the 24, 6 system
-# can hold (2⁻⁶⁴ is about 5·10⁻²⁰), so it becomes zero, and (ab³)⁻⁵ divides
-# by it. The manual gives them as notation, not as a program.
+# Chained in this order the examples go out of range. b is 1/529, ab³ is
+# about 1.7·10⁻⁷, its fifth power about 10⁻³⁴ and c about 7.3·10³³: neither
+# fits the 24, 6 system (2⁻⁶⁴ is about 5·10⁻²⁰, 2⁶³ about 9·10¹⁸). Here the
+# power is taken first and underflows silently to zero, so (ab³)⁻⁵ is a
+# division by zero; a routine that took the reciprocal first would overflow
+# instead, so the particular alarm is the reconstruction's. The manual gives
+# them as notation, not as a program.
 a = 5²,
 b = (a - 2)⁻²,
 c = (ab³)⁻⁵,
