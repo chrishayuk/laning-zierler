@@ -1,0 +1,21 @@
+# E-364 pp. 13-14: linear interpolation in a table, using the rounding of a
+# variable index. The table is sin x at x|1 = 0, .1, ..., .9 (the manual
+# leaves the values blank).
+x|1 = 0, h = .1,
+f|1 = 0, f|2 = .09983342, f|3 = .19866933, f|4 = .29552021, f|5 = .38941834,
+f|6 = .47942554, f|7 = .56464247, f|8 = .64421769, f|9 = .71735609, f|10 = .78332691,
+# "the set of integers 1 to 10, read in as follows"
+    n = 0,
+1   n = n + 1,
+    k|n = n,
+    e = n - 9.5,
+    CP 1,
+# "To find f(x), (x|1 < x < x|10), by linear interpolation"
+    x = .25,
+    j = 0.5 + (x - x|1) /h,
+    m = k|j,
+    n = m + 1,
+    d = j + 0.5 - m,
+    y = d f|n + (1 - d) f|m,
+    PRINT x, m, d, y.
+    STOP

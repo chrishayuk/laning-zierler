@@ -1,0 +1,10 @@
+# E-364 p. 11: "print a table of values of cosine x for x = 0, .1, .2, ...,
+# 1 radian ... up to the x^10 term in the power series"
+x = 0,
+1   z = 1 - x^2/2 + x^4/2·3·4 - x^6/2·3·4·5·6
+        + x^8/2·3·4·5·6·7·8 - x^10/ 2·3·4·5·6·7·8·9·10,
+    PRINT x, z.
+    x = x + .1,
+    e = x - 1.05,
+    CP 1,
+    STOP

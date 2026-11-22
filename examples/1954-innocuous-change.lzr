@@ -1,0 +1,22 @@
+# E-364 p. 19: "Suppose, for example, that we were to change the part of the
+# preceding program between equations 1 and 2 as follows ... This change
+# would appear to be innocuous since "a" seems to be appropriately reset
+# before each entry into the differential equations. However, upon
+# completion of the second D equation in each of the first 3 sub-steps,
+# computation would be resumed with the first D equation (and not equation
+# 2) so that "a" would not have the current value of y|2 + 1."
+# Compare the page with 1954-differential-equations.
+    t = 2,
+    h = 0.5,
+    y|1 = 0,
+    y|2 = 0,
+1   PRINT t, y|1, y|2.
+    e = 9.7 - t,
+    CP 3,
+2   a = y|2 + 1,
+    D y|1 = a,
+    D y|2 = - y|1,
+    e = -e,
+    CP 2,
+    SP 1,
+3   STOP

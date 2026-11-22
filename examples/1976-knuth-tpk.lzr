@@ -1,0 +1,28 @@
+# Knuth and Trabb Pardo, "The Early Development of Programming Languages"
+# (1976), pp. 56-57: their TPK algorithm as it "would look in their system".
+# Read eleven numbers, then for each in reverse order print f(t) = √|t| + 5t³,
+# or 999 if that is over 400. The eleven numbers are Knuth's own example of
+# the abbreviation: 1 (.5) 2 (.25) 3.5 (1) 5.5.
+#
+# Run it as it stands and it stops with an alarm on its last number: i comes
+# to zero by i = i - 1, and E-364 permits a zero index only "if assigned by
+# the specific equation n = 0" (p. 13). lz --zero plus runs it to the end.
+        v|N = 1 (.5) 2 (.25) 3.5 (1) 5.5,
+        i = 0,
+1       j = i + 1,
+        a|i = v|j,
+        i = j,
+        e = i - 10.5,
+        CP 1,
+        i = 10,
+2       y = F^1(F^11(a|i)) + 5(a|i)^3,
+        e = y - 400,
+        CP 3,
+        z = 999,
+        PRINT i, z.
+        SP 4,
+3       PRINT i, y.
+4       i = i - 1,
+        e = -0.5 - i,
+        CP 2,
+        STOP

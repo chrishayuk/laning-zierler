@@ -1,0 +1,18 @@
+# E-364 p. 18, section 15: two differential equations,
+#   dy1/dt = y2 + 1,   dy2/dt = -y1,
+# from t = 2 with y1 = y2 = 0, h = 0.5, printed at t = 2, 3, ..., 10.
+# Each step goes through the D equations four times (Gill's method). e = -e
+# makes CP 2 take two steps for every PRINT.
+    t = 2,
+    h = 0.5,
+    y|1 = 0,
+    y|2 = 0,
+1   PRINT t, y|1, y|2.
+    e = 9.7 - t,
+    CP 3,
+2   D y|1 = y|2 + 1,
+    D y|2 = - y|1,
+    e = -e,
+    CP 2,
+    SP 1,
+3   STOP

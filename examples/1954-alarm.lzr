@@ -1,0 +1,14 @@
+# E-364 p. 20, section 16: "If an arithmetic alarm occurs, the programmer
+# will be told the number of the equation in which the alarm occurred and the
+# number of the equation that preceded the alarm ... The programmer may obtain
+# the values of any variables he desires after an arithmetic alarm by writing
+# the appropriate PRINT instruction as equation 100."
+#
+# Doubling x passes 2^63 - 2^39 on the 63rd time round.
+    x = 1,
+    n = 0,
+1   x = 2x,
+    n = n + 1,
+    SP 1,
+100 PRINT n, x.
+    STOP

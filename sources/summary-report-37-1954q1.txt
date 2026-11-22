@@ -1,0 +1,3095 @@
+            PROJECT
+        - ~ WHIRLWIND
+
+
+
+-.-
+      SUMMARY REPORT NO. 37
+         FIRST QUARTER 1954
+
+
+
+
+          DIGITAL COMPUTER LABORATORY
+      MASSACHUSETTS INSTITUTE OF TECHNOLOGY
+         PROJECT WHIRLWIND
+
+
+
+
+   SUMMARY REPORT NO. 37
+
+      FIRST QUARTER 1954
+
+
+
+
+             Sub1l1itted to the
+
+     OFFICE OF NAVAL RESEARCH
+         Under Contract NSori60
+           Project NR 048-097
+
+
+
+
+    DIGITAL COMPUTER LABORATORY
+MASSACHUSETTS INSTITUTE OF TECHNOLOGY
+       Cambridge 39, Mas sachusetts
+                     TABLE OF CONTENTS
+
+
+
+
+                                             Page
+     FOREWORD                                 4
+l.   QUARTERLY REVIEW AND ABSTRACT            5
+2.   MATHEMATICS, CODING, AND APPLICATIONS    6
+     2. 1 Introduction                        6
+     2.2 Problems Being Solved                9
+3.   OPERATION OF WHIRL WIND I               47
+     3. 1 Systems Engineering                48
+     3.2 Input-Output System                 50
+4.   CIRCUITS AND COMPONENTS                 53
+     4. 1 Vacuum Tubes                       53
+     4.2 Component Replacem.ents             57
+5.   ACADEMIC PROGRAM
+     5. 1 Advanced Sem.inars on Computing    59
+     5.2 Programming Cour se                 59
+     5.3 Visitors                            60
+     5.4 Spring Term, 1954                   60
+6. APPENDIX                                  61
+     6.1 Reports and Publications            61
+     6.2 Professional Society Papers         61
+
+
+
+
+                                                    3
+                                       FOREWORD
+
+
+
+
+    Project Whirlwind
+
+            Project Whirlwind at the Massachusetts Institute of Technology Digital
+    Computer Laboratory is sponsored by the Office of Naval Research under Contract
+    N50ri60. The objectives of the Project are (1) the application of an electronic
+    digital computer of large capacity and very high speed (Whirlwind I) to problems
+    in mathematics, science, engineering, simulation, and control, and (2) the study
+    and development of component reliability in Whirlwind 1.
+
+
+
+    The Whirlwind I Computer
+
+            Whirlwind I is of the high-speed electronic digital type, in which quantities
+    are represented as discrete numbers, and complex problems are solved by the
+    repeated use of fundamental arithmetic and logical (i. e., control or selection)
+    operations. Cornputations are executed by fractional-microsecond pulse s in elec-
+    tronic circuits, of which the principal ones are (1) the flip-flop, a circuit containing
+    two vacuum tubes so connected that one tube or the other is conducting, but not
+    both; {2} the gate or coincidence circuit; (3) the magnetic-core memory, in which
+    binary digits are stored as one of two directions of magnetic flux within ferro-
+    magnetic cores.
+
+            Whirlwind I uses numbers of 16 binary digits (equivalent to about 5 decimal
+    digits). This length was selected to limit the machine to a practical size, but it
+    permits the computation of many simulation problems. Calculations requiring
+    greater number length are handled by the use of multiple-length numbers. Rapid-
+    access magnetic-core memory has a capacity of 32, 768 binary digits. Present
+    speed of the corn.puter is 40, 000 single-address operations per second, equivalent
+    to about 20, 000 multiplications per second. This speed is higher than general
+    scientific computation demands at the present state of the art, but is needed for
+    control and simulation studies.
+
+
+
+    Reports
+
+           Quarterly summary reports are issued to rn.aintain a supply of up-to-date
+    information on the status of the Project. Detailed inforrn.ation on technical aspects
+    of the Whirlwind program rn.ay be found in the forrn.al R-series reports and the
+    informal M-series memorandurn.s that are issued to cover the work as it progress-
+    es.   A list of selected publications, issued during the period covered by this
+    Summary, appears in the Appendix.
+
+
+
+
+4
+                 1. QUARTERLY REVIEW AND ABSTRACT
+
+
+
+
+       Of the 36 problems which made use of computer time allotted to the Scientific and
+Engineering Computation Group during the quarter, 10 were new and 7 were completed.
+The revised version of the comprehensive system of service routines (CS II) is now in
+operation and is expected to corne into every-day use shortly.
+       Computer reliability has continued high; 93 per cent of the 945 hours of assigned
+time was usable during the period.   A reduction in maintenance time for the core memory
+has increased the number of hours which can be scheduled for operations.    The consoli-
+dated test program mentioned in Summary Report No. 36 is in regular operation and will
+greatly increase the efficiency of the marginal-checking program.     Terminal-equipment
+facilities have been improved and some new ones added, including a high-speed Ferranti
+photoelectric tape reader and a buffer-drum system.
+       Vacuum-tube life has been calculated for types 7 AD7 /SR1407 /6145, 7 AK7, 6080/
+6080WA/6AS7G, 5965, and 6BL7GT. A lower failure rate for the group 6080/6080WA/6AS7G
+is encouraging, since this tube is a vital part of the magnetic-core memory.    Intensive
+experimental research has continued on transient changes in oxide cathodes as described
+in Summary Report No. 36.
+       Advanced seminars on computing were held regularly, providing an opportunity for
+the exchange of information on developments in the computer field.    The 35 students en-
+rolled in the DCL programming course represented the Departments of Electrical Engin-
+eering, Chemical Engineering, Mathematics, Geophysics, and Meteorology and the Aero-
+Elastic and Structures ResearchLaboratory, InstrumentationLaboratory, Dynamic Analysis
+and Control Laboratory, Lincoln Laboratory, Laboratory for Nuclear Science and Engin-
+eering, and the Solid State and Molecular Theory Group- -all part of MIT.
+
+
+
+
+                                                                                       5
+          2. MATHEMATICS, CODING, AND APPLICATIONS
+
+2.1 Introduction
+       During the past quarter 36 problems made use of the computer time allotted to the
+Scientific and Engineering Computation (S8tEC) Group.     Progress reports on these prob-
+lems are presented in numerical order in Section 2.2.    Of these, ten (158, 159, 160, 161,
+163, 166, 168, 170, 171, and 172) represent new problems that are being described for
+the first time.   Seven problems (108, 111, 112, 152, 153, 158, and 160) were completed
+during the period.
+       Tables 2-1 and 2-2 have been set up to provide the reader with a convenient refer-
+ence to various interesting aspects of these problems.    Table 2-1 lists the problems ac-
+cordingto their fields of application. The column labeled "0/0 WWI Time" has been included
+to indicate each problem's share of the WWI time allotted to the S8tEC Group.     The seven
+problems marked with asterisks represent work being performed by members of the MIT
+Project on Machine Methods of Computation, another phase of the work under contract
+N50ri60, which is reported more extensively in a separate report ("Machine Methods of
+Computation and Numerical Analysis, " Quarterly Progress Report No. 11, Project DIC
+6915, MIT, March 15, 1954).
+       The mathematical problems and procedures represented by the various current
+problems are tabulated separately in Table 2-2, because different problems in the same
+field frequently involve different mathematical methods, while problems in different fields
+sometimes are solved by identical methods.
+       As described in Summary Report No. 36, the letters A, B, C, and D are inserted
+after the problem numbers in these tables to indicate that a problem: (A) is neither for
+academic credit nor sponsored; (B) is just for academic credit, (C) is sponsored but not
+for academic credit, or (D) is both for academic credit and sponsored.     The absence of a
+letter indicates that the problem originated within,and is being solved by, the S8tEC Group.
+       The revised version of the comprehensive system of service routines (called CS II
+to distinguish it from the original system called CS I) is now in operation.   It is expected
+that this system will rapidly come into routine use by all programm.ers.   Som.e of the fea-
+tures of the new system are described below under Problem. 100.       Detailed descriptions
+will be provided in Digital Computer Laboratory mem.oranda.     It is also planned to include
+these changes in the CS m.anual as soon as possible.    Som.e of the progress reports given
+in Section 2. 2 include terms, such as floating addresses, number-system designations,
+and programmed arithmetic (PA), that refer to the CS system.      For the reader's conven-
+ience, a brief description of these terms is repeated under Problem 100.        For a m.ore
+complete description of such terms, the reader is referred to Summary Report No. 32.
+
+6
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+                                                                                        Problem   % WWI
+         Field                             Description                                  Number    Time     Source
+     Aeronautical         Parametric study of the gust response of flexible              153. C    1. 53    MIT
+     Engineering          swept-wing airplane s
+                          Construction and testing of a delta-wing flutter model         166. C    0.21     MIT
+                          Determination of the downwash at the tail of an airplane       168. C    0.79     MIT
+                          due to the lift response of the wing to a sharp-edged gust
+
+     Chemistry            Optical properties of thin metal films                         101. C    1. 09    MIT
+
+     Civil Engineering    Analysis of reinforced concrete walls                         *l13.C     7.64     MIT
+                          Study of shock waves; vibration problems in solid bodies      *142.D     0.01     MIT
+                          Response of cohesive and cohesionless soils to transient      ~'161.C    0.26     MIT
+                          loading
+
+     Electrical           Thermal and electrolytic diffusion in an oxide -coated         152. D    4.09     MIT
+     Engineering          cathode
+
+     Geology &:           Geophysical data analysis                                      106. C    8.52     MIT
+     Geophysics
+                          Inte rpretation of earth- surface re sistivity measurements   *123. C    0.73     MIT
+
+     Instrumentation      An interpretive program to accept mathematical symbols         108. C    3.54     MIT
+     Lab
+                          System of nonlinear differential equations                     109. C    0.80     MIT
+                          Fourier analysis and autocorrelation calculations              l11.C     0.00     MIT
+
+     Lincoln Lab          Digital methods of detecting signal from noise                 149. C    0.51     MIT
+                          Transmission in a rectangular waveguide containing a           163. C    0.25     MIT
+                          single ferrite slab
+
+     Ma thema tic s       Educational testing studies; Lawley's method of factor         112. C    0.05    Outside
+                          analysis
+                          Spherical wave propagation                                    *119. C    2.46     MIT
+                          Routine for multiplication of rectangular matrices of          157. C    0.04     MIT
+                          arbitrary order
+
+     Mechanical           Turbine design (aerothermopressor)                             120. D    0.58     MIT
+     Engineering
+
+     Meteorology          Synoptic climatology                                           155. D    6.00     MIT
+
+     Physics              Solution of Schr·odinger equation for a coulomb potential     *122.B     0.26     MIT
+                          Eigenvalues of a real symmetric matrix                         134. C    0.61     MIT
+                          Vibrational frequency spectrum of a copper crystal             143.D     2.13     MIT
+                          Energy bands in crystals                                       147. C   16.94     MIT
+                          Evaluation of the reflection coefficient in a semi-infinite    156. A    0.66     MIT
+                          open rectangular waveguide
+                          Use of water storage in a hydroelectric system to              159. D    0.32     MIT
+                          minimize the expected operating cost
+                          Similarity transformation of a matrix                          160. C    0.47     MIT
+                          Overlap integrals of molecular and crystal physics            *172.B     0.47     MIT
+
+     Se rvomechani sms    Autocorrelation and Fourier transform calculation              107. C    1. 01    MIT
+     Lab
+                          Subroutines for the numerically controlled milling machine     132. C    0.83     MIT
+                          Data-reduction program; polynomial fitting                     126. C    2. 10    MIT
+                          Optimum response of an ideal, third-order relay mechanism      158. B    0.74     MIT
+                          Improved power - spectra calculations                          171. C    0.66     MIT
+
+     Miscellaneous        Comprehensive system of service routines                       100      29.36     MIT
+                          Library of subroutines                                         141       0.13     MIT
+
+
+          Table 2-1.       Current Problems Arranged According to Field of Application
+                         (* MIT Project on Machine Methods of Computation)
+
+                                                                                                                  7
+MATHEMA TICS, CODING, AND APPLICATIONS _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+
+        Mathematical Problem                                        Procedure                          Problem
+1.   Matrix algebra
+         Matrix equation                               Iteration involving Rotelling's method            112. C
+                                                       for solving the eigenvalue problem
+        System of fifteen linear equations             Relaxation                                       *l13.C
+        Eigenvalues of a real symmetric matrix         Numerical diagonalization                         134. C
+        Evaluation of elements and roots of a          Standard analytical solution                      143. D
+        third-order secular determinant
+        Matrix multiplication                          Basic numerical                                   157. C
+        Similarity transformation of an n x n matrix   Matrix multiplication                             160. C
+        Solution of a matrix equation                  Iteration using Crout's method and matrix algebra 166. C
+
+2.   Transcendental equations
+        Set of two transcendental equations            Iteration                                         101. C
+        System of three transcendental equations       Iteration                                         158. B
+        with six parameters
+         Two simultaneous transcendental equations     Iteration                                         163. C
+
+3.   Ordinary differential equations
+        General system                                 Gill's modified fourth-order Runge-Kutta          108. C
+        Fourteen simultaneous nonlinear                Fourth-order Runge-Kutta                          109. C
+        Seven nonlinear first order                    Step-by-step Euler method                         120. D
+         Coulomb wave function equations               Series expansion                                 *122.B
+        Second order                                   Finite difference approximation                  *142. D
+        Second-order linear with variable coefficients Gauss-Jackson forward integration formula         147. C
+        Second-order nonlinear                         Fourth-order Runge-Kutta                         *161. C
+
+4.   Partial differential equations
+        Nonlinear hyperbolic                           Difference equations written along the character-*1l9. C
+                                                       istics and solved simultaneously by iteration
+        Second-order nonlinear parabolic               Finite difference approximation                   152. D
+
+5.   Integration
+        Auto -, cros scorrelation and Fourier transformSimpson's rule                                    107. C
+         Fourier analysis and autocorrelation          Trapezoidal integration                           l11.C
+         Integral evaluation                           Trapezoidal rule                                 *123. C
+        Inversion of a Duhamel integral                Trapezoidal rule                                  153. C
+         Complex integral evaluation                   Trapezoidal rule                                  156. A
+         Numerical integration                         Trapezoidal rule                                  159. D
+         Numerical integration                         Simpson's rule                                    168. C
+         Power spectra and confidence limits           Simpson's rule                                    171. C
+         Overlap integrals                             Evaluation of analytic forms                     *172. B
+
+6.   Statistics
+         Multiple time series                          Prediction by linear operators                    106. C
+         Detecting signal from noise                   Weighted counting                                 149. C
+        Calculation of the coefficients of a           Inner products                                    155. D
+        multiple regression system
+
+7.   Data-reduction program                            Polynomial fitting, etc.                          126. C
+
+
+     Table 2-2.       Current Problems Arranged According to the Mathematics Involved
+                      (* MIT Project on Machine Methods of Computation)
+
+8
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+2.2 Problems Being Solved
+100 COMPREHENSIVE SYSTEM OF SERVICE ROUTINES
+       The comprehensive system of service routines has been developed at the Digital
+Computer Laboratory to simplify the process of coding.       The system in use since the fall
+of 1952, and described in Summary Reports No. 32 through 35, is now called CS 1.         A new
+system, CS II, based on CS I, was proposed in Summary Report No. 36.            CS II is now in
+operation on a limited test basis and will soon be available on a routine basis.     Some dif-
+ferences do exist between the interpretive routines of the two systems that make it impos-
+sible for all programs prepared for use with CS I to be used with CS II.      For this reason
+CS I will also continue to be available on a routine basis as long as there is a demand for it.
+       Two of the many provisions included in both systems are referred to in some of the
+progress reports below.     Consequently, brief descriptions of them are repeated here for
+reference.
+
+        1.   Floating Address
+
+       A floating-address system enables a programmer to write his instructions so that
+they refer to the words of his program rather than to the location of those words in storage.
+The assignment of final storage locations is made by the computer as part of the conversion.
+
+       2.    Number Systems and Programmed Arithmetic
+
+       (m, n) numbers shall mean numbers which are of the form z = x· 2 Y where x is an
+~-binary-digit number and y is an ~-binary-digit number.       For example, (24,6) signifies
+a two-register floating-point system dealing with numbers of 24 significant binary digits
+                                                     63        64
+(roughly 7 decimal digits) with magnitudes between 2    and 2-    .
+       Arithmetic involving these (m, n) numbers is carried out by means of (m, n) inter-
+pretive subroutines.   These subroutines enable the programmer to write coded programs
+using (m, n) nUnlbers as easily as, or even more easily than, he might write programs in
+the single-length fixed-point (15,0) number system which is built into Whirlwind 1.
+
+   Purposes of CS II
+
+       The principal goals of CS II are to reduce (1) the time required to code and trouble
+shoot a progranl, (2) the amount of computer time required to run a program,        and (3) the
+clerical work of the computer operator.
+       How these goals have been achieved is indicated in the following paragraphs.
+
+   The CS II Conversion Program
+
+       The CS II conversion program is similar to its counterpart in CS 1. However, cer-
+tain errors in Flexowriter program tapes are detected during a CS II conversion.         These
+
+
+                                                                                              9
+MATHEMATICS, CODING, AND APPLICATIONS
+
+
+errors include:     (1) illegal Flexo character, (2) unassigned floating address, (3) duplicate
+floating address, (4) overlapping by the program of the interpretive routine in high-speed
+storage,    (5) improper floating-point number, (6) improper use of floating addresses in
+assigning words in the program, (7) too many floating addresses, and (8) too many output
+requests.    When one of these errors is found during conversion, a short phrase describing
+the type of error and its location is recorded on a typewriter next to the operator's posi-
+tion, and the computer stops.
+          The CS II conversion program allows words to be assigned directly to any of the
+20,480 available registers of auxiliary-drum storage.       Future plans include a scheme for
+addressing the drum with floating addresses; only absolute addresses can be used at pre-
+sent.
+         A Flexo program tape may be read into the computer and operated immediately in
+CS II--production of an intermediate binary tape is optional.    The detection of certain pro-
+gramming and Flexo tape errors before running an incorrect program and the elimination
+of the punching of binary tapes are expected to decrease the computer time required for
+running most CS programs.
+
+     The CS II Programmed-Arithmetic Routine
+
+          The CS II PA occupies about 20 per cent more high-speed storage than its CS I
+counterpart.    However, it is about 10 per cent faster and also stops the computer imme-
+diately upon detecting certain logical and arithmetic errors while interpreting a CS II pro-
+gram. The computer stops in such a way that the operator, by a glance at the control panel,
+can deduce the type andlocation of the error. The errors so detected include: (1) attempt-
+ing to execute an instruction not provided for in the particular PA routine being used, (2)
+referring to an improper floating-point number by an interpreted arithmetic instruction,
+(3) dividing by zero, (4) attempting to store an excessively large number, and (5) allo~ing
+the address section of an isc instruction to become too large.
+          The instruction isc k, select (cycle) counter k, is something new in CS II.   Execu-
+tion of an isc k instruction selects counter number k as the counter referred to by all
+chronologically subsequent interpreted instructions which use a counter.        If kis the
+                                                                               max
+largest address section of an isc k instruction appearing in the original Flexo program,
+provision is made for k        counters. Should the programmer mistakenly increase k be-
+                          max
+yond k       ' the PA routine detects the error and stops.
+         max
+          The buffer section of the CS II PA permits a programmer to obtain automatically
+multiple buffers.    The multiple buffers are referred to by the addresses
+                               b, Ib, 2b, .....
+The actual storage addresses of the multiple buffers are assigned during the conversion
+process.
+
+10
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+        In case a CS II program must be stopped manually (because of a loop, for instance)
+the operator may press a button which will cause the interpretive routine to stop during the
+next interpreted transfer of control instruction.
+        In all these cases the operator then obtains semiautomatically (as discussed below)
+a so-called PA post-mortem which records enough information to allow diagnosis of the
+programming mistake.
+
+    CS II Post-Mortem Programs
+
+           CS II post-mortems are of two types:   (1) PA post-mortem, and (2) storage print-
+outs.
+           The PA post-mortem is always obtained by the operator when a CS program stops
+unexpectedly.     It is a typed record including the following information:   (1) where the pro-
+gram stopped, (2) the interpreted instruction most recently executed, (3) contents of the
+interpretive arithmetic element, (4) contents of the index and criterion registers of all the
+counters called for in the program, and (5) the locations and present contents of the regis-
+ters containing the five most recently executed interpreted transfers of control.
+        Storage print-outs in CS II are obtained by reading into the computer a short Flexo
+tape containing post-mortem requests.       Post-mortem requests contain information about
+the output units to be used, whether the addresses of the registers to be printed are in
+octal or decimal, and how the words are to be recorded, e. g. , as interpreted instructions,
+floating-point numbers, Whirlwind instructions, etc. The form of the request may be very
+general, and the rules for specifying the requests are extremely simple.          For example,
+200ii300 is a request to type the contents of registers 200 through 300 as interpreted in-
+structions.
+
+    Utility Programs in CS II
+
+        Utility programs include the programs directly associated with CS I and CS II con-
+version and post-mortems       and various programs for testing and calibrating in-out equip-
+ment.   Other minor utility programs record a Flexo stop character on the delayed-printer
+equipment, allow examination of any register on the drum, etc. In CS II all these programs
+are literally as the operator's fingertips. Each utility program has a number corresponding
+to a labeled digit on a manual intervention register (MIR) at the operator's position.      The
+operator selects the desired utility program by punching the corresponding button on the
+MIR. He then presses a starting button. This calls in a standard program which processes
+the information in the MIR and then brings in the requested utility program ready for op-
+eration.
+
+
+
+
+                                                                                             11
+MATHEMATICS, CODING, AND APPLICATIONS
+
+
+     Computer Logging
+
+        CS II provides for _logging the read-in of each paper tape and of each utility pro-
+gram.   The log is produced on a punched paper tape and on the scope.      The problem num-
+ber, programmer's number, and the tape serial number are recorded on the scope and
+photographed along with the time, date, and film index number.        Thus all scope results
+are automatically identified, and the operator need not keep any record of camera operation.
+        The punched-paper-tape log contains the same information,         except for the film
+index number"    This tape therefore contains a complete record of computer operation.       A
+program is being written which will process one or more of these paper-tape logging rec-
+ords and produce a typed summary of computer operation for any desired period of time
+up to several weeks.    This summary will indicate primarily how much computer time was
+used by each problem in actual computation and in obtaining post-mortems.
+
+
+101     OPTICAL PROPERTIES OF THIN METAL FILMS
+
+        The "Principal Program, " described in Summary Report No. 35 as the "Main Pro-
+gram," was developed by Dr. A. L. Loeb of the MIT Chemistry Department for the evalua-
+tion of optical constants.   This progra:m processes data obtained for thin metal films on
+much thicker nonabsorhing backings.     The input and output are as follows:
+
+        Input (on punched parameter tapes):
+              Wavelength of incident radiation {A}
+              Thickness of metal film (a)
+              Index of refraction of backing (n )
+                                               b
+              Transmission of radiation normally incident on backing (T)
+              Reflecthm of radiation normally incident on backing (R')
+              Reflection of radiation normally incident on film (R)
+              First estimate of index of refraction (n 0)
+              First estimate of absorption coefficient (k   D
+                                                                )
+
+
+
+
+        Output (direct or delayed printer):
+              Index of refraction of film (n)
+              Absorption coefficient of film (k)
+                     " 1 d "t"
+              P ar t la             'On 'On 'Ok ~k
+                          enva lves ~R' aT' ~R' COT
+              Conductivity of film
+              Dielectric constant of £ibn
+
+The "Inverse Program" modifies the Principal Program in that the index of refraction and
+the absorption coefficients are in the input instead of the reflection and transmis sion, while
+
+
+
+12
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMA TICS, CODING, AND APPLICATIONS
+
+
+
+reflection and transmission are in the output instead of the index of refraction and the ab-
+sorption coefficients.   These last two coefficients are referred to as "Optical Constants. "
+        At the end of the previous quarter a set of data reported by Krautkraemer was
+being evaluated.   This evaluation has now been completed.     The results of accurate com-
+putation on WWI confirm the validity of approximations made by Krautkraemer himself.
+We were able to compute separately the results for film incidence and for backing inci-
+dence, which Krautkraemer did not do.       The discrepancy between these results indicates
+that Krautkraemer's films had rather irregular surfaces.
+        Woltersdorff has reported results of measurements with infrared radiation.        The
+evaluation of these data led to rather new ideas and conclusions, and WWI was used as a
+laboratory instrument with various program modifications being based on the results of
+previous runs.  The partial derivatives, e>n, etc., increase rapidly as the ratio of film
+                                         'bR
+thickness to radiation wavelength, ~,decreases. This indicates that the reflection and
+transmission are, in the infrared,   n~t very sensitive to the optical constants, or, in other
+words, that an accurate determination of optical constants in the infrared requires ex-
+tremely accurate reflection and transmission measurements.         It also indicates that the
+iteration procedure used in the Principal Program should be used with great caution and
+that the first estimates of optical constants should be very good.     Since such first esti-
+mates are particularly unavailable in the infrared, approximate methods were investigated
+and their validity tested by feeding the optical constants obtained approximately into the
+Inverse Program. Agreement between observed and calculated reflection and transmission
+was used as a test for the approximation.    A first approximation used the assUInption that
+the two optical constants are equal.    This assumption is valid for massive metal and ap-
+peared to be fairly good for thin films, because the difference between observed and cal-
+culated reflection and transmission was not very large, though considerably larger than
+expected experimental errors.      A better approximation was made and appeared to be ex-
+cellent, because the difference between observed and calculated reflection and transmission
+was practically nil. The optical constants thus calculated differed from each other, though
+their product approximately equaled that of the optical constants calculated by the cruder
+approximation.
+        It appears that in the infrared Rand T are sensitive to the product of the optical
+constants, nk, but not to individual variations in nand k made while keeping nk constant.
+The insensitivity of R and T to nand k had already been demonstrated by the size of the
+partial derivatives,   ~~, etc.   Therefore, a transformation of independent variables was
+made.   One of the new independent variables is film conductivity, which is proportional to
+the product nk. The other independent variable is the dielectric constant, proportional to
+  2    2
+(n _ k ). It was then shown that in the infrared R and T are sensitive to the film conduc-
+
+
+                                                                                           13
+MATHEMA TICS, CODING, AND APPLICATIONS
+
+
+tivity but not to its dielectric constant.   The crude approxiITlation gave a fairly good con-
+ductivity (in other words, nearly the correct product~ nk) but an entirely wrong dielectric
+constant (naITlely zero when n ~ k).    Since Rand T are very sensitive to the conductivity
+but not to the dielectric constant, the test calculation was very misleading. For thin films
+the optical constants do not equal each other.
+         The good approximation was combined with the Principal Program to find a first
+estimate for the optical constants, which can then be improved upon by iterations.        It has
+been used to evaluate Woltersdorff's data and is now being used to compute the optical
+characteristics of transparent but slightly absorbing films made in our laboratory.       Since
+this approximation neglects the backing materials in the infrared, it is not very good for
+the visible wavelength region.     However, it has been shown that:
+         1.   In the visible region the first estimate need not be very good,
+         2.   The approximation is particularly valid when   1 is very small,
+         3.   The influence of the backing is not very great when the film is relatively thick.
+
+         Therefore, in the visible wavelength region:
+         1.   For the thinnest films the only appreciable error is that caused by the neglect
+of the backing, so that the approximation is not too bad.
+         2.   For the thicker films the only appreciable error is that caused by the ratio ~
+being large, so that the approximation is not too bad.
+         3.   None of the first approxiITlations is therefore so bad that it interferes with the
+iteration method.
+
+
+106 MIT SEISMIC PROJECT
+         As discussed in previous reports, Problem 106 is concerned with the investigation
+of the use of test-analysis techniques in seismic-record interpretations, particularly in
+the separation of "reflections" from background interference on these records.            More
+complete descriptions of the problem and the approaches used are contained in Summary
+Report No. 36 and in "Detection of Reflections on Seismic Records by Linear Operators"
+(Wadsworth, Robinson, Bryan, and Hurley--Geophysics, Vol. 18, No.3, July 1953).
+         At the time of SumITlary Report No. 36 the Geophysical Analysis Group at MIT had
+arrived at a consideration of the problem in terms of the discrete-filtering properties of
+linear operators and had derived certain computational and theoretical results regarding
+the use of linear operators.    The computational results included:    (1) greater definition of
+the critical parameters in the operator structure, and (2) a separation of categories of
+record types for which the criterion used for operator choice was applicable and nonappli-
+cable.   The theoretical results included setting up procedures for approximating any de-
+sirable transfer function with linear operators.
+
+14
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+        Questions then raised were:       (1) what further criteria could be used in selecting
+operators, and (2) what was the detailed statistical nature of the seismic records used.
+The answer to the second question depends largely on computational results and should be
+greatly influential in answering Question 1. For instance, if it should turn out that certain
+records exhibit a marked non stationary character, it would be necessary to consider cri-
+teria involving filters which are nonlinear. From the standpoint of the linear operator this
+would mean the use of time-varying coefficients whose properties would vary correspond-
+ing to the nonstationary record itself.
+        Toward the solution of this second problem we have developed spectrum programs
+of a special nature. These perform spectrum analyses from highly overlapping portions of
+entire records.   The variability of these results is an indication of the nonstationary char-
+acter of the record.   Because of the immense am.ount of output (4000 spectral estim.ates
+per seismic trace, 10 or m.ore traces per record), the scope output is used, presenting
+the results in a density plot which allows direct analog-type interpretation.   This program.
+has just been com.pleted, and the preliminary results are very satisfactory. It incidentally
+has had direct application to the problem. of dispersed-wave propagation, permitting almost
+im.m.ediate determ.ination of dispersion curves.      Further programs along this line m.ay
+show variability according to areal location of record, thus permitting estimates of the
+validity of extending m.ethods from record to record.
+        The criteria being considered under Question 1 are, almost without fail, based on
+frequency inform.ation, and m.any of them involve a form of least squares. For this reason
+we have been im.proving our amplitude-phase and power-spectra programs during the last
+quarter as well as completing a matrix-inversion routine.
+
+
+107     (a) AUTOCORRELATION AND (b) FOURIER TRANSFORM,
+        INTEGRAL EVALUATION
+
+        This problem has made available routines for calculating autocorrelations, using
+rectangular rule or Sirnpson's rule for the evaluation of the integral, and for Fourier sine
+or cosine transforms, using Sim.pson' s rule. Development work on this problem. was corn-
+pleted by D. T. Ross of the MIT Servomechanism.s Laboratory in the second quarter of
+1953.   However, this problern has been left open for users of WWI whose cornputation can
+be effected by these program.s alone.
+        During the past quarter, these programs have been utilized by R. S. Tankin of the
+MIT Civil Engineering Departm.ent in the study of turbulence in water and by Dr. J. T.
+Farrar of the Massachusetts Memorial Hospitals in the analysis of human and animal
+intestinal-motility records.   Descriptions of these two projects are included under this
+problem. because of their general interest.
+
+
+                                                                                           15
+MATHEMATICS, CODING, AND APPLICATIONS
+
+
+           The project under R. S. Tankin is sponsored by the Office of Naval Research under
+Contract N5-ori-07874.      It deals with the investigation of turbulence in water by means of
+a Pitot-tube pressure-cell combination. In turbulent flow, the velocity consists of a steady
+component and a fluctuating component which is of random nature.
+          Since the measuring instrument has a resonant frequency of 250 cps, it was decided
+to obtain an autocorrelation curve and find out the importance of this quantity.     The auto-
+correlation function obtained from Whirlwind I indicated that the major portion of the signal
+had low-frequency components.
+          From the autocorrelation record, a mean intensity spectrum was obtained from
+Whirlwind I which bore out the fact that the mean power at 250 cps was small as compared
+to the mean power at 30 cps or less.      However, this spectrum peaks at 3 cps and higher
+harmonics, indicating a nonlinear condition.     This is believed to be in the flow itself, not
+in the instrument.
+
+
+          Dr. Farrar has submitted the following report describing his activities:
+          Existing methods of analyzing human and animal intestinal-motility records do not
+permit an objective, accurate measurement of the total amount of motor activity present,
+nor do they permit analysis of the component functions which make up the complex motility
+record.
+          Intestinal motility in man is composed of several different basic waveforms. These
+include:    (1) periodic "segmental" waves having a frequency of 8-11 cpm, (2) large "peri-
+staltic" waves of low frequency and questionable periodicity, and (3) random waveforms.
+Quantitative analysis of these components in a motility record has been impossible, as has
+been the evaluation of their relative contributions to the total motility record.
+          During the past year a cooperative program has been undertaken between the Gas-
+troenterological Section of the Evans Memorial Hospital and MIT.         The aim has been to
+apply analytical methods used in the study of sound to the interpretation of intestinal-mo-
+tility records.    The tracings of rabbit intra-enteric pressures and one very simple human
+balloon-kymographic record have been analyzed by generation of the autocorrelation func-
+tion.   This analysis has yielded numerical values for the frequency and amplitude of the
+various motility components, as well as their relative contribution to the total record.
+The autocorrelations were initially obtained by using the mechanical correlator in the
+Servomechanisms Laboratory. However, this machine proved unsatisfactory for the anal-
+ysis of the more complex human records, since the wave excursions of the original data
+exceeded the narrow limits of the machine.
+           Generation of the autocorrelation function of a complex human motility record has
+been very satisfactorily achieved by the use of the Whirlwind I digital computer.     Record-
+
+
+16
+- - - - -_ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+ings are made originally on rolls of paper having a l-mm grid. Numerical amplitudes are
+then read at each of the equally spaced (l-mm) points on the motility record.   This data is
+prepared by Whirlwind personnel and the autocorrelation function calculated.
+       Four human records have been analyzed during the past two months.            In all cases
+the autocorrelation functions appear superficially to reflect the periodicity and magnitude
+of the original records. However, the autocorrelation functions are too complex to permit
+accurate quantization of the amplitudes of the components.       It is planned now to obtain
+Fourier transforms of these autocorrelations.
+       It is thought that these exploratory studies done on Whirlwind may form the basis
+for a more extensive study of intestinal motility by these analytical techniques.
+
+
+108    AN INTERPRETIVE PROGRAM
+
+       A programmer's manual in the form of an Instrumentation Laboratory Engineering
+Memorandum (E-364) has been written by J. H. Laning and N. Zierler (see Summary Re-
+port No. 36).      Copies of this manual are available upon request at the Instrumentation
+Laboratory Library.
+       The following major changes have been made in this program:
+       1.   Instead of the problem tape bein.g :read in line by line on a mechanical tape
+reader, it is now inserted in the photoelectric tape reader (PETR) and read in completely
+and stored on the drum.      This change speeds up the read-in phase considerably.
+       2.   All the various tapes that make up this program have been combined onto one
+master tape, 108-60-30.       Consequently, to make use of the interpretive program, a pro-
+grammer simply writes the following instructions on his performance request (assume that
+the programmer's problem tape number is 178-63-14):
+            a.   E, 108-60-30 RI
+            b.   Insert 178-63-14 (STD) in PETR
+            c.   RS
+       The program will stop automatically on an si 1 in register 42.
+       All the routines described in E-364 have been tested and work correctly with the
+exception of the   Xl N routine.
+       A further report on the inner workings and programming methods used in this in-
+terpretive program has been started by N. Zierler. However, it will be some time before
+this report reaches completion,      since the author transferred from the Instrumentation
+Laboratory to Project Lincoln.
+
+
+109 AN AIRPLANE PURSUIT-COURSE PROGRAM
+       Two airplane pursuit-course programs have been developed by M. H. Hellman of
+
+                                                                                             17
+MATHEMATICS, CODING, AND APPLICATIONS
+
+
+the Instrumentation Laboratory at MIT which are based on the following assumptions. The
+first program restrains the airplane and target to the same horizontal plane.             The second
+program restrains the airplane and target to a slant plane. Both of these programs include
+the effects of airplane dynamics and projectile ballistics.
+         Each of these programs is now being extended to compute prediction times for two-
+gyro and three-gyro gunsights.            If comparable initial conditions are chosen for the hori-
+zontal and slant-plane programs, the prediction times computed from each will form a
+basis for comparing a gunsight calibration for a horizontal-plane pursuit course with a
+gunsight calibration for a slant-plane pursuit course.              A satisfactory test run has been
+made with the modified horizontal pursuit-course program.                A satisfactory test run with
+the modified slant-plane pursuit course is anticipated in the near future.
+         Upon completion of the above program, it is planned to make a number 'of slant-
+plane pursuit-course runs with the airplane and target initially in a slant plane.         From the
+results of these runs it will be possible to evaluate the errors in the calibration of existing
+gunsights.
+
+
+III     FOURIER ANALYSIS--AUTOCORRELATION PROBLEM
+
+         This study was undertaken by E. J. Frey of the Instrumentation Laboratory in the
+design and use of gyroscopes.
+        A function, f(t), is given over the interval (0, lZ1T) in the form of discrete values
+given at intervals of.6.t = 3~~. The function is presumed to consist of a linear combination
+of the following periodic components: 1, sin t, cos t, sin 2t, cos 2t, and of a random noise,
+net}.   The problem is to determine the Fourier coefficients a ' aI' a , b , b , and the
+                                                              O       2   l   2
+autocorrelation function of net).
+         For each interval (2n1T, Z{n+l)'71-) the Fourier coefficients are first calculated.       A
+rectangular method of integration is used, i. e~, ordinary summation.                For a periodic
+function, this is the same as the trapezoidal method. In this case, where f(t) is not strictly
+periodic, the only difference occurs in the evaluation of a ' aI' and a Z' and is equal to
+                                                           O
+
+                              .6. a       = f(Z(n+l)1T) - f(Zn1T)
+                                      o            7Z0
+
+
+
+
+quantities which are negligible in the case considered.             By a least-squares method, quan-
+tities aO+a ot , a l +a1t, aZ+azt, b 1 +,8lt., b 2 +,8Zt were fitted to the six sets of Fourier co-
+efficients. (This last step was ,not done on WWI.)
+
+
+
+18
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+       The following was then com.puted:
+
+
+
+
+and an autocorrelation of g(t) was obtained.          The m.ethod of com.puting the autocorrelation
+function was the following:
+                                      2l59-n
+                              1
+             cp (lSOn) = 2159-n         L       ..J. (~ K) ..J.
+                                                ~ 180        ~ 180
+                                                                  (....!!- K + ~ n).
+                                                                               180
+                                       K=O
+
+       It was originally expected that the rem.oval of the first two harm.onics from. the data
+would leave a stationary random. process as the residual.                   However, the autocorrelation
+process indicated that the random. process constituted a relatively sm.all part of the resid-
+ual and that the bulk of the residual consisted of com.binations of analytic functions. Hence
+the original problem. had to be attacked from. this new standpoint.
+       No report was published on this work, since the results obtained were inconclusive
+as far as the physical equipm.ent involved was concerned.
+
+
+112    LAWLEY'S METHOD OF FACTOR ANALYSIS
+
+       This problem., undertaken in cooperation with Dr. F. M. Lord of the Educational
+Testing Service, Princeton, seeks to factor-analyze a 33 x 33 correlation m.atrix by Law-
+ley's m.axim.um.-likelihood m.ethod successively under the several hypotheses that the num.-
+ber (m.) of com.m.on factors is 4, 5, 6,...        The num.ber of com.m.on factors hypothesized is
+increased until a test of statistical significance shows that the data are in accord with the
+thus-m.odified hypothesis.        For any given one of these hypotheses, the m.ain problem. from.
+a m.athem.atical point of view is to find the latent roots and vectors of a m.atrix whose dia-
+gonal elem.ents are them.selves functions of the latent vectors to be determ.ined.
+       Com.plete factor analyses were run for m. = 4, 5, ... , 10. For m. = 10, a statistical
+test showed that the data were in reasonable agreem.ent with hypothesis.                 This com.pletes
+the work on the Whirlwind com.puter.           The latent vectors thus found were rotated to psy-
+chological m.eaningfulness on the m.atrix rotator at the Adjutant General's Office.                Final
+results will be reported in the periodical literature.
+
+
+113    A STRESS ANALYSIS OF AN L-SHAPED HOMOGENEOUS PLANAR STRUCTURE
+
+       A program. has been prepared by S. Sydney of the MIT Civil Engineering Departm.ent
+for Whirlwind to analyze planar stresses in a rectangular plate which has a portion of its
+interior section rem.oved.        This plate sim.ulates a two-dim.ensional slice of the throatless
+
+
+                                                                                                      19
+MATHEMATICS, CODING, AND APPLICATIONS
+
+
+press (see Summary Report No. 35) which is being investigated by members of the Civil
+Engineering Department.
+          The convergence of the original program prepared for the analysis of the flat plate
+simulating a section of the throatless press is very slow because of the large number of
+panels that were used to approximate the plate.    A new program has been prepared with a
+much "coarser" gridwork that will provide an initial set of values for the "fine" gridwork
+quite close to the final results.
+          The fine gridwork will now be used primarily for interpolation to obtain values of
+stresses at more closely spaced points.
+
+
+119       SPHERICAL WAVE PROPAGATION
+
+          The propagation of spherical waves caused by the release of a compressed sphere
+of air, initially at rest in the atmosphere, is being studied.   The problem is being solved
+by a numerical integration along the characteristic directions of the differential equations
+governing the flow. The problem has been solved for the case of an initial density distri-
+bution,p = 1+2e- 4r2 (see Summary Report No. 36). In that case no shock was encountered.
+At present, work is proceeding on the case of an initial density distribution,   p = 1+5e- 4r2 ,
+for which it appears that a shock does form.
+          For this new case certain numerical difficulties were encountered which necessi-
+tated a good deal of reprogramming.      This has now been completed, and a production run
+has been obtained using the new program.      This computation takes the problem very close
+to the shock which appears to be forming near the center of the sphere at about time t = 1. 5.
+Because of the nearness of the shock formation to the center of the sphere, some hand
+computation will be required to carry the computation up to the shock.      An initial r-axls
+spacing of 0.06250 has been used for this computation.
+          A paper has been written by P. Fox and A. Ralston of the MIT Mathematics Depart-
+ment on the results described in Summary Report No. 36 which Sir Geoffrey 1. Taylor will
+communicate to the Royal Society of London for pUblication.
+
+
+120       THERMODYNAMIC AND DYNAMIC EFFECTS OF WATER INJECTION INTO GAS
+          STREAMS OF HIGH TEMPERATURE AND HIGH VELOCITY.
+
+          This problem is connected with the developnlent of a potential gas -turbine compon-
+ent, called an "aerothermopressor," in which a net rise in stagnation pressure of a hot
+gas stream is brought about by evaporative cooling associated with liquid injection into a
+high-velocity region of the flow.    The term "stagnation pressure" of a compressible gas
+stream is analogous to the quantity "total head" in the more familiar problems of hydraul-
+ics. The role of the aerothermopressor in the gas-turbine cycle is itself analogous to that
+
+20
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+of the condenser in the steam power plant and would reduce both specific fuel and specific
+air consumption of the gas-turbine power plant. Further description of this device may be
+found in earlier reports, beginning with Summary Report No. 32.
+          The analytical work being carried out on Whirlwind I is concerned with the thermo-
+dynamic performance characteristics of the aerothermopressor; principal objectives are
+to obtain a better understanding of the complicated physical process and to obtain design
+data which may serve as a guide and foundation for future experimental work.       During the
+past year, considerable information has been accumulated regarding the performance of
+constant-area aerothermopressors under various conditions of operation; methods for im-
+proving performance by means of suitable c ros s - sectional area variation were also studied.
+A complete report on this work, titled "A Theoretical Investigation of the Thermodynamic
+and Dynamic Effects of Water Injection into High-Velocity, High Temperature Gas Streams,"
+has been submitted to the MIT Department of Mechanical Engineering in the form of a the-
+sis for the degree of Doctor of Science. This thesis, written by Bruce D. Gavril and super-
+vised by Professor Ascher H. Shapiro, is divided into three separate parts. Part I contains
+a survey of the historical development of the aerothermopressor together with a discussion
+of the fundamental concepts underlying its operation and application to gas-turbine power
+plants.    Part II contains the derivations of the algebraic and differential equations of the
+one-dimensional aerothermopressor process, while Part III is devoted entirely to the pro-
+gramming procedures and problems involved in the numerical solution of the equations by
+means of Whirlwind I.
+          Because of its importance, this analytical work is being continued, and further
+calculations are currently being carried out with the primary purpose of developing a sys-
+tematic calculation procedure for determining the cross-sectional area variation of the
+aerothermopressor evaporation section which will lead to optimum performance.            Pro-
+vision has also been made for treating aerothermopressors containing a variable-diameter
+plug within a concentric, constant-diameter cylindrical shell for purposes of supplying
+design data and subsequent interpretation of experimental results for the large aerothermo-
+pressor facility now under construction at the MIT Gas Turbine Laboratory.
+          The aerothermopressor development program is being carried out at MIT under
+the sponsorship of the Office of Naval Research.
+
+
+122       COULOMB WAVE FUNCTIONS
+
+       A program has been written and tested by A. Temkin of the MIT Physics Depart-
+ment to compute the coefficients a L in the recursion relation:
+                                     n
+                                            L          L        L
+                               (n-L-l)(n+L)a n   = 2"lan- 1 - a n- 2
+
+
+                                                                                            21
+MATHEMATICS, CODING, AND APPLICATIONS
+
+
+                                   n = -L, -L+l, ...
+
+subject to the boundary con~itions
+
+
+                                                       L
+                                                    a L +l = 0
+                                                                 (lC)
+
+           These coefficients are needed in an expansion, L p na L, which forms part of the
+                                                         n=-L   n
+irregular solution of the Coulomb wave function differential equation. Sufficient coefficients
+are assumed to be computed when pnanL gets below a preassigned value.
+        For the values p = 2, 7] = 0.5, L = 5 the coefficients were found to converge very
+rapidly.     For p = 54,      7J = 15, L = 5, however, the terms seemed to be actually divergent
+up to the 32 terms computed.           This is an extreme combination of those parameters, and it
+may well be that it simply requires more terms before the convergence becomes apparent.
+We are, therefore, doing the calc\llation for L = 5,         P = 20, 7] = 20, which is a more rea-
+sonable choice of these numbers.
+
+
+123     EARTH RESISTIVITY INTERPRETATION
+
+           The problem under study is the determination of the resistivity distribution., p (z),
+beneath the surface of the earth about a point source of current.        This problem consists of
+two parts: first, the calculation of the Slichter kernel function from the obs.erved potential
+data (see Summary Reports No. 35 and 36); and second, the analysis of the kernel function
+to yield the resistivity distribution.
+           The latter problem has been developed in the past quarter for the special case of
+three layers. The method used is the Newton method of solving sets of nonlinear algebraic
+equations, as described by von Sanden.         * The Slichter kernel, k( A}, was previously cal-
+culated for several values of A from the observed potential about a point electrode situated
+on the surface of a semi-infinite medium containing two discontinuities (in resistivity)
+which are parallel to the surface.     The parameters to be determined are d , d , and p 2'
+                                                                                l   2
+where d      and d   are the thicknesses of the first and second layers, and P 2 is the resist-
+          l      2
+ivity of the second layer.       PI and P3 are known from the asymptotic behavior of the poten-
+tial function.    It is known that, for a given distribution,
+
+
+
+                                 _ .!. + 1                                                     ( I)
+                 1+kl23 (A}        2    2
+
+
+
+*    von Sanden, H., "Practical Mathematical Analysis," Methuen, London (l923),p. 163 ff.
+
+22
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+where
+
+
+
+
+                     t 2 -- e -2Ad2
+
+
+An initial assumption of the values of the parameters must be made, and these are inserted
+into the expression for f         ( A) for several values of A. For any value of A= A i chosen, let
+                            123
+
+
+
+
+where
+
+
+
+Then,
+                                                                                                (2)
+
+where
+
+
+
+Equation (2) can be used to calculate J.1 for several values of A. If three values are taken,
+there results a set of three linear equations to be solved for b. P2' b.d l , andb.d ; conse-
+                                                                                    2
+quently, dl' c:l'Z' and d can be reduced to zero. * If more than three values of A are used,
+                         3
+the system is overdeterm.ined.
+        Then the values of b.P , etc., can be determined such that
+                              2
+
+
+
+
+is a minimum. Carrying through the algebra, one arrives at the following set of equations:
+
+
+
+
+* This is referred to as the three-point absolute-fit.
+                                                                                                23
+MATHEMATICS, CODING, AND APPLICATIONS
+
+
+Thus the solution of the three-layer case again reduces to the solution of a 3 x 3 matrix
+which, in this case, is symmetric.
+          The entire procedure must then be repeated using the new values of the parameters
+
+                           (1)       (0)
+                       P2 =P2              +!:::.P2,etc.
+
+
+and the repetition continued until S reaches a sufficiently small value or until the indicated
+changes become sufficiently small or random.               The calculation for the case of more than
+three layers is entirely analogous and will be carried through if the results from this case
+seem to warrant it.    However, it is not anticipated that any cases of more than six layers
+will be of any practical significance.
+          The three methods indicated above were applied to a three-layer case of para-
+meters.
+                               =                            d(O)  0.8
+                                                              1 =
+                       d
+                           l
+                               = 1                          d(O)  1.2
+                                                              2 =
+                       d
+                           2
+                                                            p(O) _ 12
+                       PI = 1                                2   -
+
+                       P 2- 10
+                      P 3 = O. 1
+
+          The three-point fit converged in the first two steps, gave a wild value of d          in the
+                                                                                            2
+third step, and then began to converge again.
+          The least-square fit, using 5-7 values of A, was tried on the first step, and again
+using the results of the second step from the three-point method.            Convergence here was
+considerably more rapid than in the previous method, but the same oscillation occurred in
+the third step.   The reason was found to be a second derivative which, for the values con-
+cerned, was of the same order of magnitude as the first derivatives. This problem will be
+avoided by reducing the sizes of parameter change's, obtained from the solution to the nor-
+mal equations, to some fraction of the indicated change.
+         Some investigation was made of the effect on the ,results of changing the values of
+A i used.   A (logarithmic) plot of k(A) versus A shows that it is asymptotic to constant val-
+ues (determined by PI and P3) for high and low A, but in the intermediate range of A,
+roughly 1 ~ A ~ o. 00 1, k(A) varies widely. The values to be used must be chosen from this
+range.
+          The program for the original problem, the iterative integration of the potential
+function to obtain the Slichter kernel, was completed but was found far too slow.          A faster
+method was found and programmed and is being tested.
+
+24
+- - - - - - - - - - - - - - - - - M A T H E M A T I C S , CODING, AND APPLICATIONS
+
+
+         This work is being done by K. Vozoff of the MIT Geology and Geophysics Depart-
+ment with the assistance of Theodore Madden of that department.
+
+
+126      A DATA-REDUCTION PROGRAM
+
+         In this problem a very large data-reduction program is being developed by D. T.
+Ross for use in the Servomechanisms Laboratory.        The over-all problem is composed of
+many component sections which will be developed separately and then combined at a later
+date.    Thus far, efforts have been focused on the development of utility-type programs.
+These programs, which have been described in previous Summary Reports, include a fully
+automatic program to fit polynomials to arbitrary empirical functions; a Mistake Diagnosis
+Routine, an automatic interruptive-checking routine; a general-purpose Lagrange interpol-
+ation program; and a flexible and fairly elaborate post-mortem routine.
+         During the present quarter all of the above programs have been changed to operate
+using the improved programmed-arithmetic routines of CS II. In addition, the post-mortem
+routine was expanded to include a format routine which will assemble information scattered
+throughout magnetic-core and drum storage, and type or punch the information in a format
+suitable for the particular type of information.      Step 1 of the data-reduction procedure
+(previously described) was also changed to use CS II and appears to be operating correctly.
+Succeeding steps of the data-reduction procedure have been programmed, and testing will
+be started soon. A strong effort has been made to write the present version so that planned
+future expansions of the procedure can be made with almost no rewriting of existing sec-
+tions.
+
+
+132 SUBROUTINES FOR THE NUMERICALLY CONTROLLED MILLING MACHINE
+         The original objective of this problem was to write and test enough library-type
+subroutines to reduce the amount of programming connected with the preparation of milling-
+machine tapes for pieces bounded by plane curves to that necessary to allow the computer
+to find points on the boundary of the piece.    This objective was attained by the end of the
+preceding quarter.    Since many of the subroutine s developed are applicable to data pro-
+cessing for any curve or surface,    and since more experience in the use of the subroutines
+was desired in order to evaluate their usefulness,    the objectives of the problem have been
+broadened to include the preparation of subroutines for several clas ses of surfaces in addi-
+tion to the use of existing subroutines for tape preparation for several pieces.   This work
+is being carried out by J. H. Runyon of the Servomechanisms Laboratory.
+         Testing of a set of subroutines needed for computing points on series-l6 airfoil
+cross-sections was completed.       These subroutines are being incorporated in a program
+for preparing tape for airfoil templates.      Also tested successfully was a subroutine for
+
+                                                                                           25
+MA THEMA TICS, CODING, AND APPLICATIONS
+
+
+determining parameter values along a curve such that a series of cuts connecting points on
+the curve corresponding to -these values approximates the curve to within a given tolerance.
+        Subroutines necessary for tape preparation for cones were written and operated
+satisfactorily.     Their functions include proper sequencing of cuts, cut spacing, and tool
+center offset computation.           Several milling-machine tapes for a cone with a sinusoidal
+cross-section were prepared to illustrate methods of cut spacing and to show different
+degrees of approximation to the surface.
+        Two other subroutines were written and are now being tested.            One of these is for
+selecting points for an interpolation routine. The other interchanges the roles of dependent
+and independent variables in a function by an iterative process.
+
+
+134     NUMERICAL DlAGONALIZATION PROCEDURE
+
+        During the past quarter, a large number of 5 x 5 matrices which arose in the theory
+of electronic energy bands in crystals were diagonalized.           The theory, sometimes called
+the tight-binding approximation, is described in reports of the Solid-State and Molecular
+                         :J.c:
+Theory Group of MIT.             Basically, a one-electron wave function in a crystal is represent-
+ed as a linear combination of atomic functions.           The number of functions per atom is kept
+low, and it is this number which determines the maximum order of secular equations even-
+tually to be solved.    The reason why it is this num.ber, and not it multiplied by the number
+of atoms in the crystal which determines the order of the secular equation, is that it is
+theoretically possible to eliminate at once the dependence of the coefficients of the atomic
+wave functions on the atomic position, leaving only as many independent coefficients as
+there are functions per atom.
+        Explicitly, the ·crystal wave function begins as an arbitrary linear combination of
+atomic functions
+
+
+
+
+            ... -
+where u (r - R ) represents the JJ.th atomic function centered about the atom. located at R .
+       JJ.     n                                                                             n
+                                                                                               --
+Because of the translational symmetry of the crystal lattice, however, C         must be of the
+                                                                            Jlll
+form
+
+
+
+       -.
+where k itself can take on a latticed set of values, the resulting structure of quantum num-
+bers being called the reciprocal lattice.         Thus, only the d 's remain to be varied.
+                                                                  JJ.
+
+*    Quarterly Progress Report No.9, July 15, 1953 and Technical Report No.4, July 15,
+     1953, Solid-State and Molecular Theory Group, MIT.
+
+
+26
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, . CODING, AND APPLICATIONS
+
+
+
+       The variation of the dIs is such as to make the energy stationary. If H represents
+                              I-'-
+the one-electrpn Hamiltonian operator, then the energy is given by
+
+
+
+
+It is the matrix of H between the atomic functions {multiplied by the exponential phase fac-
+                                                            ~
+tor} which is to be diagonalized for different values of k.     Details of the evaluation of the
+matrix elements as well as the discussion of the wave functions used, which are not strictly
+the atomic functions but orthogonalized combinations called Wannier functions, are given
+in the reports cited above.
+       This formalism was set up for a body-centered structure, and 220 5 x 5 matrices
+                                                     -...
+{corresponding to 220 geometrically independent k values} were diagonalized.        The results
+are to appear in a paper in the Physical Review under the authorship of Prof. Slater and
+Dr. G. F. Koster.    The preparation of the matrix elements, the actual problem, was done
+by Dr. Koster who will continue the work with a treatment of a face-centered structure
+under Problem 174.
+
+
+138    SPHEROIDAL WAVE FUNCTIONS
+
+       Spheroidal wave functions are solutions of the scalar Helmholtz equation separated
+in spheroidal co-ordinates.     A program has been developed for tabulating {l} the coeffi-
+cients obtained by expanding the angular solutions of the first kind in associated Legendre
+functions and {2} the coefficients obtained by expanding the radial solutions of the first kind
+in spherical Bessel functions.       These expansions are analytically substituted in the ordi-
+nary differential equations arising from the separation of
+
+
+
+
+in spheroidal co-ordinates.   After manipulation, 3-term recursion relations are obtained
+for the coefficients, and the radial and angular coefficients are found to be simply related.
+Both sets of coefficients are then determined by applying an iterative procedure to a con-
+tinued-fraction equation derived from one of the 3-term recursion relations. The iteration
+proceeds until a value of the unknown separation constant of the differential equation which
+appears in the continued fraction is found such that it makes the coefficients compatible
+with their boundary conditions.
+       The above scheme has been programmed, tested, and all the computer production
+work done.   The results are at present being prepared for publication as a book of over
+500 pages.   A significant feature of the programming was that a rather elaborate layout
+
+
+                                                                                             27
+ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+, routine was programmed for the computer output, and, as a consequence, the results,
+automatically typed by the Flexowriters, are suitable for direct photo-offset reproduction
+without further transcription. For further details, of both the theory and the programming,
+the reader is referred to a more extensive report given in Quarterly Progress Report No.
+ 11, Machine Methods of Computation and Numerical Analysis, MIT.
+
+
+ 141    S&EC SUBROUTINE STUDY
+
+           The following subroutines have been added to the library of subroutines:
+
+ Tape No.                             Title                                  Reference
+
+LSR MA3                 Rectangular Matrix Multiplication.           Summary Report No.     36
+                        Computes matrix "c" where C=A T B,           Problem 157
+                        and A and B are recorded on the
+                        auxiliary drum.   The calculated ma-
+                        trix C is also stored on the drum.
+
+ LSR MA4                Matrix Diagonalization.                      Summary Report No.     35
+                        The diagonal form of the given ma-           Problem 134
+                        trix is computed and stored on the
+                        drum. The orthogonal matrix is also
+                        formed.
+
+ LSR SP2                Extract Integral Part of MRA.                Utility program to be used
+                        The integral part of the MRA is stored       with CS II
+                        in the index register of the last se-
+                        lected counter.   The fractional part
+                        remains in the MRA.
+
+
+ 142 A STUDY OF SHOCK WAVES
+           Original calculations on the analysis of the propagation of a shock wave through an
+ extended body were terminated temporarily in December and reported in Summary Report
+ No. 36.    An analysis of these results has been made, and it has been decided to continue
+ this work. Several revisions are being made in the program by S. Sydney of the MIT Civil
+ Engineering Department to facilitate the interpretation of the results.
+
+
+ 143       THE VIBRATIONAL FREQUENCY SPECTRUM OF A COPPER CRYSTAL
+
+           The atomic constants have been determined for a copper crystal from X-ray meas-
+ urements.     These constants appear in a secular determinant relating frequency to wave
+
+ 28
+-   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+vector for thermal waves propagating through the crystal.      This equation has been solved
+for 3417 wave vectors from which a frequency spectrum has been constructed. This spec-
+trum will be used to calculate the specific heat and zero-point energy of the lattice.    Ad-
+ditional runs will be made in order to ascertain the effect of varying the atomic-force
+constants on the spectrum.    Such information may be of interest in the case of super-
+conducting metals where it is felt that the phenomenon of super-conductivity is closely
+connected to the lattice dynamics of the metallic crystal.
+        This problem is being carried out by E. H. Jacobsen of the MIT Physics Depart-
+ment.
+
+
+147 ENERGY BANDS IN CRYSTALS
+        The previous quarterly progress report on this problem (see Summary Report No.
+36) outlined the determination of the zeros of a function of two variables, F(E, EO).   These
+are obtained by choosing a fixed value of the energy E of the augrn.entedwave and determin-
+ing the corresponding energy EO of the plane wave.      All the production work necessary to
+complete this stage of the calculation for the particular metal under consideration, copper,
+has been carried out.    Three separate potentials, V, have been considered, and, as an
+indication of the work involved,   over 2000 numerical integrations of the second - order
+differential equation,
+
+
+                             R (V _ E + £(£+1)
+                              "£          r2
+
+have been performed for various E,!l ; some 4000 roots of F(E, EO) have been obtained.
+These results show an encouraging agreement with theoretical predictions and lead one to
+hope that this method of determining electronic energies in solids will prove of real value,
+despite the large amount of computation involved.
+        The last part of the computation has been programmed by Dr. D. J. Howarth of the
+MIT Solid State and Molecular Theory Group and is now being tested.       From the preceding
+work, a relationship between E and EO is obtained which determines wave functions of an
+electron, consisting of an expansion in spherical harmonics inside a sphere surrounding a
+nucleus, and a plane wave outside this sphere. Such wave functions possess a discontinuity
+of the derivative at the surface of the sphere.   To account for this, a linear combination of
+such functions is used, the variational principle being used to determine the "best" com-
+bination and the associated energy. This involves the calculation of matrix elements of two
+wave functions and the solution of the resulting secular equation.
+
+
+
+
+                                                                                           29
+MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+         The matrix elements depend upon the functions
+
+
+
+
+                                                                    f
+                          d   Jl - P£ (E, r)                            R  2
+                         dr ( n            r          )       and       o Pi (E, r}dr.
+
+
+The calculation of the former was programmed for the first stage of the work; the latter is
+obtained by use of Simpson's rule.                     The calculation of these functions in a form suitable
+for future use has been programmed, and most of the necessary results for copper have
+been obtained.
+         The matrix elements involve weighted sums of these functions, the weighting factors
+being products of spherical Bessel functions and Legendre polynomials; subroutines to cal-
+culate these, using recurrence relations, have been developed. The subsequent calculation
+of the matrix elements is elementary, though requiring care to allow for various special
+cases which can arise.        Because of the length of the program, attention has been paid to
+designing programs to use the minimum amount of storage for the initial data, while sim-
+plifying the input requirements as much as possible.
+         The final secular equation to be solved is of the form
+
+
+                          det (H          - E I:.:.         )= 0
+                                   }Lv                }Lv
+
+
+where H }L1/.I:.:.}LV   are the matrix elements, and E is to be determined. 6. is not in diagonal
+form, so to reduce this to the normal form of secular equations with diagonal 6. , a tech-
+nique due to L·owdin is used.             We may write the equation as
+
+
+                          det (H'
+                                   }L v
+                                           - Ed
+                                                      }Lv
+                                                            ) =0
+
+where H' = 6. -1/2H~-l/2, and H' may be diagonalized using the existing secular-equation
+subroutine.
+       The matrix 6. -1/2 is calculated by diagonalizing 6., using the existing subroutine,
+                l 2
+                   d
+forming 6. . 6. / is easily calculated, and 6. -1/2 is formed by a unitary transformation.
+          d
+Matrix multiplication then produces H'.
+         A program to solve such equations of order up to 30 x 30 has been prograrn.medand
+tested and now exists in a production form, suitable for use by other programmers; several
+equations have been solved for Dr. R. McWeenyof the Solid State and Molecular Theory
+Group.
+         When the final errors have been eliminated in the program to calculate the matrix
+elements, the work will be completed for copper.                             If the convergence of the method is
+sufficiently good, and the results agree substantially with those obtained by use of other
+
+
+30
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+methods, it is hoped to repeat the calculations for several other materials; in order to
+investigate the method fully, many pa:rameters have been varied in the case of copper,
+involving much additional computer time.      To investigate other metals would require very
+much less computer time.
+
+
+149    DIGITAL METHODS OF DETECTING SIGNAL FROM NOISE
+
+       The study of various digital methods for the detection of signals in noise where the
+message is a binary sequence is being continued by Dr. G. P. Dinneen of the Lincoln Lab-
+oratory.   The sequential observer, which is discussed at length in Lincoln Laboratory
+Technical Report No. 20, has been simulated for various parameter settings. A stochastic
+process using a pseudorandom number generator has been used to generate signal and
+noise regions, and significant results have been obtained for this clas s of detector.
+       The success-run detector which is described in Summary Report No. 36 has been
+studied during this quarter.     The equations for this detector have been solved to obtain the
+probability of detection for known signals.      A program has been successfully operated for
+one set of reset conditions for the counter of this detector. Several other sets will be tried
+during the next quarter, and it is expected that this will complete the study.
+
+
+152    DIFFUSION IN AN OXIDE-COATED CATHODE
+
+       This problem is being carried out by H. B. Frost of the Digital Computer Labora-
+tory to determine the effects of combined thermal and electrolytic diffusion that occur in
+an oxide-coated cathode when current is caused to flow through the cathode.        The results
+will be included in a doctoral thesis to be submitted to the MIT Electrical Engineering
+Department.   The details of this problem. have been described in Summary Report No. 36.
+       As this problem was originally coded, the two integrals which must be determined
+were evaluated by using trapezoidal integration.        Critical evaluation of the results with
+large values of y, corresponding to IRq/KT of greater than 2.75, indicated that appreciable
+errors were. introduced by truncation errors in the integrals and by truncation in the step-
+by-step solution of the differential equation.    The most serious error was introduced by a
+cumulative truncation error in the solution of the differential equation. Although the error
+did not amount to more than one part per thousand in the value of the integral
+
+
+                   I:    n(x, t)dx ,
+
+the error in the integral
+                     a       1
+                    f V~(x,t) dx
+                     o
+
+                                                                                            31
+MATHEMATICS, CODING, AND APPLICATIONS - - - - - - -_ _ _ _ _ _ _ __
+
+
+
+amounted to about 1. 5 per cent for IRq/KT equal to 3. 25.                 The first integral checks the
+truncation error in the solution of the differential equation, while the second integral cor-
+responds to one of the desired results, the normalized resistance.                       In order to reduce
+errors, Simpson's rule integration was substituted for trapezoidal integration, and a run-
+ning correction to the truncation error was performed by forcing the value of the first
+integral to unity, the correct value.        Th.e latter procedure was possible because the maxi-
+mum error per step was quite small. The continuous correction was performed by dividing
+the integrand by the value of the integral. When these two changes were made in the coding
+of the problem, the error in the normalized-resistance integral was reduced to less than
+0.5 per cent, and the error in the normalized emission was reduced from 0.5 per cent to
+less than o. I per cent.     Better accuracy could be obtained at the expense of a finer net and
+longer running time, but further improvement did not seem justified.                      The running time
+varies as the cube of the number of points in the net.
+        The above solutions were made for constant cathode current. Experimental results
+dictated the need for a set of solutions at constant surface field.                For this condition, the
+current vades as Vn(O, t}.        This set of solutions was obtained by making              r th.e product of
+an initial   r 0 and Vn(O, t). A set of solutions for this condition has also been completed.
+        Experimental confirmation of the theoretical results appears to have been obtained
+within the limits of the initial as sumptions and the experimental accuracy.
+
+
+153     GUST RESPONSE OF A FLEXIBLE SWEPT-WING AIRPLANE
+
+        This problem involves the solution of pairs of simultaneous integro-differential
+equations of the form:
+
+
+
+
+                +a1 I:s
+
+                                                       I:
+                          Ql'(cr) 1(1)(5" - cr)dcr = a o
+                                                           s
+
+                                                               F'(cr)1JI0(5 0 - cr)dcr
+
+
+One hundred and twenty-eight pairs of equations of this form were solved on the Whirlwind I
+computer, the solutions being desired for qo" and ql" as well as the particular value of
+qO"max'      thus making the solutions involve numerical integration only,                  eliminating the
+difficulties of both differentiation and integration simultaneously.               qo "max represents the
+maximum acceleration of a flexible swept-wing airplane after entering a gust.
+        The functions i, F, and'" are approximated by a series representing the true log-
+arithmic and polynomial character of these functions to four significant figures, making
+
+32
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+calculation on Whirlwind I more direct.    These functions are first evaluated and stored,
+then punched on paper tape for each set of parameters involved in a given equation-pair.
+The function sets. are then read into the computer at a later time and the equations solved,
+results printed either as qO"max values, or as a complete time-history of qO".         The ap-
+proximating functions all converged satisfactorily for the values of parameters under con-
+sideration.   All 128 pairs of equations ran without developing singularities.
+        The programming was done by Kenneth Foss of the Aero-Elastic and Structures
+Research Lab and David Sternlight of the Mathematics Department.        The program utilizes
+a punch routine made available by Harry Denman of the S8tEC Group staff.             Because of
+storage limitations, this program is stored in the magnetic drum. In the drum the original
+program is also kept available, and for resetting the computer for each calculation, the
+drum is merely mapped over magnetic-core memory, thus clearing all counter registers
+with a minimum of instructions.
+       A more detailed report, including physical and mathematical derivations, will be
+published under USAF Contract No. 33-{038}-7267, and copies will be available for limited
+distribution from the Aero-Elastic and Structures Research Lab, MIT.             The problem is
+satisfactorily concluded.
+
+
+155    SYNOPTIC CLIMATOLOGY
+
+        The purpose of this project, which is being carried out under the direction of Prof.
+T. Malone of the MIT Meteorology Department, is to seek a way of organizing climatic
+data in such a form that it will be directly applicable to the problem of the synoptic mete-
+orologist, that is, to the problem of weather prediction.     This problem is generally ap-
+proached by the analysis of the circulation patterns at two or more levels in the atmosphere
+over areas ranging from the United States to an entire hemisphere.      The analysis is, to a
+certain extent, subjective and is carried out by graphically representing the past, current,
+and anticipated circulation patterns on maps.    The actual weather elements (temperature,
+rainfall, cloud cover, ceiling, visibility, etc.) are obtained from the circulation patterns
+by a highly subjective procedure.
+       A quantitative treatment is badly needed.     Moreover, this treatment should be es-
+sentially statistical,   because the very nature of the atmosphere makes it unlikely that
+precise, categorical forecasts will ever be feasible, while probability forecasts of high
+utility await only a proper analysis of available data.   The overwhelming magnitude of the
+computational task required for a comprehensive analysis has been a decisive deterrent to
+any such program. The development and availability of a high-speed, large-capacity com-
+puter such as Whirlwind I has completely changed this picture.
+
+
+
+                                                                                             33
+MATHEMATICS, CODING, AND APPLICATIONS _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+
+The approach adopted in the present work has been to represent the circulation patterns by
+the coefficients of orthogonal polynomials fitted to atmospheric-pressure data summarized
+directly from the circulatfon patterns.    The coefficients then constitute an ensemble of
+nonstationary time series.    The temporal variation of a given weather element is another
+nonstationary time series.    The mathematical problem here is the prediction of the latter
+from its past behavior and from the interrelationship it has with the ensemble of time ser-
+ies.   The operator employed in this prediction is the multiple linear correlation which
+exists between the dependent and the independent variables.
+        In order to insure the most effective and the most efficient prediction, certain basic
+questions must be answered:     (1) how large a sample must be taken to insure stability of
+the operator, (2) over how large an area must the circulation pattern be considered, (3) how
+far back in time must the autocorrelation and the crosscorrelation be extended before the
+point of diminishing returns on information is reached, (4) how much independence really
+exists between the several levels in the atmosphere, and (5) how precisely must the circu-
+lation pattern be specified by the orthogonal polynomials.      The work during the present
+quarter has been directed toward answering these questions.
+        The cross products for a 14 x 14 matrix were computed.for a series of twenty Decem-
+bers and compared with the results obtained by using the basic sample size of six Decembers.
+The results suggested that the sample size is adequate.       More work is planned with the
+results of these computations to detennine how well climatic regimes can be detected from
+the behavior of the per-cent reduction for each month.
+        A major undertaking has been to process the necessary data so that the relations
+established from years prior to 1940 could be extended to include the effects of upper-level
+circulation patterns.   This involved computation of the coefficients for the surface and
+700-mb levels for the five Januarys during 1949-1952, since adequate upper-air information
+is not available for the years before 1940. In order to test the relative efficacy of different
+ways of representing the upper-level flow patterns, coefficients were computed for three
+types of 700-mb representation:    (1) conventional 700-mb contour charts, (2) standardized
+700-mb anomalies, and (3) probability units. The cross products of these coefficients were
+computed on Whirlwind I, and the matrices were prepared by desk calculator. The results
+are now being analyzed and will constitute a substantial part of an Sc. D. thesis.    It is an-
+ticipated that in further work of this kind the complete solution of the matrices will be
+carried out on Whirlwind 1.
+        A program has been prepared by which the coefficients of orthogonal polynomials
+representing the circulation pattern over the entire western half of the Northern Hemis-
+phere can be computed.    The computations have been carried out and the results combined
+with contemporary and lag coefficients over North America to determine the predictability
+
+
+34
+- - - - - - - - - - - - - - - - - MATHEMATICS, CODING, AND APPLICATIONS
+
+
+of sea-level pressure from the coefficients.          This involved a 52 x 52 matrix.    The cross
+products were computed on Whirlwind I, and the solution is progressing by hand.              During
+the course of this work, an improvedrnethod of computing coefficients, giving considerably
+more precise specification, has been developed.
+          The techniques and data are now available for intensive work on Questions 2, 4, and
+5 listed above, and this work will be given primary attention during the next quarter.
+
+
+156       THE EVALUATION OF THE REFLECTION COEFFICIENT IN A SEMI-INFINITE
+          OPEN RECTANGULAR WAVEGUIDE
+
+          The evaluation of the reflection coefficient in a semi-infinite open rectangular wave-
+guide is obtained approximately by using Fourier transform techniques on                the integral
+equations of the Wiener-Hopf type.      The integrals are to be evaluated by the trapezoidal
+rule.    A detailed description of the problem was given in Summary Report No. 36.              The
+'investigation is being carried on by Dr. M. Balser of Project Lincoln at MIT.
+          The problem has been successfully run for the ranges
+
+                       Q=9.9
+                       10 ~ a ~ 20 in steps of O. 5
+                        20 ~ a ~ 100 in integral steps
+                       100 ~ Q ~ 300 in steps of 5
+                                             2
+A short test run for the range 0 ~ Q L. 7T       was made.    (Since the integrals are complex-
+valued over this range, the calculation is far more involved here than for the previous
+ranges.) After making suitable checks, it was decided that the results were correct for
+the interval used in the trapezoidal rule but that this was not sufficiently accurate.
+          To obtain the additional accuracy desired, the intervals used in the trapezoidal rule
+were taken smaller around the singularity of the integrand.          Corrections were made in the
+program to introduce these changes, and, so far, a successful run has not been obtained.
+          Once a successful run is completed on the above, the final section of the problem
+will remain to be done, i. e., the section for -30 ~ a L        O.
+
+
+157       RECTANGULAR MATRIX MULTIPLICATION
+
+          Rectangular matrix multiplication has been programmed successfully by Dr. A.
+Meckler of the MIT Solid State and Molecular Theory Group and now is part of the library
+of subroutines.     The routine assumes that one matrix (A) of order kxrn is on one drum
+group and another      matrix (B) of order kxn. is on another drum group.       After the various
+matrix orders and drum groups have been planted within the routine, it will perform A T B
+(A T   = A transpose), leaving the result on a third drum group.         The routine uses buffer
+
+
+                                                                                                 35
+MATHEMATICS, CODING, AND APPLICATIONS _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+
+registers and should, in general, be accurate up to the largest matrix it can handle which
+is one containing 1024 elements (half the registers on a drum channel).
+
+
+158     RELAY SERVO RESPONSE
+
+        This problem considers the optimum response of an ideal, third-order relay servo-
+mechanism to the reference input
+
+
+
+
+The system error and its derivatives must be brought to zero from their initial values
+(A O' W 0' and a 0) with no overshoot in the minimum time, to. To do this, two reversals of
+the manipulated variable input, Qf' are required at time stand t .
+                                                             x     y
+        The critical times (t , t , and to) are related by the equations
+                             x   y
+                                                       2          f32
+             (l+g)ty ::: 2tx - f3 1 + (l-g)tx - f3 1       - (l+g)-Z-   + (I-g) f3 2                 ( 1)
+
+
+                                                                                                     (2)
+
+                                 a 0 - ak
+             (l_g)eatO ::: 1 +                  ( aty-e at x )
+                                             a+2e                                                    (3)
+                                  afm
+
+where
+
+
+
+
+and afm and a are parameters of the system.                  The quantities to be found are the critical
+times as functions of the other parameters.
+        The method used was to find numerical values for the critical times for several
+different values of each of the 4 parameters, A ' W 0' a 0 and ak' which specify the initial
+                                               O
+error, and for each of the 2 system parameters, a and 9     . Calculations on the Whirlwind
+                                                        fm
+computer were made for about 250 sets of parameters. From these results an expression
+was derived for the critical times as a function of 6 parameters.
+
+
+36
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MA THEMATICS, CODING, AND APPLICATIONS
+
+
+          Hand calculations of 6-figure accuracy required about 30 minutes per set of para-
+meters.
+          The / procedure was to assume a value of t x , solve Equations {1} and {2}, and sub-
+stitute values into Equation (3).    The amount by which the two sides of {3} failed to agree
+was used as a basis for estimating the next trial value of t ' This was continued for a
+                                                              x
+given set of parameters until all three equations were satisfied.
+          The results of the calculations have been included as part of a thesis entitled "Phase-
+space Considerations in Performance of Relay Servo-mechanisms."             The thesis has been
+submitted by John Wesley Stearns, Jr., to the MIT Department of Electrical Engineering
+in partial fulfillment of the requirements for the degree of Master of Science.
+
+
+159       WATER USE IN A HYDROELECTRIC SYSTEM
+
+          The big storage reservoirs of a hydro system are used to store water during high
+flows for use during low flows.     The exact amount to use or save at any given time depends
+on the amount of water in the reservoirs, the probability distribution of future river flows,
+the anticipated demand for power, and the cost of obtaining power from other sources.
+The problem is solved by calculating certain expected value functions and finding their
+minima.     The program is fairly general, but specific examples are drawn from the Colum-
+bia River system.
+          The problem was started this quarter by J. D. C. Little of the MIT Physics De-
+partment, and programming is about one-third complete.        Calculations have been performed
+for a model on which hand calculations had been made earlier.           The next step is to take
+historical-flow data for the Columbia River at Grand Coulee and derive from it conditional
+probability distributions of river flow.     Then, after the main program has been tested,
+these probability distributions will be inserted and optimum operation for the hydro system
+calcula ted.
+
+
+160       SIMILARITY TRANSFORMATION OF A MATRIX
+
+          A matrix congruent transformation has been successfully programmed by Dr. A.
+Meckler of the Solid State and Molecular Theory Group.          The program uses the matrix-
+multiplication subroutine {Problem l57}, and the order of the matrices involved is therefore
+limited by that subroutine.     The main program exists as a converted tape to be fed in at a
+fixed address.    A matrix U and a matrix A are typed on separate tapes, and, after this is
+fed in,   control is transferred to the main program which performs UTA TU and displays
+the result on the scope.    Control is then transferred back to the reader, and another set of
+U and A can be read in, and so on.       The program was used on a set of 21 x 21 matrices
+and appeared very accurate.
+
+                                                                                               37
+MATHEMATICS, CODING, AND APPLICATIONS - - - -_ _ _ _ _ _ _ _ _ _ __
+
+
+161    BUILDING SETTLEMENT UNDER TRANSIENT LOADS
+
+       An analysis is being made by S. Sydney o! the MIT Civil Engineering Department of
+the settlement of buildings when they are subjected to dynamic loads.                      The immediate
+practical goal of this analysis is to improve the existing concepts, relative to the proper
+choice of allowable bearing capacities for building footings, by obtaining relationships
+between settlements and various loads. The physical properties of various soils have been
+determined to some extent by em.pirical methods, and equations have been formulated to
+represent the soil action. Experim.ental work is being carried on to give some measure of
+confirmation to qualitative concepts and to provide nUnlerical values for the parameters
+involved in the analytical studies.
+       The behavior of the soil-footing system has been approximated by the action of a
+single degree of freedom. m.ass-spring systenl with nonlinear characteristics.
+       The properties of this system have been derived from established static-footing
+action concepts and a large amount of intuitive feeling for the manner in which the foundation
+soil acts under transient loadings.                   An approximation of this type has been utilized many
+times in connection with studies of soil action under periodic loadings, and, though this
+work is of lim.ited quantitative value, it is of value in establishing qualitative concepts and
+in defining trends.
+       During settlement up to the yield point of the soil, the action of the soil is predicted
+by the equation
+
+
+
+
+where MF        = the m.ass of the footing,
+       M            = effective soil m.ass at initial static settlement,
+               so
+       M            = effective soil m.as s at yield point,
+               sy
+        a = rate of increase of soil mass with settlement,
+       y       = settlement at soil yield point,
+           y
+       B = slope of initial settlem.ent curve.
+After the yield point is reached, the following equation is used:
+
+
+                                  (M
+                                       F
+                                           + M sy )Y + ByY = F(t)
+
+During unloading of the soil, the action of the system is predicted by the equation
+
+                                                1 M   -M
+      (MF + M              +aye + al(y_y.))y + (~   s~ so) (y2) + Rsy + B l(y-Yl.)         = F(t)
+                      so      1                1       2B           y
+
+
+
+38
+- - - - - - - - - - - -_ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+where y.    = settlement value at which unloading cycle began,
+        1   1
+        B       = slope of unloading curve,
+
+        R  = maximum soil resistance at point of unloading.
+        sy
+The above equations are applicable only for cohesionless soils, such as sand and gravel,
+which do not exhibit a strain-rate effect.    Cohesive soils which have a strain rate, such as
+some clays, will also be studied.
+       A Runge-Kutta fourth-order integration formula is being used in this analysis.         A
+program has been written for Whirlwind and is being used at the present time to obtain
+analytical results for cohesionless soils.
+
+
+163    FERRITE PHASE SHIFTERS IN RECTANGULAR WAVEGUIDE;
+       TRANSCENDENTAL EQUATION
+
+        The analytical expressions obtained from the solution of the electromagnetic bound-
+ary-value problem dealing with a single ferrite slab in a rectangular waveguide show that
+such a transmission line is nonreciprocal.      Under appropriately chosen conditions both the
+phase constant,     f3, and the attenuation constant, a , have different numerical values for
+the two directions of propagation.
+        Considerable simplification of the numerical work involved in extracting engineer-
+ing-design data and scientific understanding has been obtained by choosing cases where a
+is known to be negligibly small.     * This assumption leads to the expression (which will be
+called Part I of the problem):
+
+
+                                                                                             ( 1)
+
+
+where a is the slab position, p and q are functions ofj3, and r is a complicated transcen-
+dental function of    f3.
+       It is necessary to consider cases for which a is not zero.          A    small a becomes
+significant in high power systems.       A larger a will be encountered in the region of ferro-
+magnetic resonance where its behavior in this configuration is expected to reveal significant
+scientific information concerning resonance effects.
+       Manual computing time is increased by a factor of 50 when attenuation is introduced.
+Two simultaneous equations of the form of Equation (1) must be solved.         The symbols stand
+for very much more complicated transcendental expressions, and the two equations cannot
+be made completely explicit in a.
+
+
+
+* Results published in Lincoln Laboratory Technical Memorandum No. 49 and accepted by
+   the J. Appl. Phys.
+
+
+                                                                                              39
+MATHEMATICS, CODING, AND APPLICATIONS _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+
+        Fortunately, the substitution of the approximate values obtained from Part I are
+very helpful in the numerical solution of Part II.            A typical solution consists of four curves,
+Q+, 0 _, f3 +' and f3 _, plotted as a function of slab position.            Sets of curves must be obtained
+to establish dependence on frequency, on the physical parameters of the ferrite, and on the
+external magnetic-field intensity through the regions of ferromagnetic and dimensional re-
+sonance.
+        Basically, the programs for both Parts I and II were capable of calculating a single
+test point on each of the four curves.                  Some programming errors were revealed when
+attempts were made to calculate succes sive points for the construction of the four curve s.
+As parameters changed to approach resonances, some factors eventually turned imaginary,
+and transcendental functions changed quadrant rapidly.                     Provisions were included in the
+original programs for most of these difficulties and, subsequently, instructions were in-
+serted which provided for those which arose unexpectedly.                  Part I is now operating properly
+over a wide range, and it is believed that nearly all such difficulties have been remedied in
+Part II as well.   The only problemnot fully solved in programming is that of calculating the
+particularly sensitive endpoints of the curves.
+        This work is being carried out by K. J. Button of Lincoln Laboratory at MIT.
+
+
+] 66    CONSTRUCTION AND TESTING OF A DELTA-WING FLUTTER MODEL
+
+        To solve the problem of designing, constructing, and testing a delta flutter model
+which simulates a given set of flexibility influence coefficients, the actual wing is replaced
+by a structurally equivalent lattice network, and the task becomes one of determining the
+bending and torsional stiffnesses of the component members.                     Employing the principle of
+minimum elastic-strain energy, and the elementary flexure and torsion theories, an analyti-
+cal expression for the influence coefficients in terms of lattice geometry and the unknown
+stiffnesses of the system is set up, and an iteration procedure is evolved for obtaining the
+desired stiffnesses by successive error corrections which converge to zero.
+        The mathematical solution of the problem involves the evaluation of the matrix equa-
+tions
+
+                       C        =a        -0       {j
+                           mn        mn        ms fJ sn                                                 ( 1)
+                                                                       ,
+                       l:::..C =l:::.a mn -lI.a
+                                           Wi ms
+                                                 f3 sn -(lI.a
+                                                         U    ms f3 sn )                                (2)
+where
+                                     -1
+                       f3 sn - a rs       a ms                                                          (3)
+
+
+
+
+40
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MA THEMATICS, CODING, AND APPLICATIONS
+
+
+
+Equation (1) reveals whether the trial estimate of the stiffnes ses is accurate enough; if not,
+equation (2) yields corrections to the trial estimates, which then form the basis for a new
+estimate and the cycle is repeated.
+          To enable Whirlwind to handle the problem, the following operations have been
+evolved in subroutine form:
+          1.     Matrix addition and subtraction.
+          2.     Matrix multiplication.
+          3.     Matrix inversion.
+          4.     Combined performance of 3 and 2, above.
+          5.     Solution of n simultaneous linear algebraic equations in n unknowns.
+          6.     Transpose of a matrix.
+          7.     Transpose of a matrix of unknowns.
+          8.     Matrix addition and subtraction with each element a sum of known coefficients
+of unknown quantitie s.
+          9.     Matrix multiplication with the premultiplier an unknown matrix.
+         10.     Routine 9 for the case of the premultiplier being too large to fit wholly within
+high- speed storage.
+         11.     Formation of a matrix with each element a sum of products.
+         12.     Equating two unknown matrices term by term to form a set of simultaneous
+equations.
+          Operations 1 through 7 can be performed satisfactorily with matrices up to size 25
+by 25.    Operations 8 through 12 are limited to correspondingly smaller matrices, depending
+upon how many terms compose each element.           Modification of the routines to take advantage
+of magnetic-drum storage can substantially increase the allowable sizes of the matrices to
+be handled.
+          Present efforts are being directed by S. 1. Gravitz of the MIT Aeronautical Engineer-
+ing Department toward integrating the component subroutines into a co-ordinated program
+to solve the wing-simulation problem.
+
+
+168       INDICIAL DOWNWASH BEHIND A TWO-DIMENSIONAL WING
+
+          In the analysis of the response of an airplane to a sharp-edged gust, and particularly
+in the calculation of stresses in the horizontal tail, it is important to know the downwash at
+the tail caused by the lift response of the wing to the gust.     In the present solution for the
+downwash behind a two-dimensional wing, something more than the "indicial downwash" is
+sought.        This is effected by allowing the gust front itself to have an arbitrary horizontal
+velocity which, combined with the velocity of the airplane, u, results in the wing's penetra-
+ting the gust front at a velocity v.
+
+                                                                                               41
+MATHEMATICS, CODING, AND APPLICATIONS _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+
+           The equation for the ratio of the downwash to the vertical gust velocity at the dimen-
+sionless time, s, and the dimensionless horizontal coordinate, x*, is
+
+
+ (2) (      .,_)                   ~ s -1           A               [
+Ww
+      Wo
+         s, x'" _ -1     x*-l
+                   -7r"L*+1        11 Vr-
+                                   u        1+ Z
+                                              z
+                                                        A+Z-S
+                                                   fo V A-S             x*-z
+                                                                            1   -
+                                                                                    S+(X*-l)-~
+                                                                                        1        o/(S)dZds   ( 1)
+
+
+
+           The .upper limit on the first integral is to be taken as unity if
+
+
+
+                             ~s >2
+                             u
+
+Also, in Equation (1)
+
+
+                    A = s - ~1+z)                                                                            (2)
+                            v
+                                                                    -k(S-l)
+                                                                e
+                                                                                dk                           (3)
+                                                                        k
+
+
+
+where the argument of the Bessel functions is (ik).
+           ,//(S) is the derivative of the Karman-Sears function.                    Since the most accurate de-
+terminations of this function have been made numerically, and graphical solution for the
+derivative is much too inaccurate, it is desired to determine ",'(S) by numerical integra-
+tion of Equation (3).
+           The middle integral may be split into two parts, such that
+
+
+
+                                                   ~ s-l
+                    w~)(s, x):c)
+                        Wo         =-   ~J~:~~t v:~~ [~i{~! -CZ{A,X*)] dz                                    (4)
+
+
+where
+                                                                                                             (5)
+
+
+and
+                                                                                                              (6)
+
+
+
+
+42
+- - - - - - - - - - - - - - - - - MATHEMATICS, CODING, AND APPLICATIONS
+
+
+CI(A) and Cn(A, x*) essentially represent the indicial-downwash solution, except for a con-
+stant which can be determ.ined analytically.     For other values of~, the downwash m.ay be
+                                                                       v
+found by num.erical integration of CI(A) and CU(A, x*).
+                               I
+          The com.putation of l/I (S) has been successfully com.pleted for seventy values of S.
+The se seventy value s perm.it interpolation for any other value of S to'the desired accuracy.
+          CI(A) was com.puted and found to be identically unity.   From. this fact it m.ay be de-
+duced that 27rW ""(S) is exactly the vorticity distribution in the Wagner case; that is, the
+               O
+rate of growth of lift for an airfoil penetrating a sharp-edged gust is proportional to the
+vorticity distribution shed from. an airfoil which has undergone a step-function change in
+angle-of-attack.    It was subsequently discovered that Sears noted this rather surprising
+fact in the Journal of the Franklin Institute, July, 1940. Sears did not m.ention specifically,
+however, the interesting historical fact that Wagner, in his original work in 1925, inadvert-
+ently determ.ined the Karm.~n-Sears function by calculating the circulation growth of an air-
+foil in response to a step-function change in angle-of-attack.
+          Since CI(A) is unity, the outer integral containing CI(A) can easily be handled ana-
+lytically.
+          The rem.aining problem. is to evaluate num.erically CU(A, x*) and the outer integral
+involving Cn(A, x*).
+          This study is being carried out by N. P. Hobbs of the MIT Aeronautical Engineer-
+ing Departm.ent.
+
+
+171       IMPROVED POWER SPECTRUM ESTIMATES
+
+          A m.ajor problem. which arises in the calculation of power spectra for frequency
+analysis of an em.pirical function is the step of Fourier transform.ation of the autocorrela-
+tion function to give the power spectrum.      (See Problem. 107.) The use of a finite rather
+than infinite integral in the definition of the Fourier transform. introduces a large am.ount
+of spurious ripple (Gibbs IS Phenom.enon) which is superim.posed upon the correct answer
+and m.akes reasonable interpretation of results extrem.ely difficult.
+          Problem. 171 is concerned with the realization, as a WWI com.puter program., of
+techniques form.inim.izing this difficulty, which were derived by D. T. Ross in partial ful-
+fillm.ent of the requirements for a Masters Degree in the Departm.ent of Electrical Engin-
+eering.
+          The program. has been written and appears to function correctly.       It calculates a
+series of spectra, each closer to the correct spectrum. than the previous one, and plots
+calibrated graphs of these functions on the scope along with a graph of the given function
+and a "Measure of Indecision" curve which shows, as a function of frequency, the relative
+confidence which can be placed in the series of spectra. Intensive testing, using an auxiliary
+
+
+                                                                                              43
+MATHEMATICS, CODING, AND APPLICATIONS - - - - - - - - - - - - - - - -
+
+
+program which generates test functions with known spectra, will now be undertaken to de-
+~rmine   the limitations of the procedure. Theoretically, the programs should give the best
+possible spectra which can be obtained from the given finite section of function.
+
+
+172     OVERLAP INTEGRALS OF MOLECULAR AND CRYSTAL PHYSICS
+
+        In the study of molecules or crystals one approach is to represent the unperturbed
+quantum states to a first approximation by linear combinations of atomic orbitals (i. e.,
+wave functions); thus   0/ /~') = L d jkCP k (-:) where the CPk(r) are atomic orbitals (AO's),      and
+the d    are dictated by the sy~metry requirements of the specific cases. The AO soften         t
+      jk
+desired are the self-consistent field orbitals of the free atom. The latter are given only
+in numerical form, but it is found that they usually can be fitted by two- or three-term sums
+of the more approximate, but analytic, Slater AO's, which when normalized have the form:
+
+
+                            (n, £ , m)   = R n (r)Sm .2 (9,cp)
+where
+
+
+
+
+                                                                                            (m~O)
+
+                                                                                            (m£O)
+
+
+where   t is a parameter which can be adjusted.
+        For a calculation of the energy states of a molecule or of the corresponding energy
+bands of a crystal, the perturbed or exact wave function, 'l' .(r), can be approximated by a
+                                                                       1
+linear combination of the unperturbed wave functions, 'l' .(r), such that'l' .(r) = L C ..'l'.(~.
+                                                          J                  1      j   1J J
+The approximate energy value is then found by applying the variational principle to the ex-
+pression:
+
+                    fff'l'~ H'l'i dv
+              E=                                                 H = Hamiltonian Operator
+                   fff'l't'l'i dv
+                        *
+where the C .. and C .. are considered variational parameters. This leads to the secular
+            1J        1J                       1
+equation, det 1H .. - Es .. 1 = 0, the solution of which gives both the C .. and the eigenvalue
+                 1J      1J                                              'lJ
+E. The elements H .. and S .. , of the Hamiltonian and overlap matrices, respectively, can
+                      1J       1J
+be written, in view of the above, as particular combinations of the matrix elements for:rned
+from the Slater AO' s. Furthermore, many of the major terms of the Hamiltonian operator
+
+
+
+44
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ MATHEMATICS, CODING, AND APPLICATIONS
+
+
+
+matrix elements between Slater AO' scan be resolved into combinations of two-center over-
+lap integrals.    Therefore, a large part of the solution of this formulation depends upon the
+ability to calculate the many specific overlap integrals required between Slater AO's.
+         Explicitly the overlap integrals have the form:
+
+
+
+
+where   a andb are fixed vectors from the origin to the two centers, and the if> n)(.m
+                                                                                   n (1=) are the
+normalized, real Slater AO' s.    These integrals, in principle, can be solved analytically by
+transforming to prolate spheroidal co-ordinates, and this has been done for the more com-
+mon integrals;2 the results are expressed in terms of two functions, A           (p) and B (O") (to
+                                                                             m            n
+be defined later).    The latter auxiliary functions have been the object of a great deal of
+effort and have been tabulated to some extent (see bibliographies of references 2 and 3),
+but they are not very convenient when it is considered what a small role each individual
+                                                                     3
+overlap integral plays in the complete calculation. Recently Roothaan has made a system-
+atic study of these overlap integrals and, by substituting the known expansions of the A(p)
+                                                                                      m
+and B (O"), has given explicit analytic forms in terms of powers and exponentials of the
+      n
+basic parameters. Unfortunately his results suffer from two serious defects: {I} the form-
+ulas are so complicated and involved that evaluation of the many integrals is a major prob-
+lem, and (2) the expressions from a computational point of view are very poor since they
+not only can require subtractions of extremely large numbers with a small answer remain-
+ing, but special formulas are needed for limiting cases.
+       By a suitable reformulation of the A (p) and B {O"} functions, it is possible to re-
+                                           m         n
+move the unnecessary singular behavior in Roothaan's results and at the same time arrive
+at a scheme which is computationally very good for a high-speed computer.            This method
+involves the spherical Bessel functions of imaginary argument which have been previously
+            4
+investigated by F. J. CorbatcS of the MIT Physics Department.
+         This scheme is to be embodied by Corbat6 in a subroutine capable of accepting the
+arbitrary parameters (within the regions of physical interest) and shouldpartially eliminate
+some of the difficulties of one type of molecular and crystal calculation.
+         This program has already been written and tested.       Thus there is now available a
+main subroutine for the 14 more-basic overlap integrals of Slater AO's. To make this sub-
+routine more useful, several auxiliary routines are being written and tested.          The latter
+routines are of three types:
+         1.   Four different subcontrol programs each of which uses the main subroutine to
+give one of four kinds of integrals (overlap, kinetic energy, 2 classes of potential energy
+integrals), all of which are either identical or related to certain overlap integrals.        These
+
+
+                                                                                                 45
+MA THEMATICS, CODING, AND APPLICATIONS - - - - - - - - - - - - - - - -
+
+
+
+four routines are to be arranged so that they will be interchangeable and will each have the
+same form of program entry.
+        2.   A master-control program.      This program is required when the numerically
+tabulated wave functions often used in a physical problem have been approximated by a
+finite series of Slater AOt s .   The program is to be arranged so that from a very general
+prescription of these approximated wave functions, the single desired integral of the tab-
+ulated wave functions is formed from a linear combination of the many integrals of the
+Slater AOts of the approximations.      The combining process is entirely automatic and can
+use interchangeably anyone of the four subcontro1 programs of type 1.                This master-con-
+trol program will thereby eliminate the unnecessary output of intermediate results and,
+more important, will eliminate the rapidly increasing recombination labor involved in mak-
+ing higher-precision approximation series of Slater AOts.
+        3.   Wave-function-fitting program. This program will be used to minimize the labor
+of fitting the tabulated wave functions by a finite series of Slater AOt s.      Current procedures
+often used have involved tria1-and-error methods by means of a desk calculator.              A semi-
+automatic scheme has been developed which offers an alternative means of fitting the tab-
+ulated function.
+
+
+References:
+        1.   A Whirlwind program which solves this type of equation has been developed by
+             Drs. A. Meckler and D. Howarth and is available.
+        2.   Mulliken, R. S., et a1., Jour. Chern. Phys.        17,   1248 (1949).
+        3.   Roothaan, C. C. J., Jour. Chern. Phys.       19,     1445 (1951).
+        4.   Special problem done for Prof. J. C. Slater and Drs. Schweinler and Koster.
+
+
+
+
+46
+                             3. OPERATION OF WHIRLWIND I
+
+
+
+         Computer reliability has continued high.                      Operators I reports show that 93 per cent
+of the 945 hours of assigned computer time was usable in the period.                                        The reduction in
+core-memory maintenance time, as compared to the requirements of electrostatic storage,
+has increased the number of hours which can be scheduled for operations.                                      Fig. 3-1 gives
+a breakdown of the time schedule for WWI during the quarter.
+
+
+
+                                                                    Hours Per Week
+
+                                         January
+                                                           I         February
+                                                                                      I         March
+                                                                                                                   Total
+       Activity                                                                                                    Hours
+                             1-7   8-14 15-21 22-28 29-4 5-11 12-18 19-25 26-4 ' 5-11 12-18 19-25 26-1
+
+ Core MeIIlory                1      2      2        2     2    3       2       2     2    0     0      0      0     18
+
+
+ Marginal Checking            3      5      4        4     4    4       4       3     4    4     4      4      5     52
+
+
+ Installation                 7      7      8        7     8    8       7       0     7    8     8      8      8     91
+
+
+ Maintenance                 21     16     20       21    34   24      20   17       23   22    30    34      32    314
+
+
+ TerIIlinal EquipIIlent      17     29     31       29    32   36      34   23       26   28    27    31      31   374
+ Testing
+
+
+ Engineering &< Scientific   26    36      51      44    39    47      45   25      46    61    52   49       44   565
+ COIIlputation
+
+
+ Other Applications          23    35      30      40    33    23      35   28      36    23    25    21      28   380
+
+
+  Total Hours                98    130    146      147   152 145      147   98      144 146    146   147     148   1794
+
+
+
+                              Fig. 3-1.         Allocation of Computer Time
+
+
+         Work of the Systems Section during the past quarterly period has been largely con-
+fined to a great number of small tasks,                        relatively unimportant individually but,                    taken
+together, valuable in achieving the long-range goal of system reliability and ease of main-
+tenance. A relatively minor circuit change promises to reduce the already few core -memory
+failures.       The consolidated test program mentioned in Summary Report No. 36 has now
+been written and tested and is in regular operation.                        This program will greatly increase
+the efficiency of the WWI marginal-checking program.
+
+
+                                                                                                                             47
+OPERATION OF WHIRLWIND 1 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+
+          The In-Out Section continued the elaboration of terminal equipment.     Old facilities
+have been improved, and new facilities have been added.        The in-out control counter and
+real-time clock have both been replaced with units made up of standard WWI plug-in units.
+These new units have facilities for marginal checking which should increase their reliabil-
+ity.    The noise in the display system has been reduced by a change of the circuit grounds
+to eliminate common tie points between the a-c and d-c circuits.       New facilities include a
+high-speed Ferranti photoelectric tape reader and a buffer-drum system.
+
+
+
+
+3.1 Systems Engineering
+
+       3. 1. 1 Matrix Cathode-Follower Troubles
+
+          Operation of the core memory has been very good.       The only significant time lost
+due to core-memory failure was a period of 10 hours required to locate and replace several
+damaged crystals in the core-selec.tion matrices.       The crystals were destroyed by a gas
+arc in one of the cathode followers which drive the matrix.       To prevent repetition of this
+failure, the high cathode-to-shield potential in the cathode follower has been eliminated
+(by returning the shields to near cathode potential), and the matrix inputs have been fused.
+
+
+       3. 1. 2 New Sensing Amplifier
+
+          After the contents are read out of a register of core storage, the information must
+be rewritten; the rewriting is followed by a post-write disturb.      Both of these operations
+create transiep,ts which reach\the core sensing amplifiers.       In certain prograInming se-
+quences the transient caused by the post-write disturb may be Inany times as large as a
+readout signal, and the present sense amplifier will not recover from this transient in time
+for the next read signal.    A new sense aInplifier has been designed with a more rapid re-
+covery which eliminates the possibility of interference by the post-write-disturb transient
+with the following readout signal.       The new unit is also more tolerant toward tube and
+component deterioration and provides an output signal which will make strobe timing less
+critical.
+          The signal out of the sense amplifier at the time of strobing inputs is shown in Fig.
+3-2 for the old and new circuits.      (Note the absence of base-line shift, the absence of the
+transient, and the broader top on the read signal out of the new amplifier.      This broader
+top perInits more latitude in the timing of the strobe pulse.)
+
+
+
+
+48
+                                                               OPERA TION OF WHIRL WIND I
+
+
+
+
+                              (0 )                           (b)
+
+                                         Fig. 3-2
+
+The r e covery time of the old core-memory sense amplifier was poor when it was subjected
+to ·the large transients which occurred in certain sequences of core-memory operation.
+The signal out of the old amplifier and the same signal out of a recently designed amplifier
+are shown above in (a) and (b), respectively . Note that, in addition to its faster recovery
+time, the new amplifier provides an output pulse with a broad top so that strobe timing is
+less critical.
+
+
+    3. 1.3   Consolidated Test Programs
+
+   An important part of the preventive-
+maintenance program for WWI,         routine
+daily marginal checking, has been speeded
+up by giving the computer a larger part of
+the job of checking itself.    A comprehen-
+                                                                   U'lt,...\UI"..... ..t~·
+
+sive marginal-checking program is stored                           eor-,......".t
+
+                                                                           ~ t \ .... t' ..~., ~.l
+on magnetic tape.    This includes all pro-
+grams commonlyusedfor marginal check-
+ing together with the necessary subroutines
+to select the appropriate lines for each
+program. To accomplish routine marginal
+checking, the tape is read onto the magnetic
+drum from which the individual test pro-
+grams are read in as needed.
+    The Flexowriter printer records each
+test-program title and number and mis-
+                                                                            Fig. 3-3
+cellaneous   control information (for   ex-
+ample,   types and number of failures, the          A new consolidated test program, now in
+                                                    use, automatizes the routine marginal-
+new program start-over point if required) .
+                                                    checking procedures . While the program
+The type of information which might be              is in operation the computer types out per-
+                                                    tinent data concerning the checking being
+printed out during a     typical marginal-
+                                                    done. The photo shows what might be typed
+checking period is    shown in Fig. 3-3.            out during a typical run.
+
+
+
+
+                                                                                                     49
+OPERATION OF WHIRLWIND I _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+3.2 Input-Output System
+     3.2. 1 Timing Register
+
+     A new real-time clock (Fig. 3-4) has
+been installed in the computer      room to
+take the place of the temporary one which
+had been used. The new clock has 10 digits
+instead of the former 15.    There are pro-
+visions for reading out the 15 most sig-
+nificant or the 15 least significant digits.
+giving a coarse and a fine time reference.
+The coarse time      reference will provide
+timing increments of 1. 066 seconds with
+a capacity of about 9 hours and43minutes.
+The fine time reference will provide tim-
+ing increments     of 0.066 second with a
+capacity of about 36 minutes.      The new
+clock has provisions for marginal checking
+which should improve reliability of opera-
+tion.
+
+
+     3.2.2 Display Equipment
+
+     The annoying random variation in the
+position of displayed points and figures
+on the l6-inch display     scopes has been
+greatly reduced by reconnections between               Fig . 3-4.   New Real-Time Clock
+the d-c and a-c power f or the display sys-
+terns.    Small but significant 60-cycle currents from the a-c line flowed in the d-c ground
+line.    Separation of the ground connections has resulted in a more stable display.
+
+
+     3.2.3 Ferranti PETR
+
+          A Ferranti photoelectric tape reader has been installed in the WWI system to re-
+place the ERA (Engineering Research Associates) reader.        The new reader is faster than
+the old ERA model both in running and in stopping and starting the tape.       It also has an
+optical system which can distinguish between a hole and translucent tape.     The old reader
+required opaque tape.     The relative independence of tape translucence on the part of the
+Ferranti reader is credited with its excellent reliability.
+
+
+50
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ OPERATION OF WHIRLWIND I
+
+
+
+          The ERA reader moved the tape at 14 inches per second and required 2 inches for
+stopping.     The Ferranti reader moves the tape at 20 inches per second (or 200 lines of
+information) and can stop the tape in about O. 04 inch, which permits line-by-line reading.
+
+
+   3.2.4 Magnetic Tape
+
+          Five magnetic-tape units are now in operation with WWI, each capable of storing
+over 100, 000 words, each of 16 binary digits. Magnetic tape is used primarily for delayed
+print-out, for permanent storage of utility programs, for equipment testing, and for con-
+version of Flexowriter-coded tapes into binary-coded tapes.
+          A long-carriage Flexowriter to print or punch from magnetic tape has been installed
+(Fig. 3-5).     The new equipment, modified to permit programmed selection of punched or
+printed output, is now used extensively in preference to the slower direct-output Flexo-
+writer.     The equipment has been enclosed in a soundproof cabinet to avoid annoyance to
+groups using the computer when the Flexowriter is typing out previously stored information.
+
+
+
+
+                   UNIT :3 DELAYED OUTPUT
+
+                   EO"""E"T E"CU"Z
+                 PANEL
+
+
+
+                                            \
+
+
+
+
+                         SWITCH
+
+
+
+
+                              Fig. 3-5. Magnetic-Tape Units and
+                                   Delayed-Output Equipment
+
+                                                                                           51
+OPERA TION OF WHIRL WIND I
+
+
+        Maintenance of the Flexowriter print-ou.t system. has been im.proved by the addition
+of m.arginal-checking facilities.    Equipm.ent has been added for rem.ote control and testing
+of the tape-handling m.echanism..    It is now possible to detect and correct troubles before
+they cause errors in operation with the com.puter.
+        Reliability of the system. has been im.proved by the substitution of m.ylar-base for
+acetate-base m.agnetic tape.    The m.uch stronger m.ylar tape has virtually eli:rninated the
+problem. of tape breakage.
+        Investigation continues on the rem.aining reliability problem.s of insulation break-
+down and surface wear of the read-record heads and unsatisfactory life of germ.aniu:rn diodes
+and vibrator relays in the m.agnetic-tape-m.echanism. circuitry.
+
+
+     3.2.5 Magnetic Drum.s
+
+        The WWI com.puter utilizes 2 separate drum. system.s.      An auxiliary drum. is used
+to increase the storage capacity of the com.puter.     There is also available a buffer drum.
+having a lim.ited am.ount of auxiliary storage capacity which is used to increase further the
+storage capacity of the com.puter.
+        The au:x:iliary drum. has been running with the com.puter for several m.onths.     The
+buffer drum. has only recently been connected to the com.puter on a perm.anent basis.
+        Operation of the auxiliary-drum. system. with WWI has been quite reliable during
+the past quarterly period except for occasional failures caused by writing between the slots.
+Inform.ation pulses are spaced at 8-J.1sec intervals around the periphery of the m.agnetic
+drum.s in WWI. The. current pulse which establishes the m.agnetic field patterns is of 2-J.1sec
+duration and is carefully tim.ed to fall in the sam.e physical location on successive write
+operations at the sam.e address.     Spurious writing which takes place "off tim.e" (writing
+between the slots) alters the field pattern on the drum. surface and can cause faulty readout
+from. the drum..   This spurious writing is caused by power-supply failures which rem.ove
+bias from. the circuits in control of the writing proGess.   A tem.porary, unregulated power
+supply, used for the bias voltage, is believed to have been responsible for som.e trouble;
+this supply has now been replaced by a perm.anent, regulated supply. An additional source
+of trouble is the im.proper sequence of rem.oving the supply voltages which occurs in som.e
+m.odes of power shutoff; power-supply control is currently undergoing revision to correct this.
+        A co:rnplete system. of blown-fuse indication siInilar to that used in WWI has now
+been installed in the buffer-drum. system. The buffer drum. has also been connected to WWI
+supplies instead of to the separate supplies which were furnished by ERA. This change was
+m.ade to sim.plify the WWI power system. by reducing the num.ber of separate power supplies
+and to provide blown-fuse indication and voltage interlocks which were sim.i1ar to those in
+WWI.    The buffer drum. is now available at all times for the use of prograrn.:rners.
+
+52
+                        4. CIRCUITS AND COMPONENTS
+
+
+
+4.1 Vacuum Tubes
+   4. 1. 1 Vacuum-Tube Life
+
+       The WWI computer operated for 1670 hours during the first quarter of 1954; several
+weekend holidays reduced the total time somewhat.
+       Vacuum-tube life has been calculated for five different tube types as described in
+Summary Report No. 36.      A summary of this information is shown below.
+
+
+                                     FAILURE RATE, PER CENT PER 1000 HOURS
+
+                                                                      First Quarter
+Tube Type                            1952                1953               1954
+
+7AD7 /SR1407 /6145                   2.00                3.3                1. 75
+7AK7                                 0.26                0.43               0.5
+6080/6080W A/6AS7G                                       6.6*               1.1
+5965                                                     0.2*               0.4
+6BL7GT                                                   0.7*               0.3
+
+* Last quarter 1953 only
+       The lower rate of failures of the group 6080/6080WA/6AS7G is particularly heart-
+ening, since this tube is a vital part of the magnetic-core memory now installed in WWI.
+The data for the last quarter of 1953 included a number of tubes which had failed on test
+for grid-to-grid shorts, which can cause no trouble in a majority of machine sockets.
+       Most of the sockets of the group 7AD7/SR1407/6145 are now filled by 6145 tubes.
+The figures here seem to indicate that a lower failure rate may be expected from the 6145
+once the early-life failures are gone. These tubes are burned for 100 hours before instal-
+lation, but there see:ms to be a residue of early-life failures.   The :majority of failures
+see:ms to occur during the first 2000 hours; not enough data has been gathered as yet to
+determine the exact behavior of the tube during this period.
+       Experience on the 5965 and 6BL 7GT types continues to be quite satisfactory.       If
+these preliminary indications are borne out by continued good life, both these types should
+be satisfactory for all but the most critical applications.
+
+
+
+                                                                                         53
+CIRCUITS AND COMPONENTS _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+                                                                   Reason for failure; number failed
+
+                             Total in    Hours at          Change in        Shorts,
+                  Type       Service     Failure         Characteristics    Opens     Breakage     Gassy
+
+
+                 C16J           12       2000-3000                                       1
+
+
+                                            0-1000             1
+                  C6J            8      19000-lO000            1
+                                        22000 -23000           2
+
+
+               OA3/VR75          4
+
+                 VR75                   20000 -21000           1
+
+               OD3/VR150        23
+
+                 VR150                   1000-lOOO             1
+                                        15000-16000            1
+
+
+               2C51/5670        47
+
+                  5670                   9000-10000            2
+                                        11000-12000            1
+
+
+               2D21/5727       191
+
+                 2D21                   no clock hours         2               1
+                                          1000 -2000           2
+
+
+               3E29/829B       141
+
+                                         2000-3000             1
+                                         4000-5000             4
+                                        10000-11000            1
+                  3E29
+                                        13000-14000            1               1
+                                        15000-16000            1
+                                        23000 -24000                           1
+
+
+                  5U4G          15          0-1000                             1
+
+
+                 5Y3GT           6          0-1000             1
+
+
+                                         3000-4000                             1
+                  6AG7          81      13000-14000            1
+                                        22000 -23000                           1
+
+
+               6AK5/5654        13
+
+                  5654                       0-1000                                      1
+
+
+               6AS7G/6080/
+                 6080WA        718
+
+                 6AS7G                  16000-17000            1
+                                        20000-21000                            1                       1
+
+                                            0-1000             1               1
+                  6080                   2000-3000                             1
+                                         3000-4000             1                                       3
+
+                                            0-1000             1
+                 60BOWA                  1000-2000             1
+                                         2000-3000                             1
+
+
+                6AU6/6136      244
+
+                  6AU6                   2000-3000                             2
+
+                6BL7GT         473       2000-3000             2
+
+
+                6L6G/5881       53
+
+                                         7000-BOOO             1
+                                         8000-9000             3
+                  6L6G                  10000-11000            1
+                                        22000-23000            1               1
+                                        23000-24000            1
+
+                                            0-1000             3
+                  5881                   1000-2000             2               1
+                                         4000-5000                             1
+
+
+                  6SH7          29           0-1000             1
+                                          1000-2000             1
+
+
+
+
+                                                                    Fig.           4-1.          WWI Tube Failures
+
+54
+                                                                                     CIRCUITS AND COMPONENTS
+
+
+                                                                Reason for failurej number failed
+
+                             Total in     Hours at         Change in       Shorts,
+                   Type      Service      Failure        Characteristics   Opens     Breakage   Gassy
+
+
+                 6SN7GT       363        17000 -18000
+                                         llOOO-l3000
+
+
+                  6V6GT        30        l3000 -l4000
+
+
+                  6X5GT        l5        18000 -19000
+
+
+                                             0-1000
+                                          5000 -6000
+                  6y6G                   10000 -11000
+                              3Z1
+                                         Z1000-ZZ000
+                                         2Z000 - l3000
+                                         l3000 - 24000
+
+
+                7AD7/6145/
+                 SR-1407     3981
+
+                                             0-1000
+                                          1000-l000
+                                          lOOO-3000
+                                          3000-4000
+                                          6000-7000
+                                          8000 -9000
+                                         10000 -11000
+                                         11000-ll000
+                   7AD7
+                                         ll000 -13000                        1
+                                         15000-16000                         3
+                                         16000 -17000                       II
+                                         17000 -18000
+                                         18000 -19000                        Z
+                                         Z1000-ZZ000                         7
+                                         ZZOOO -l3000                       10
+                                         Z3000-l4000                        lZ
+
+                                             0-1000                         lO
+                                          1000-Z000                         14
+                                          lOOO -3000                         4
+                   6145                   3000-4000                           1
+                                          4000-5000                          3
+                                          5000-6000                          3
+                                          6000 -7000                          1
+
+
+                                              0-1000
+                                           1000-l000
+                                           lOOO -3000
+                                           3000 -4000
+                                          8000 -9000
+                                          9000-10000
+                  7AK7       l838
+                                         14000-15000
+                                         16000 -17000
+                                         lOOOO -l1000
+                                         ZlOOO-lZOOO
+                                         ZlOOO-l3000
+                                         Z3000-l4000
+
+
+                llAU7/5963    40l
+
+                  llAU7                   8000-9000
+
+                                          lOOO-lOOO
+                                          2000-3000
+                   5963                   4000-5000
+                                          9000-10000
+                                         10000 -11000
+
+                 715B-C       lZ4
+
+                  715C                  no clock hours
+
+
+                   5651        36            0-1000
+                                         Z2000-l3000
+
+
+                                             0-1000
+                                          7000-8000
+                   5687       105         8000 -9000
+                                          9000 -10000
+                                         10000 -11000
+
+
+                   5965       606       no clock hours
+                                          1000-l000
+
+
+                   5998        34            0-1000
+                                          lOOO-3000
+
+
+
+
+January   1   March 31,        1954
+
+                                                                                                          55
+ CIRCUITS AND COMPONENTS - - - - - - - _ -_ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+
+       4. 1. 2 VacuuIn-Tube Research
+
+          During the past quarter intensive experiInental research has been conducted on
+ transient changes in oxide cathodes as described in SUInInary Report No. 36.
+          It has been possible to Ineasure the pulsed and direct-current eInission froIn oxide
+~ cathodes   over a wide range of teInperatures (deterInined by therInocouple); a Richardson
+ plot sUInInary of the data for one tube is shown in Fig. 4-2.                The predicted value of d-c
+ eInission is shown superposed on the experiInental plot.               The Inagnitude of the predicted
+ values is approxiInately correct (the prediction aSSUInes that the donors carry a constant
+ positive charge equal to that of one electron), but the slope of the predicted d-c eInission
+ does not correspond closely to the observed value.            Very siInilar plots have been obtained
+ for other tubes.
+          Very precise temperature control is required in order to obtain good Ineasurements
+ of coating resistance by the retarding-potential technique.              The allowable deviation is less
+ than 0.1 degree at 800 K. Such stability can be maintained adequately for pulsed Ineasure-
+ ments, but difficulties are introduced in
+ d-c IneasureInents by the power reInoved
+ froIn the cathode by eInitted electrons in
+ overcoIning the potential varrier of the
+ work function.      It has been possible to
+ Inaintain adequate control for steady- state
+                                                                   I                                                        /
+                                                                                                                    ~
+                                                                                                              v/
+ work;    however,    satisfactory   transient                                                                      ,:;,V
+                                                                                                                   <l
+
+ measureInents of the coating-resistance
+ change have not been Inade because the
+ control of teInperature within necessary                      10-2                                                /~
+ limits could not be accomplished.
+       Measurements of the changes in re-
+                                                  IXI0
+                                                    T2
+                                                         6
+
+
+                                                  0.085 cm 2
+                                                             FOR
+                                                                                                ~~   /
+                                                                                                         /
+
+
+ sistance in the transition pulsed to d-c con-
+                                                               10-a                  ".){
+ ditions have been COIn pared to the change
+ in eInis sion for the saIne transition.
+ two changes are not compatible with theo-
+                                           The
+
+                                                                   4          /
+                                                                                V              \ -THEORETICAL DC
+
+
+
+
+ ry,    as the   resistance change is Inuch
+                                                                         V
+ smaller than predicted.    The explanation
+ for the discrepancy has not yet been found.
+       With very general assuInptions it can
+                                                                   V
+                                                                   5
+                                                               10'1.6   1.5    1.4   1.3       1.2           1.1   1.0          0.9
+ be shown that the recovery (constant teIn-                                                ~
+                                                                                           T
+ perature) of cathode eInission after direct
+ current has passed through the cathode                      Fig. 4- 2.       Richardson Plot, R T 414
+
+ 56
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ CIRCUITS AND COMPONENTS
+
+
+
+for some seconds follows an exponential, with some initial higher-order ter:m.s which die
+out quickly.   The cathode emission must be expandible in a Taylor series as a function of
+the number of donor centers at the emitting surface.     The time constant of the decay pro-
+cess after the higher-order terms died out is
+
+
+
+
+In this equation d is the coating thickness, and D is the diffusion constant. Using this equa-
+tion and experimental decay curves, the diffusion constant for donors see:m.s to be about
+                2                                                                5
+1. 5 x 10 -6 cm. / sec at 850 K. The diffusion constant thus determined is 3 x 10 greater
+than the diffusion constant determined for barium in cathode at the same temperature .)!<
+However, checks on this constant with three different cathodes give about the sa:m.e results,
+indicating that the whole cathode is involved in the diffusion process.
+
+
+
+
+4.2 Component Replacements
+       Fig. 4-3 lists the replacements of components other than tubes during the first
+quarter of 1954.
+
+
+
+
+*   Bever, R. S., Journal of Applied Physics 24 1008, 1953.
+
+                                                                                           57
+CIRCUITS AND COMPONENTS
+
+
+                                        Total in    No. of     Hours of
+      Component             Type        Service    Failures    Operation           Comments
+
+
+     Capacitor             0.01
+                       ceramic disc      4525           1      2000-3000     Shorted
+
+
+                       D-358/1N38A       4617
+
+                          D-358                      1        11000-12000   Drift
+                                                     2        19000-20000   1 drift; 1 shorted
+                                                     2        21000-22000   Drift
+                                                     1        22000-23000   Unstable back resistance
+                                                     1        23000-24000   Unstable back resistance
+                          IN38A                      2            0-1000    Low Rb
+                                                     1         3000-4000    Low Rb
+                                                     2         7000-8000    Low Rb
+       Crystal                                       1        16000-17000   Low Rb
+        Diodes                                       1        17000-18000   Drift
+                       D-357/1N34A      16469
+
+                          IN34A                      5            0-1000    Low Rb
+                                                     6         2000-3000    Low Rb
+                                                     4         3000-4000    Low Rb
+                      D-359/1N56A        466
+
+                          D-359                      2        20000-21000   1 shorted; 1 drift
+
+                           IN92           71         2         1000-2000    Drift
+
+
+                       25000-ohm
+                                          36         1         1000-2000    Irregular taper
+                         2-watt
+     Potentiometers
+                        lOOO-ohm
+                      25-watt w/w        160         1        19000-20000   Open
+                         ohmite
+
+                                  1
+                      9000-ohm~-watt
+                        +1% car on       842        2             0-1000    1 inte rmittent;
+                        deposited                                           1 above tolerance
+                               1
+                      2500-ohmI -watt
+                       +1% carbon        842        1             0-1000    Above tolerance
+       Resistors       aeposited
+                                  1
+                      220-Ohm.~-watt
+                       compOSI Ion      9292        1          5000-6000    Above tolerance
+
+                      680 -ohm I-watt
+                                          40        2             0-1000    Burned out
+                      ~5% composition
+
+
+
+        Switch            SPST
+                                           5        1         12000-13000   Defective
+                      Part No. 2201
+
+
+        Timer          0- 15 minute
+                         Cramer            3        1         22000-23000   Overheated
+
+
+
+     Transformer         Pulse,
+                                         238        1             0-1000    Open primary
+                       S-193-8 5:1
+
+
+
+
+          Fig. 4-3.        WWI Component Failures January 1 - March 31, 1954
+
+58
+                              5. ACADEMIC PROGRAM
+
+
+5.1 Advanced Seminars on Computing
+          These seminars provide an opportunity for the exchange of information on program-
+ming, components, logical design, and general developments in the computer field.          The
+program during the last quarter was as follows.
+
+
+   Date                             Title                                       Speaker
+
+January 8         The Revised (30-j, j) Programmed Arith-                  F. C. Helwig
+                  metic Subroutine for the CS II Computer
+
+January 15        The Revised Conversion Program for the                   J. M. Frankovich
+                  CS II Compute r
+
+February 19       Output for CS Computer                                   J. D. Porter
+
+February 26       Multi-way Post-Mortems and Automatic                     D. Combelic
+                  Logging of Computer Operations
+
+March 5           Magnetic Core Memory                                     w. N. Papian
+March 12          Magnetic Tape as Used for Auxiliary Stor-                H. H. Denman
+                  age and Delayed Printer
+
+March 19          Memory Test Computer                                     P. R. Bagley
+
+
+
+
+5.2 Programming Course
+          The DCL CS II programming course was given twice during this quarter.            The
+course includes the following topics:       relative addresses,   temporary storage,   floating
+addresses, preset parameters, programmed arithmetic, cycle counters, buffer storage,
+automatic output, post-mortems, and multi-pass conversion.
+                                                           -       The text for the course is a
+programmer's manual written by mernbers of the S&EC Group.
+          The 35 students enrolled during this quarter     represented the following   groups:
+Aero-Elastic and Structure s Research Laboratory, Instrurnentation Laboratory, MIT Elec-
+trical Engineering Department, MIT Chemical Engineering Department, Dynarnic Analysis
+and Control Laboratory, MIT Mathematics Department, Lincoln Laboratory, Geophysical
+Analysis Group, Laboratory for Nuclear Science and Engineering, Solid State and Molecular
+Theory Group, MIT Geophysics Department, and MIT Meteorology Department.
+
+                                                                                             59
+ACADEMIC PROGRAM _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __
+
+
+
+5.3 Visitors
+        During the evening of January 19, the Digital Computer Laboratory was host to 70
+members of the American Society of Heating and Ventilating Engineers.         The evening's
+program consisted of an after-dinner lecture on digital computers given by Edwin S. Kopley,
+a tour of the WWI installation, and demonstrations on the computer and Flexowriter equip-
+ment.
+        Tours of the WWI installation are conducted between 5 and 6 p. m. on the first Tues-
+day of each month.   They include computer and Flexowriter demonstrations and an informal
+discussion of the major computer components. During the past quarter the following tours
+were conducted:
+             January 5       6 MIT students and staff members
+             February 2      9 MIT and 3 Los Alamos personnel
+             March 2         2 MIT students and 4 Project Lincoln personnel
+
+
+
+
+5.4 Spring Term, 1954
+        Twelve students are enrolled in the Electrical Engineering subject 6.537.      Each
+student has programmed, prepared on punched tape, debugged, and executed on Whirlwind
+one problem of his own choice.   Two of these class problems are also to serve as senior
+theses, and one other will be continued this summer as part of a Master's thesis.
+
+
+
+
+60
+                                          6. APPENDIX
+
+
+6.1 Reports and Publications
+          Project Whirlwind technical reports and memorandums are routinely distributed to
+only a restricted group known to have a particular interest in the Project, and to ASTIA
+(Armed Services Technical Information Agency) Document Service Center, Knott Building,
+Dayton, Ohio. Regular requests for copies of individual reports should be made to ASTIA;
+emergency requests, to John B. Bennett, Digital Computer Laboratory, 211 Massachusetts
+Avenue, Cambridge 39, Mass.        Att:   Code DCL-6. l.
+          The following reports and memorandums were among those issued during the first
+quarter of 1954.
+
+
+   No.                         Title                        Date              Author
+
+SR-36              Summary Report No. 36, Fourth
+                   Quarter 1953
+
+M-2527             Input and Basic Conversion Programs     1-18-54         P. R. Bagley
+(Supplement 1)
+
+M-2603             Marginal Checking Breakdown of          1-6-54          R. J. Pfaff
+                   the Instruction Frame
+
+M-266l             WWI Operation Times                     2-1-54          H. H. Denman
+
+M- 2669            Use of Silver in Etched- Wiring Cards   2-3-54          A. L. Loeb
+                                                                           B. B. Paine
+
+M-2670             Logical Networks, II - Binary           2-3-54          R. C. Jeffrey
+                   Network Algebra
+
+M- 2728            Increased Facilities for Visual         3-17-54         G. A. Young
+                   Display in the W WI Input and Output
+
+M-2729             Paper Tape Units and Printers in        3-15-54         G. A. Young
+                   the WWI Input-Output System
+
+
+
+
+6.2 Professional Society Papers
+          At the 18th Symposium on Ceramic Dielectrics, held at Rutgers University on March
+10, F. E. Vinal presented a paper entitled "Ferrites with Square Hysteresis Loops."
+
+
+                                                                                           61
+APPENDIX _______________________________________________________________
+
+
+
+       F. E. Vinal also spoke on "Preparation of Ferrites for Physical Measurements" at
+the New York Academy of Sciences on March 2.
+       W. N. Papian gave a talk on "Coincident-Current Magnetic-Core Memories" at the
+meeting of the Boston Section of the IRE, held on February 18 and 19.
+       At the Sixth Southwestern IRE Conference, held in Tulsa, Oklahoma on February
+4-6, D. Combelic presented a paper entitled "Introduction to Electronic Digital Computers. "
+
+
+
+
+62
+\
+
+
+
+
+    MIT
+

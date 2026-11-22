@@ -1,0 +1,17 @@
+# E-364 pp. 15-17, section 14: variables on the drum.
+ASSIGN g|4,
+g|1 = 2, g|2 = 4, g|3 = 6, g|4 = 0,
+# "Exactly the same thing may be accomplished by writing"
+h|N = 2, 4, 6, 0,
+a|N = 1.0 (.5) 2. (0.25) 2.5 (1) 4.5,
+k|N = 1 (1) 10,
+PRINT g|1, g|2, g|3, g|4, h|3, a|7.
+PRINT k|10.
+# "re-assign them to MS ... by writing something like"
+    n = 0,
+1   n = n + 1,
+    f|n = a|n,
+    e = n - 6.5,
+    CP 1,
+    PRINT f|1, f|2, f|3, f|4, f|5, f|6, f|7.
+    STOP

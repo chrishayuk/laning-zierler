@@ -1,0 +1,13 @@
+# E-364 pp. 4-5, section 2B: how the computer reads a slash.
+# "a plus or minus sign has the effect of separating any mathematical
+# expression into two terms"; within a term, "a/b/c is properly interpreted
+# as the product ac divided by b".
+a = 1, b = 2, c = 4, d = 8,
+p = a + 2b/c + d,          # (6): a, 2b/c and d: 10
+q = a + 2b/(c + d),        # (7): 1.3333333
+r = (a + 2b)/(c + d),      # (8): 5/12, .41666665 in 24 bits
+s = cd/a(b + c) + d,       # (9): cd over a(b+c), plus d: 13.333333
+u = a/b/c,                 # ac over b: 2, where FORTRAN would say .125
+v = a/(b + c/d),           # (10): .4
+PRINT p, q, r, s, u, v.
+STOP

@@ -1,0 +1,4 @@
+# `cargo test --target wasm32-wasip1` (or `cargo run --target wasm32-wasip1`)
+# runs under wasmtime, with access to the package directory only.
+[target.wasm32-wasip1]
+runner = "wasmtime run --dir=."

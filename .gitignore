@@ -1,0 +1,5 @@
+target
+.DS_Store
+node_modules
+# the scanned documents: see sources/README.md for where to get them
+sources/*.pdf

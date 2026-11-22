@@ -1,0 +1,7 @@
+# E-364 p. 2, equations (1): "Examples of such equations are"
+# The PRINT and STOP are added so that the program runs.
+a = 5,
+y = -6.3a,
+b = 0.0053 (a-y) /2ay,
+PRINT a, y, b.
+STOP

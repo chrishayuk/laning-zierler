@@ -1,0 +1,25 @@
+[package]
+name = "laning-zierler"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "The algebraic system of Laning and Zierler (MIT Whirlwind I, 1952-54), reconstructed from Engineering Memorandum E-364"
+
+[lib]
+name = "laning_zierler"
+path = "src/lib.rs"
+
+[[bin]]
+name = "lz"
+path = "src/main.rs"
+
+[dependencies]
+
+# The language server has its own crate so that the interpreter keeps no
+# dependencies. `cargo build` here builds only the interpreter.
+[workspace]
+members = ["lsp"]
+default-members = ["."]
+
+[profile.release]
+opt-level = 3

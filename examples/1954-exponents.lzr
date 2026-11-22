@@ -1,0 +1,14 @@
+# E-364 p. 5, section 2D: "Upper case numbers on the Flexowriter appear as
+# exponents ... Some examples are"
+#
+# Run in this order the examples do not finish. b is 1/529, ab³ is about
+# 1.7·10⁻⁷, and its fifth power is about 10⁻³⁴: smaller than the 24, 6 system
+# can hold (2⁻⁶⁴ is about 5·10⁻²⁰), so it becomes zero, and (ab³)⁻⁵ divides
+# by it. The manual gives them as notation, not as a program.
+a = 5²,
+b = (a - 2)⁻²,
+c = (ab³)⁻⁵,
+d = a(b + c)²/(c - a)a⁻³,
+PRINT a, b, c, d.
+100 PRINT a, b.
+STOP

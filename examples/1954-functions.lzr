@@ -1,0 +1,11 @@
+# E-364 pp. 12-13, section 11: the function subroutines.
+y = 4, z = -0.5, a = -9, b = 1,
+x = 2(F^1(y) F^2(z) + F^11(z)),     # 2(√y sin z + |z|)
+PRINT x.
+x = F^3 (x + 2/y(a + b) z^-1),      # cos(x + 2z/y(a+b)) as the manual has it
+PRINT x.
+x = F^4(y + F^6(z)),                # tan(y + cos⁻¹ z)
+PRINT x.
+x = F^1 (F^11(a)),                  # √|a|
+PRINT x.
+STOP

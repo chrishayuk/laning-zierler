@@ -1,0 +1,18 @@
+# The 1954 MIT Summer Session notes, "Digital Computers: Advanced Coding
+# Techniques", lecture 13, p. 13-3: the same two differential equations as
+# E-364 p. 18, "Our program might be".
+#
+# As printed, the last two equations have no commas (k = t - 10.1 and CP 1),
+# which the rules require; they are put in here. As printed it also has no
+# PRINT, so it integrates from t = 2 to t = 10.5 and types nothing at all.
+# The PRINT at the end is added so that there is something to see.
+    t = 2,
+    h = 0.5,
+    y|1 = 0,
+    y|2 = 0,
+1   D y|1 = y|2 + 1,
+    D y|2 = -y|1,
+    k = t - 10.1,
+    CP 1,
+    PRINT t, y|1, y|2.
+    STOP

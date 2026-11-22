@@ -1,0 +1,10 @@
+# E-364 p. 8: "if it is desired to go thru a certain process starting with
+# equation 1 exactly 10 times". e is -8.5, -7.5, ..., -0.5, +0.5: never zero.
+    n = 0,
+    s = 0,
+1   s = s + n,
+    n = n + 1,
+    e = n - 9.5,
+    CP 1,
+    PRINT n, s.
+    STOP

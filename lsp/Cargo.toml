@@ -1,0 +1,14 @@
+[package]
+name = "lz-lsp"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "A language server for the algebraic system of Laning and Zierler (Whirlwind I, 1954)"
+
+[[bin]]
+name = "lz-lsp"
+path = "src/main.rs"
+
+[dependencies]
+laning-zierler = { path = ".." }
+serde_json = "1"
