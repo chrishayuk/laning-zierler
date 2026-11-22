@@ -104,7 +104,7 @@ PRINT n.
 STOP
 ```
 ```page
-<stdin>:4:1: hint: if e comes out exactly zero, "the CP may or may not behave like an SP since 0 may appear as +0 or -0" (p. 8). The manual's own loops subtract a half: n - 9.5
+<stdin>:4:1: hint: if e comes out exactly zero, "the CP may or may not behave like an SP since 0 may appear as +0 or -0" (p. 8). The manual's own loops compare with a half: n - 9.5, not n - 10
 ```
 
 ## Testing for zero

@@ -40,6 +40,8 @@ pub fn check(src: &str, options: &Options) -> Vec<Diagnostic> {
         problems.into_iter().map(|p| Diagnostic { severity: Severity::Error, message: p.message, span: p.span }).collect();
     let tape = parse(src);
     warnings(&tape.statements, &mut out);
+    fractional_exponents(&tape.tokens, &mut out);
+    counted_down_indices(&tape.statements, &mut out);
     out.sort_by_key(|d| (d.span.start, d.severity));
     out.dedup_by(|a, b| a.span == b.span && a.message == b.message);
     out
@@ -215,7 +217,7 @@ fn warnings(statements: &[Statement], out: &mut Vec<Diagnostic>) {
                         out.push(Diagnostic {
                             severity: Severity::Hint,
                             message: format!(
-                                "if {} comes out exactly zero, \"the CP may or may not behave like an SP since 0 may appear as +0 or -0\" (p. 8). The manual's own loops subtract a half: n - {}.5",
+                                "if {} comes out exactly zero, \"the CP may or may not behave like an SP since 0 may appear as +0 or -0\" (p. 8). The manual's own loops compare with a half: n - {}.5, not n - {k}",
                                 target.var,
                                 k.saturating_sub(1)
                             ),
@@ -226,6 +228,66 @@ fn warnings(statements: &[Statement], out: &mut Vec<Diagnostic>) {
             }
             Kind::Equation { .. } | Kind::Derivative { .. } => prev_eq = Some(s),
             _ => {}
+        }
+    }
+}
+
+/// `x^1.5` is read as x¹ times .5: an exponent is upper-case digits only, and
+/// the point and the 5 after it are lower case, a number of their own.
+fn fractional_exponents(tokens: &[crate::lex::Token], out: &mut Vec<Diagnostic>) {
+    use crate::lex::Tok;
+    for w in tokens.windows(2) {
+        if let (Tok::Super(n), Tok::Number(text)) = (&w[0].tok, &w[1].tok) {
+            if w[0].span.end == w[1].span.start && text.starts_with('.') {
+                out.push(Diagnostic {
+                    severity: Severity::Warning,
+                    message: format!(
+                        "this is read as the power {n} times {text}: exponents are whole numbers (\"positive (unsigned) and negative integral exponents\", p. 5)"
+                    ),
+                    span: w[0].span.to(w[1].span),
+                });
+            }
+        }
+    }
+}
+
+/// An index letter that is counted down by arithmetic (i = i - 1): if it comes
+/// to zero that way, page 13 does not permit it as an index.
+fn counted_down_indices(statements: &[Statement], out: &mut Vec<Diagnostic>) {
+    let mut index_letters: HashSet<char> = HashSet::new();
+    let mut note = |v: &Var| {
+        if let Var::Indexed(_, i) = v {
+            index_letters.insert(*i);
+        }
+    };
+    for s in statements {
+        match &s.kind {
+            Kind::Equation { target, expr } | Kind::Derivative { target, expr, .. } => {
+                note(&target.var);
+                let mut v = Vec::new();
+                reads_vars(expr, &mut v);
+                v.iter().for_each(&mut note);
+            }
+            Kind::Print { items } => items.iter().for_each(|r| note(&r.var)),
+            _ => {}
+        }
+    }
+    for s in statements {
+        let Kind::Equation { target, expr } = &s.kind else { continue };
+        let Var::Letter(c) = target.var else { continue };
+        if !index_letters.contains(&c) || expr.terms.len() != 2 || !expr.terms[1].0 {
+            continue;
+        }
+        let reads_itself = matches!(expr.terms[0].1.factors.as_slice(),
+            [(false, f)] if f.power.is_none() && matches!(&f.kind, FactorKind::Var(v) if v.var == Var::Letter(c)));
+        if reads_itself {
+            out.push(Diagnostic {
+                severity: Severity::Hint,
+                message: format!(
+                    "{c} is used as an index and counted down by arithmetic. If it reaches zero this way it may not be used as one: zero is permissible \"if assigned by the specific equation {c} = 0,\" (p. 13)"
+                ),
+                span: s.span,
+            });
         }
     }
 }
@@ -289,6 +351,19 @@ mod tests {
         let src = "t = 2,\nh = 0.5,\ny|1 = 0,\ny|2 = 0,\n1 PRINT t, y|1, y|2.\ne = 9.7 - t,\nCP 3,\n2 a = y|2 + 1,\nD y|1 = a,\nD y|2 = - y|1,\ne = -e,\nCP 2,\nSP 1,\n3 STOP";
         let m = msgs(src);
         assert!(m.iter().any(|m| m.contains("auxiliary computation")), "{m:?}");
+    }
+
+    #[test]
+    fn a_fractional_exponent() {
+        let m = msgs("x = 2^1.5,\nSTOP");
+        assert!(m.iter().any(|m| m.contains("power 1 times .5")), "{m:?}");
+        assert!(!msgs("x = 2^1 .5,\nSTOP").iter().any(|m| m.contains("times .5")));
+    }
+
+    #[test]
+    fn an_index_counted_down() {
+        let m = msgs("i = 3,\n1 i = i - 1,\nx = a|i,\ne = -0.5 - i,\nCP 1,\nSTOP");
+        assert!(m.iter().any(|m| m.contains("counted down")), "{m:?}");
     }
 
     #[test]

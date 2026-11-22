@@ -231,6 +231,12 @@ page-13 rule forbids a computed zero index whatever its sign, and `--zero plus`
 lets it through because the zero it computes is +0, the sign a zero set by
 `n = 0,` has.
 
+**The manual's figure for the largest number is wrong.** Page 6 gives
+2⁶³ - 2³⁹ as "(or, roughly, 9.2233995 · 10¹⁸)". It is 9223371487098961920, or
+9.2233715 · 10¹⁸. The integer the page gives next as "a permissible number",
+9223314040000000000, is below both, so nothing else on the page depends on it.
+(2⁶³ itself is 9.2233720 · 10¹⁸, so it is not that either.)
+
 **The manual's exponent examples, run in order, stop with an alarm.** Section 2D gives
 `a = 5²,` `b = (a - 2)⁻²,` `c = (ab³)⁻⁵,`. (ab³)⁵ is about 10⁻³⁴, which the 24,
 6 system cannot hold; it becomes zero and `c` divides by it. They are notation,
@@ -260,9 +266,12 @@ is known, not finished. So everything below is this reconstruction's choice.
 - **Rounding.** Results are rounded to 24 bits, half away from zero. The
   interpretive routines may have truncated.
 - **The sign of zero.** The one's-complement rule above is an inference from
-  the machine and the manual's two warnings, not from a listing. The index rule
-  is enforced through it: a zero index is allowed when it is +0, which here only
-  `n = 0,` (or arithmetic on +0s) gives. Under `--zero plus` every zero is +0,
+  the machine and the manual's two warnings, not from a listing. A difference
+  of equal numbers, and any sum with a -0 in it, is -0; products and quotients
+  take the sign rule of the operands, and |x| is +0. The index rule is enforced
+  through the sign: a zero index is allowed when it is +0, which `n = 0,` gives
+  and `n = n - 1,` does not. So the TPK alarm rests on this inference as well
+  as on page 13. Under `--zero plus` every zero is +0,
   so that mode also allows zero indices the manual forbids.
 - **Gill's method.** The formulas are Gill's (1951) in the usual form, with the
   `q` that carries rounding error from one step to the next. Each `D` equation
