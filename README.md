@@ -226,7 +226,10 @@ does not translate at all, because `v|N` "is not yet in operation", and the
 first-quarter report of 1954 says the same thing of the x|N routine. TPK was
 written as an illustration twenty-two years later and was never run on
 Whirlwind; this says only what the manual's rules make of it. With
-`--zero plus` it runs to the end.
+`--zero plus` it runs to the end, but that is a what-if, not the manual: the
+page-13 rule forbids a computed zero index whatever its sign, and `--zero plus`
+lets it through because the zero it computes is +0, the sign a zero set by
+`n = 0,` has.
 
 **The manual's exponent examples, run in order, stop with an alarm.** Section 2D gives
 `a = 5²,` `b = (a - 2)⁻²,` `c = (ab³)⁻⁵,`. (ab³)⁵ is about 10⁻³⁴, which the 24,
@@ -257,7 +260,10 @@ is known, not finished. So everything below is this reconstruction's choice.
 - **Rounding.** Results are rounded to 24 bits, half away from zero. The
   interpretive routines may have truncated.
 - **The sign of zero.** The one's-complement rule above is an inference from
-  the machine and the manual's two warnings, not from a listing.
+  the machine and the manual's two warnings, not from a listing. The index rule
+  is enforced through it: a zero index is allowed when it is +0, which here only
+  `n = 0,` (or arithmetic on +0s) gives. Under `--zero plus` every zero is +0,
+  so that mode also allows zero indices the manual forbids.
 - **Gill's method.** The formulas are Gill's (1951) in the usual form, with the
   `q` that carries rounding error from one step to the next. Each `D` equation
   stores h·f; at the last `D` equation of a pass all the dependent variables
@@ -350,9 +356,12 @@ has the pages that matter most, reduced.
 The pasted research that started this said the lead-pursuit program was 97
 statements and that the system was ten times slower than hand code. Knuth and
 Trabb Pardo, quoting Laning, give 79 statements with seven uses of the
-differential-equation feature; the ten-to-one is Adams and Laning's own figure
-against "an efficient computer program", and the summer school of 1954 put it
-at six to eight times the Digital Computer Laboratory's interpretive system.
+differential-equation feature. The ten-to-one is Charles Adams's, in a talk at
+the Office of Naval Research symposium of May 1954, against "an efficient
+computer program"; the paper names Laning as co-author, but Knuth and Trabb
+Pardo record that he "did not write the paper or attend the conference". The
+summer school of 1954 put it at six to eight times the Digital Computer
+Laboratory's interpretive system.
 
 All of the reading was done by a coding agent and its sub-agents in one
 session, from the page images. Nobody has yet checked it against the pages by

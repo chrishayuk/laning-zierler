@@ -41,7 +41,8 @@ been completed successfully on their first run." The discussion records that
 rounded off to the nearest integer", and J. W. Backus asking about it.
 
 **Knuth and Trabb Pardo** write TPK in the system (`examples/1976-knuth-tpk.lzr`),
-quote Adams and Laning (1954) on "a reduction of computing speed of the order of
+quote C. W. Adams's talk of May 1954 (credited to Adams and Laning, though
+Laning "did not write the paper or attend the conference", p. 97) on "a reduction of computing speed of the order of
 magnitude of ten to one from an efficient computer program", and quote Laning in
 1976: the lead-pursuit program was written "in a 2-1/2 hour coding session" and
 "ran successfully the first time"; it "consisted of 79 statements, including 29
