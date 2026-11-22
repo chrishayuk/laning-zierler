@@ -45,12 +45,12 @@ That puts `lz` and `lz-lsp` in `~/.cargo/bin`. Then:
 echo 'a = 2, b = a^10, PRINT b. STOP' | lz
 ```
 
-For Visual Studio Code, download `laning-zierler-language-0.1.0.vsix` from the
+For Visual Studio Code, download `laning-zierler-language-0.1.1.vsix` from the
 [latest release](https://github.com/chrishayuk/laning-zierler/releases/latest)
 and install it:
 
 ```bash
-code --install-extension laning-zierler-language-0.1.0.vsix
+code --install-extension laning-zierler-language-0.1.1.vsix
 ```
 
 Open any `.lzr` file and you get highlighting, problems as you type, hover help

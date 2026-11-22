@@ -2,7 +2,7 @@
   "name": "laning-zierler-language",
   "displayName": "Laning–Zierler (Whirlwind I, 1954)",
   "description": "Syntax highlighting, a language server and a run button for the algebraic system of Laning and Zierler, MIT Whirlwind I, 1952-54.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "chrishayuk",
   "license": "Apache-2.0",
   "private": true,

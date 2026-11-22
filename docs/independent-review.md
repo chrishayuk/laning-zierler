@@ -137,5 +137,5 @@ but not as a reason to change the run, for the reason given there.
 | `npm run build` and `npm test` in `editors/vscode` | 10 passed |
 | `npm run test:vscode` in `editors/vscode` | passed (exit 0) |
 
-The `.vsix` attached to the GitHub release was built before these changes and
-has not been replaced.
+The `.vsix` attached to release 0.1.0 was built before these changes. Release
+0.1.1 is built from them.
