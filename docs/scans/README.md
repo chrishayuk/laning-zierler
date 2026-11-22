@@ -13,7 +13,7 @@ for reference. Page numbers are the documents' own.
 | `e364-p18-differential-equations.jpg` | E-364 p. 18 | the D equations and their example |
 | `e364-p19-auxiliary-computation.jpg` | E-364 p. 19 | the change that "would appear to be innocuous" |
 | `e364-p21-temporary-restrictions.jpg` | E-364 p. 21 | Temporary Rules and Restrictions: "exhaustive tests have not been made" |
-| `summer-1954-13-2.jpg`, `summer-1954-13-3.jpg` | MIT Summer Session 1954, lecture 13 | an independent account, with its own copy of the D-equation program |
+| `summer-1954-13-3.jpg`, `summer-1954-13-4.jpg` | MIT Summer Session 1954, lecture 13, pp. 13-3 and 13-4 | an independent account, with its own copy of the D-equation program (p. 13-3) |
 | `knuth-p56-tpk.jpg`, `knuth-p57-tpk.jpg` | Knuth and Trabb Pardo, pp. 56-57 | TPK written in the Laning and Zierler system |
 | `knuth-p58-runge-kutta.jpg` | p. 58 | "a reduction of computing speed of the order of magnitude of ten to one" |
 | `knuth-p59-laning-1976.jpg` | p. 59 | Laning in 1976: the lead-pursuit program, and "I lived in fear" |
