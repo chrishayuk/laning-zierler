@@ -214,7 +214,7 @@ written as an illustration twenty-two years later and was never run on
 Whirlwind; this says only what the manual's rules make of it. With
 `--zero plus` it runs to the end.
 
-**The manual's exponent examples, run in order, overflow.** Section 2D gives
+**The manual's exponent examples, run in order, stop with an alarm.** Section 2D gives
 `a = 5²,` `b = (a - 2)⁻²,` `c = (ab³)⁻⁵,`. (ab³)⁵ is about 10⁻³⁴, which the 24,
 6 system cannot hold; it becomes zero and `c` divides by it. They are notation,
 not a program, but they are a reminder of how small the range was.
