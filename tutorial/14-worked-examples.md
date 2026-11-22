@@ -167,7 +167,9 @@ specific equation n = 0," (chapter 9). In the reconstruction's one's-complement
 arithmetic that zero is -0, which is negative. Whatever Whirlwind did with it,
 the program breaks the manual's rule: the index must be made by `i = 0,`.
 
-With every zero +0 it finishes:
+With every zero +0 it finishes. That is a what-if, not the manual: the rule
+forbids the computed zero whatever its sign, and `--zero plus` lets it through
+only because the zero it computes is +0, as one set by `i = 0,` is.
 
 ```lzr --zero plus
         v|N = 1 (.5) 2 (.25) 3.5 (1) 5.5,

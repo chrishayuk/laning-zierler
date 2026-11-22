@@ -6,7 +6,8 @@
 #
 # Run it as it stands and it stops with an alarm on its last number: i comes
 # to zero by i = i - 1, and E-364 permits a zero index only "if assigned by
-# the specific equation n = 0" (p. 13). lz --zero plus runs it to the end.
+# the specific equation n = 0" (p. 13). lz --zero plus, a what-if in which
+# every zero is +0, lets the computed zero through and runs it to the end.
         v|N = 1 (.5) 2 (.25) 3.5 (1) 5.5,
         i = 0,
 1       j = i + 1,
