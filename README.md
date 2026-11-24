@@ -222,8 +222,9 @@ independently: they are sin(t - 2) and cos(t - 2) - 1, and at t = 3 the
 reconstruction gives .84103733 and -.45941162, against .84147098 and
 -.45969769, which is what a step of 0.5 should cost. Some things are less tidy.
 
-These are notes from running the manual's rules, not discoveries: no search has
-been made for earlier discussion of any of them.
+These are notes from running the manual's rules, not discoveries. A search in
+November 2026 (Knuth's errata, reviews, the language's histories, Rosetta Code,
+Wikipedia's talk pages) found no earlier discussion of the TPK points below.
 
 **Knuth and Trabb Pardo's TPK is incompatible with the 1954 specification.** In
 1976 Knuth and Trabb Pardo wrote their TPK algorithm in the Laning and Zierler
@@ -243,6 +244,18 @@ and then an alarm, and that alarm rests on the reconstruction's model of zero
 anything the manual says; with `--zero plus` it runs to the end, a what-if in
 which the computed zero is +0 and so passes a check that is only a stand-in
 for the page-13 rule.
+
+Knuth has since corrected a different line of this program. His errata for
+*Selected Papers on Computer Languages* (2003), where the paper is reprinted,
+reorder lines 10 to 15 (entry of 22 September 2022,
+https://www-cs-faculty.stanford.edu/~knuth/cl.html) to `e = 400 - y, CP 3,
+PRINT i, y. SP 4, 3 z = 999, PRINT i, z.`. The errata give no reason. Our
+reading: TPK's test is y > 400, and with the zero of y = 400 taken as +0, the
+printed `e = y - 400, CP 3` sends y = 400 to 999 and the corrected
+`e = 400 - y, CP 3` does not. On Whirlwind neither is settled, since on a
+zero "the CP may or may not behave like an SP" (p. 8). The errata leave `v|N`
+and the count down to zero as they were. `examples/1976-knuth-tpk.lzr`
+follows the 1976 report; Knuth's input never makes y exactly 400.
 
 **The manual's figure for the largest number is wrong.** Page 6 gives
 2⁶³ - 2³⁹ as "(or, roughly, 9.2233995 · 10¹⁸)". It is 9223371487098961920, or
