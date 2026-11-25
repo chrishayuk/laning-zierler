@@ -139,3 +139,93 @@ but not as a reason to change the run, for the reason given there.
 
 The `.vsix` attached to release 0.1.0 was built before these changes. Release
 0.1.1 is built from them.
+
+# Second review, 25 November 2026: the lead-pursuit program
+
+## Who reviewed it
+
+Codex CLI (codex-cli 0.166.0) again, in a read-only sandbox, on the changes
+that added the lead-pursuit program of early 1954 and its output page
+(`examples/1954-lead-pursuit.lzr`, `examples/1954-lead-pursuit.whirlwind`,
+`tests/pursuit_1954.rs`) and the README's account of them and of the 1953
+listing. It was given 300 dpi crops of pp. 12-15 of Laning's letter of
+2 July 1976 and the PDFs in `sources/`, and asked to check the
+transcriptions character by character, the test, every new claim and every
+quotation. It changed no file. Its findings were checked against the page
+images and by running `lz` before anything was changed.
+
+## What was checked
+
+- **Transcriptions.** Every line of the program (pp. 12-14) and all 62 values
+  kept from the output page (p. 15), including both complete `r` lines and the
+  heading "ZIELRER": no digit, sign, index, letter, operator, label or
+  punctuation error. The two changes (`D j|2` completed with `s|2`, `ST` read
+  as `STOP`) were found disclosed. Codex reran the alternative endings of
+  `D j|2` itself and agreed that only `s|2` fits among those tried.
+- **Counts.** 79 statements and seven `D` equations, as Laning told Knuth;
+  62 values on the page.
+- **Quotations and dates** from the letters, Knuth's notes and the 1953
+  listing, against the page images.
+- **Build and tests**, including the playground's.
+
+It could not reach the network, so it could not check what the README says
+of Stabile's port on Fedorkow's simulator. That was read from the repository
+itself (https://github.com/gfedorkow/Whirlwind-Instruction-Simulator,
+`Code-Samples/Laning-and-Zierler-Interpreter`: the transcription, the paper,
+and the test log `TestRefs/lz-wwsim2.log` with `z=-.59461879-01`) by the model
+that wrote the changes, and by no one else.
+
+It also found that three PDFs in `sources/` had been replaced by 279-byte
+"403 Forbidden" pages. That was done during these changes, by running
+`sources/fetch.sh`, which downloaded everything again and saved bitsavers.org's
+refusal over the good copies. The three were fetched again from a bitsavers
+mirror, and `fetch.sh` now leaves a file it already has alone, fails rather
+than saving an error page, and tries the mirror.
+
+## The findings, and what was done
+
+1. **The test ignored the whole exponent when a digit of it was lost off the
+   page.** Accepted. What is left of the exponent (`+0?`) is now compared
+   character by character; a changed exponent fails.
+2. **The page ends at t = .6, before the program first changes its step, and
+   the test did not require the run to finish.** Accepted. The test now
+   requires the run to reach its `STOP` without an alarm, and the README says
+   that the 1954 page checks the run only to t = .6, not the changes of `h` or
+   a `CR` that is taken.
+3. **The stated bounds were slightly too small, and "seven figures" overstated
+   it.** Accepted: d at t = .5 differs by 4.17 parts in ten million and the
+   first `a|0` by 7.18 in a million. The README now gives 4.2 and 7.2 and no
+   longer says seven figures.
+4. **Laning's example of the minus bug is "X = -1", not "K = -1".** Accepted;
+   the earlier reading came from OCR. Corrected in the README and
+   `sources/README.md`.
+5. **The exact figure for d under the 1953 bug depends on how the program is
+   rewritten.** Accepted. With the negative constants `c|12` and `c|33`
+   rewritten as well, d is .10123840, not .10046441. The README now says d
+   would be about .1 either way.
+6. **The page does not show which mechanism made t drift or 6400 print as
+   6400.0003.** Accepted. The README now says the t of the third step is what
+   adding .1 three times gives, and leaves open whether the later drift and the
+   6400 come from addition, input or printing.
+7. **"The only known output" and "has not been found" claim more than was
+   searched for.** Accepted: now "the only output of the 1954 system we have
+   found" and "we have not found the code of the 1954 system".
+8. **"Nine function calls" is wrong.** Accepted: 18 calls of six functions,
+   in 12 statements.
+9. **"108-60-3" is not visibly cut short, and nor is "ST".** Accepted. The
+   tape number is now called a guess, and `ST` is no longer said to be cut.
+10. **The 445 words include 15 of stack storage.** Accepted, with Knuth's
+    "430 instructions" and Laning's "believed" kept.
+
+Disputed: none.
+
+## Test results after the changes
+
+| Command | Result |
+|---|---|
+| `cargo test --release --workspace` | all passed, including `tests/pursuit_1954.rs` |
+| `node web/build.mjs && node web/test.mjs` | 41 examples, 41 files through the language server, 0 failed |
+
+The test was also checked against two deliberate faults: a step of
+`h = F^1(-1)` at equation 4, which alarms after the compared page (it now
+fails), and an exponent of `+9?` on the page (it now fails).
