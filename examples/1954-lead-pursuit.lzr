@@ -1,0 +1,103 @@
+# The lead-pursuit program: "the first effort to use the Whirlwind compiler on
+# a serious engineering problem", "a three-dimensional lead pursuit course
+# flown by one aircraft attacking another, including the fire control
+# equations", written by Laning and Zierler with the engineers "in a 2-1/2
+# hour coding session" and "with the usual beginner's luck it ran successfully
+# the first time". Laning guessed it was from "very early 1954".
+#
+# Transcribed from the Flexowriter copy Laning sent Knuth (letter of 2 July
+# 1976, enclosure 2, pp. 12-14 of https://cs.stanford.edu/~knuth/from-Laning-76-07-02.pdf).
+# The first sheet is headed "108-60-3". It may be the number of the system's
+# master tape (108-60-30, Summary Report 37); that is a guess. The program's own first output
+# page is p. 15 of the letter; tests/pursuit_1954.rs compares this
+# reconstruction with it.
+#
+# Changes from the typed sheets, and their kind (see the README):
+#   - The line D j|2 = ... runs off the right edge of the sheet after its last
+#     "s". Here it ends "s|2,", as D j|1 does; of the endings tried, only
+#     this one makes j|2 agree with the typed output. (interpretation)
+#   - The tape ends "ST"; here STOP. (interpretation)
+#   - Superscripts are typed with ^ and |, as everywhere in this repository.
+#
+# The sheets have blank lines after "108-60-3" and after "SR3,"; they are not
+# kept. Nothing in the program uses x|N: every value is assigned one at a time.
+    c|10 = 2.4588,
+    c|11 = 1.4759,
+    c|12 = -.1284,
+    c|13 = .51485,
+    c|20 = .93082,
+    c|21 = .021173,
+    c|22 = .0025995,
+    c|31 = 9.9666,
+    c|32 = .36072,
+    c|33 = -.15711,
+    c|34 = .11966,
+    k = 250.5,
+    c = .367,
+    v|2 = 2870,
+    g = 32.2,
+    v = 880,
+    v|1 = 750,
+    p|0 = 1373.9,
+    i|0 = 1.00589,
+    f|0 = 1379.9,
+    d|0 = 1,
+    x = 6400,
+    t = 0,
+    d = 0,
+    a = 1.2153,
+    j|1 = .00735,
+    j|2 = .00689,
+    t|1 = 3.007198,
+    h = .1,
+    i|1 = 0,
+    k|1 = ((v + v|2)/v|2)(d|0 v/k),
+    SR 2,
+    b = F^7(j|1/j|2),
+    SR 3,
+
+    m = 1,
+    z = 0,
+1   D z = 0,
+7   p = x d|0/c + p|0,
+8   q = .0001p,
+    u = 10000/(c|10 + c|11 q + c|12 q^2 + c|13 q^3),
+    q|1 = F^3(a),
+    q|2 = F^3(d),
+    s|1 = F^2(a),
+    s|2 = F^2(d),
+    i = c|20 + 10000c|21/u + 10^8 c|22/u^2,
+    y|1 = c(i - i|0)/2d|0,
+    x|1 = -(v - v|1 q|1 q|2)/(1 - v|1 q|1 q|2/u + y|1 s|2),
+    D x = x|1,
+    d|1 = -((v|1 q|1 s|2/u + y|1 q|2)x|1 + v j|2 + v|1 q|1 s|2)/x,
+    z|1 = -(v|1(1 + x|1/u)s|1 + v j|1)/x q|2,
+    b = F^7(j|1/j|2),
+    D d = d|1,
+    D a = z|1,
+    D j|1 = -z|1 q|2 - k|1 j|1 + d|0 v i|1 F^2(b)/k - g j|1 s|2/v + z|1 j|2 s|2 - (g j|1/v - z|1 j|2)s|2,
+    D j|2 = -d|1 + g q|2/v - k|1 j|2 + d|0 v i|1 F^3(b)/k - g j|2 s|2/v - z|1 j|1 s|2 - (g j|2/v + z|1 j|1)s|2,
+    D t|1 = x|1/u,
+2   PRINT t.
+3   PRINT x, d, a, j|1, j|2, t|1, b.
+    e = .67 - t,
+    CR 4,
+    e = 2.7 - t,
+    CR 5,
+    SP 6,
+4   h = .15,
+5   h = .2,
+6   m = -m,
+    CP 1,
+    SR 7,
+    SR 8,
+    f = 1000(c|31 q + c|32 q^2 + c|33 q^3 + c|34 q^4),
+    y = c^2(f - f|0 - i|0 d|0 x/c)/2(d|0)^2,
+    r = F^1(x^2 + y^2 + 2x y F^2(d)),
+    r|0 = F^1((v|1 t|1)^2 + r^2 - 2v|1 t|1 x F^3(d)F^3(a)),
+    a|1 = F^6(x F^3(d)F^3(a)/r),
+    a|0 = F^5(r F^2(a|1)/r|0),
+    PRINT r, r|0, a|0.
+    e = t - 4.9,
+    CP 1,
+    STOP

@@ -1,0 +1,31 @@
+# What Whirlwind typed for examples/1954-lead-pursuit.lzr: the first output
+# page, p. 15 of Laning's letter to Knuth of 2 July 1976
+# (https://cs.stanford.edu/~knuth/from-Laning-76-07-02.pdf), read from the
+# photocopy. Above the first line the page is headed "ZIELRER" [sic].
+# Spacing is not kept; the values are as typed. The right edge of the page
+# cuts off the last digit of every t|1 after the first, and the bottom edge
+# cuts off the r line after t = .6, which is left out. "?" marks the lost
+# digit. tests/pursuit_1954.rs compares this page with the reconstruction's.
+t=+.16155871-27
+x=+.64000003+04 d=+.16155871-27 a=+.12152999+01 j|1=+.73500000-02 j|2=+.68899998-02 t|1=+.30071979+01
+b=+.81769049-00
+t=+.10000000-00
+x=+.63214701+04 d=+.51502749-03 a=+.12112091+01 j|1=+.79314811-02 j|2=+.68757068-02 t|1=+.29432733+0?
+b=+.85684836-00
+t=+.20000000-00
+x=+.62434354+04 d=+.10123356-02 a=+.12069029+01 j|1=+.84715420-02 j|2=+.68808826-02 t|1=+.28808076+0?
+b=+.88879823-00
+r=+.62442894+04 r|0=+.58358421+04 a|0=+.15602501+01
+t=+.30000001-00
+x=+.61659007+04 d=+.14920736-02 a=+.12023821+01 j|1=+.89851245-02 j|2=+.68982471-02 t|1=+.28197651+0?
+b=+.91612988-00
+t=+.40000003-00
+x=+.60888709+04 d=+.19544472-02 a=+.11976463+01 j|1=+.94818426-02 j|2=+.69231553-02 t|1=+.27601116+0?
+b=+.94017356-00
+r=+.60897108+04 r|0=+.56727342+04 a|0=+.15444216+01
+t=+.50000006-00
+x=+.60123519+04 d=+.23996916-02 a=+.11926958+01 j|1=+.99678896-02 j|2=+.69526485-02 t|1=+.27018139+0?
+b=+.96177488-00
+t=+.60000008-00
+x=+.59363499+04 d=+.28280557-02 a=+.11875306+01 j|1=+.10447267-01 j|2=+.69848443-02 t|1=+.26448407+0?
+b=+.98148244-00

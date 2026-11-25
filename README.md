@@ -211,13 +211,64 @@ n = +.62000000+02       x = +.46116860+19
 
 ## What the tests found
 
-The manual's examples run, with the small repairs listed under
+**The one program we have with real output agrees with Whirlwind's page.**
+In 1976 Laning sent Knuth the Flexowriter copy of the lead-pursuit program,
+"the first effort to use the Whirlwind compiler on a serious engineering
+problem", with the first of several pages of what it typed (letter of 2 July
+1976, enclosure 2; https://cs.stanford.edu/~knuth/from-Laning-76-07-02.pdf).
+That page is the only output of the 1954 system we have found. The program is
+`examples/1954-lead-pursuit.lzr`, and the page as typed is
+`examples/1954-lead-pursuit.whirlwind`. It has 79 statements, seven of them
+`D` equations, which is what Laning told Knuth in 1976. Its first sheet is
+headed "108-60-3", which may be the number of the system's master tape,
+108-60-30 (Summary Report 37); that is a guess.
+
+Run here, it prints the same variables in the same order as the Whirlwind
+page. All 62 values on the page agree to within 4.2 parts in ten million,
+except the two of `a|0`, which come from the arcsine (F⁵) and differ by up to
+7.2 parts in a million. For six values the last digit of the exponent is off
+the edge of the page, and only what is left of it is compared.
+`tests/pursuit_1954.rs` checks this.
+
+The page ends at t = .6, so it checks the run only that far: superscript
+variables, 18 calls of six functions, seven `D` equations under Gill's method,
+`SR`, `CP`, a `CR` that is not taken, and the slash rule
+(`y = c²(f - f|⁰ - i|⁰d|⁰x/c)/2(d|⁰)²`). It does not check the changes of step
+`h` at t = .67 and 2.7, which come later; the rest of the run, to its `STOP`,
+is checked only against this reconstruction's own `.out`. It does not test
+`x|N`: every value is assigned one at a time. Some things it does show:
+
+- *t is built up by adding h, or something like it.* The 1954 page types t as
+  .30000001 at the third step, as this does, which is what adding .1 three
+  times in 24 bits gives. After that Whirlwind's t drifts faster: .40000003,
+  .50000006, .60000008 against .40000000, .50000000, .60000002 here. Whether
+  that is its addition, its reading of .1 or its printing, the page does not
+  say.
+- *Unary minus worked.* The listing of March 1953 (see
+  [What is not original](#what-is-not-original)) treats `-x` as `1 - x`. This
+  program writes `x|1 = -(...)`, `D j|1 = -z|1 ...` and `m = -m`. Rewritten
+  with that bug, it gives d of about .1 at t = .1 (whether or not the
+  negative constants `c|12` and `c|33` are rewritten too), where Whirlwind
+  typed .51502749-03.
+- *A zero printed as a tiny number.* `t = 0,` and `d = 0,` were typed
+  `+.16155871-27`. Here they are `+.00000000+00`.
+- *A zero exponent was typed -00*: `b=+.81769049-00`. Here it is `+00`.
+- *6400 was typed back as* `x=+.64000003+04`. Here it is exact, as 6400 is in
+  24 bits. The page does not say whether the error came in reading the tape
+  or in printing.
+
+The line `D j|2 = ...` of the program is cut off at the edge of the sheet. Of
+the endings tried (`s|2`, as in `D j|1`; `s|1`; `q|1`; `q|2`; nothing), only
+`s|2` makes `j|2` agree; the others put it out by 2.5 parts in ten thousand
+or more at t = .1. That makes `s|2` likely, not certain.
+
+The manual's own examples run, with the small repairs listed under
 [Corrections and editorial changes](#corrections-and-editorial-changes): the
 table of cosines, the iterative cosine, the interpolation by a rounded index,
 the drum, the two differential equations of section 15 and the innocuous
 change that breaks them. The manual prints no answers for these programs, so
-the `.out` files are this reconstruction's output, kept to catch changes, not
-checked against figures from 1954. For section 15 the answers are known
+their `.out` files are this reconstruction's output, kept to catch changes,
+not checked against figures from 1954. For section 15 the answers are known
 independently: they are sin(t - 2) and cos(t - 2) - 1, and at t = 3 the
 reconstruction gives .84103733 and -.45941162, against .84147098 and
 -.45969769, which is what a step of 0.5 should cost. Some things are less tidy.
@@ -306,6 +357,8 @@ or corrects one, with its kind:
 | E-364 p. 11 | `y = y - 2;` in the iterative cosine: a semicolon, or a comma with a speck above it | `y = y - 2,` (`examples/1954-cosine-iterative.lzr`, tutorial ch. 14) | slip |
 | Summer Session p. 13-3 | `k = t - 10.1` and `CP 1` with no commas | commas put in (`examples/1954-summer-session.lzr`) | slip |
 | Summer Session p. 13-3 | no `PRINT` | `PRINT t, y|1, y|2.` added | ours |
+| Laning 1976, encl. 2 | `D j|2 = ...` cut off by the edge of the sheet after "(gj|²/v+z|¹j|¹)s" | ends `s|2,`, as `D j|1` does; of the endings tried, the only one that agrees with the typed output (`examples/1954-lead-pursuit.lzr`) | interpretation |
+| Laning 1976, encl. 2 | the tape ends `ST` | `STOP` | interpretation |
 | KTP 76 pp. 56-57 | `v|N = ⟨input⟩,` | `v|N = 1 (.5) 2 (.25) 3.5 (1) 5.5,`, the input they suggest on p. 57 | interpretation |
 | E-364 p. 13 | a zero index only "if assigned by the specific equation n = 0," | approximated by the sign of zero: -0 is refused, +0 allowed (see below) | ours |
 | E-364 p. 8 | "0 may appear as +0 or -0" | a difference of equal numbers is -0 (see below) | interpretation |
@@ -320,11 +373,45 @@ printed spacing is this repository's.
 
 ## What is not original
 
-E-364 is a manual, not a listing. We have not found the translator's code (the
-summer session of 1954 recorded that "there are no annotated copies of the
-conversion routine", which is not the same as there being no copy), and
-Zierler's report on its "inner workings" was started and, as far as is known,
-not finished. So everything below is this reconstruction's choice.
+E-364 is a manual, not a listing. We have not found the code of the 1954
+system: the summer session of 1954 recorded that "there are no annotated copies
+of the conversion routine", and Zierler's report on its "inner workings" was
+started and, as far as is known, not finished.
+
+An earlier version does survive. Laning sent Knuth a hand-written listing
+dated 3/53, "Tape T-2134-m8 plus correction tape P-2134-10", now in the
+Computer History Museum's Knuth archive with Knuth's notes on it of August
+1976 (item U2774;
+https://archive.computerhistory.org/resources/text/Knuth_Don_X4100/PDF_index/KnuthDigitalArchive-Index.html).
+Knuth counted 445 words in the translator, including 15 of stack storage,
+and 62 more in the routines it calls at run time ("430 instructions", he wrote
+to Laning). Laning believed it was the version "designed to run in the 1024
+word version of Whirlwind", which "left about 75 words available to store
+user program". It is not the system of E-364: in Knuth's words,
+"subscripted variables, drum overlay usage, D operator: not yet implemented";
+it has no `SR` or `CR`, only, as Knuth notes it, a "provision for future SR,
+CR instructions"; and Stabile finds no functions in it. Knuth
+found "only one bug, namely the problem you mentioned about unary minus: -x
+gets treated as 1-x" (letter to Laning, 16 August 1976,
+https://cs.stanford.edu/~knuth/to-Laning-76-08-16.pdf); Laning had warned him
+that "one almost-debugged version ... would not handle the minus sign properly
+in "X = -1"". The lead-pursuit output shows that the system that ran it did
+not have that bug, and nor does this reconstruction.
+
+Larry Stabile has transcribed that listing and runs it, with the
+floating-point interpreter it calls, on Guy Fedorkow's Whirlwind simulator
+(https://github.com/gfedorkow/Whirlwind-Instruction-Simulator, under
+`Code-Samples/Laning-and-Zierler-Interpreter`; L. A. Stabile, *Running the
+Laning-Zierler Compiler-Interpreter on a Simulated Whirlwind Computer*, March
+2026). Its print routine had to be written anew, as the original was not
+found. One of its test runs types `z = -x` with x = 1.059463094 as
+`z=-.59461879-01`, which is 1 - x: the bug Knuth found.
+
+This reconstruction was not built from that listing and does not follow it.
+The listing shows the shape of the 1953 translator (one pass, a symbol at a
+time, emitting calls to the floating-point interpreter, with nested
+parentheses handled by generated jumps), but every feature E-364 adds to it is
+missing from it, and everything below remains this reconstruction's choice.
 
 - **The orders.** Equations are translated into blocks of a small stack code,
   one order per floating-point routine called, and the blocks are what runs.
@@ -389,7 +476,9 @@ not finished. So everything below is this reconstruction's choice.
 this repository. Each has a `.out` file with the page this reconstruction
 types, and `cargo test` runs them all and compares. The `.out` files are
 regression baselines, not transcriptions: E-364 prints no results for its
-programs.
+programs. The exception is `1954-lead-pursuit.lzr`, the lead-pursuit program
+of early 1954, whose first page as Whirlwind typed it is
+`1954-lead-pursuit.whirlwind`; `tests/pursuit_1954.rs` compares the two.
 
 ## Tutorial
 
@@ -432,14 +521,15 @@ crate in the same workspace and uses `serde_json`.
 
 ## Sources
 
-[`sources/README.md`](sources/README.md) lists the four documents, where to get
+[`sources/README.md`](sources/README.md) lists the documents, where to get
 them (`sources/fetch.sh`), and what each adds. [`docs/scans/`](docs/scans/README.md)
 has the pages that matter most, reduced.
 
 The pasted research that started this said the lead-pursuit program was 97
 statements and that the system was ten times slower than hand code. Knuth and
 Trabb Pardo, quoting Laning, give 79 statements with seven uses of the
-differential-equation feature. The ten-to-one is Charles Adams's, in a talk at
+differential-equation feature, and the program as typed
+(`examples/1954-lead-pursuit.lzr`) has exactly that. The ten-to-one is Charles Adams's, in a talk at
 the Office of Naval Research symposium of May 1954, against "an efficient
 computer program"; the paper names Laning as co-author, but Knuth and Trabb
 Pardo record that he "did not write the paper or attend the conference". The
@@ -447,7 +537,8 @@ summer school of 1954 put it at six to eight times the Digital Computer
 Laboratory's interpretive system.
 
 All of the reading was done by a coding agent and its sub-agents, from the
-page images. No person has yet checked it against the pages by eye. In
+page images, including the lead-pursuit program and its output page. No
+person has yet checked it against the pages by eye. In
 November 2026 a second model, OpenAI's Codex, checked twenty places against the
 page images and reviewed the claims made here; what it found, and what was
 done about it, is in [`docs/independent-review.md`](docs/independent-review.md).
